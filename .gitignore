@@ -1,0 +1,5 @@
+__pycache__/
+*.pyc
+.DS_Store
+# ビルド成果物。GitHub Actions が毎回作り直す
+public/

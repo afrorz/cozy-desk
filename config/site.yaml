@@ -1,0 +1,54 @@
+site:
+  title: Cozy Desk
+  tagline: 白と淡い色の、デスク周りのガジェット
+  description: 白デスク・淡色デスクに合う、白と淡い色のガジェットを種類ごとに。海外の新作と、日本で今買えるものを、色の名前・値段・日本で買えるかまで確かめて載せています。
+  base_url: https://cozydesk.gadgetterminal.com
+  author: Star Platinum LLC
+  contact_email: info@gadgetterminal.com
+  x_account: "cozy_desk"
+  copyright_from: 2026
+  # Cloudflare Web Analytics のトークン。空なら出さない
+  cf_analytics_token: ""
+  search_console_verification: ""
+
+# 紹介リンク(もしも)。{url} に楽天・Amazon・Yahoo の検索ページのURL(エンコード済み)が入る。GT と同じ書き方
+# もしもでこのサイトを登録して提携が通るまでは空のままにする
+# (GT 用の a_id をこのサイトに貼らない。もしもの規約でサイトごとの登録が要る)。
+# 空のあいだは、ふつうの検索ページへのリンクを出し、「広告を含みます」の表示も出さない。
+affiliate:
+  rakuten: ""
+  amazon: ""
+  yahoo: ""
+
+# 種類。並び順がそのままメニューの順になる
+categories:
+  - {slug: desk,     name: デスク,     sub: 天板・昇降デスク,          lead: 白い天板・白い脚のデスクと、昇降デスク。}
+  - {slug: chair,    name: 椅子,       sub: 白いメッシュ・ゲーミング,  lead: 白いメッシュの椅子と、白・淡い色のゲーミングチェア。}
+  - {slug: pc,       name: PC,         sub: 白いケース・光るファン,    lead: 白いPCケースと、淡い色に光るファン。白デスクの主役。}
+  - {slug: monitor,  name: モニター,   sub: 白い本体・モニターアーム,  lead: 白い本体のモニターと、白いモニターアーム。}
+  - {slug: mouse,    name: マウス,     sub: 白・ベージュ・くすみ色,    lead: 白・ベージュ・くすみ色のマウスとマウスパッド。}
+  - {slug: keyboard, name: キーボード, sub: 白・ピンク・テンキー,      lead: 白・ピンク・ベージュのキーボードとテンキー。}
+  - {slug: speaker,  name: スピーカー, sub: 白い PC スピーカー,        lead: 白い本体の PC スピーカー。}
+  - {slug: gear,     name: 周辺機器,   sub: ヘッドホン・マイク・カメラ, lead: 白いヘッドホン・マイク・Web カメラ・充電器など。}
+  - {slug: interior, name: インテリア, sub: 照明・棚・配線かくし,      lead: 間接照明・デスクライト・棚・配線かくし・植物。}
+
+# トップの絵の押せる点。x, y は絵の左上からの %。left: true は名前を左に出す
+scene:
+  image: scene.jpg
+  width: 2000
+  height: 848
+  alt: 白でそろえた机のイラスト。ダブルモニター・白いPC・スピーカー・キーボード・マウス・ヘッドホン・デスクライト・間接照明・植物・白い椅子
+  points:
+    - {label: 間接照明,       cat: interior, x: 59,   y: 13,   left: true}
+    - {label: モニター,       cat: monitor,  x: 62.7, y: 34}
+    - {label: モニターアーム, cat: monitor,  x: 60,   y: 46.6}
+    - {label: Webカメラ,      cat: gear,     x: 58.5, y: 30.9, left: true}
+    - {label: デスクライト,   cat: interior, x: 50.2, y: 38.9, left: true}
+    - {label: スピーカー,     cat: speaker,  x: 52.7, y: 50,   left: true}
+    - {label: PC,             cat: pc,       x: 77.2, y: 31.8}
+    - {label: ヘッドホン,     cat: gear,     x: 74,   y: 44.2}
+    - {label: キーボード,     cat: keyboard, x: 65,   y: 54.2}
+    - {label: マウス,         cat: mouse,    x: 69.7, y: 50.1}
+    - {label: 植物,           cat: interior, x: 45,   y: 75.5, left: true}
+    - {label: デスク,         cat: desk,     x: 54,   y: 66,   left: true}
+    - {label: 椅子,           cat: chair,    x: 76.5, y: 66}
