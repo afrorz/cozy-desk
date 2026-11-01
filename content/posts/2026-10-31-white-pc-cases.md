@@ -28,8 +28,8 @@ products:
     jp: "国内はアスクが取り扱い ・ ATX / Micro ATX / Mini ITX 対応 ・ 付属ファンは Aspect 14 PWM 2基"
     q: "Fractal Design North Chalk White TG Clear"
   - name: "Lian Li O11D EVO RGB ホワイト"
-    image: "https://lian-li.com/wp-content/uploads/2023/12/O11DERGB-001-1.jpg"
-    image_credit: "Lian Li 公式サイト"
+    image: "https://dirac.co.jp/wp-content/uploads/2024/01/O11D-EVO-RBG_20.jpg"
+    image_credit: "Lian Li 日本代理店 ディラック"
     price: "3万980円(発売時の市場想定売価・税込・2024年1月ディラック発表。現在の価格はストアで確認)"
     colors: [{name: ホワイト, hex: "#F6F6F4"}]
     note: "前面と左側面の2面がガラス。公式の製品画像では、ふちが水色にうっすら光り、白い本体が引き立っています。前面の支柱を外すと、柱のない一枚ガラスの見た目にもできます。"
@@ -52,8 +52,8 @@ products:
     jp: "型番 CC-9011266-WW ・ Mini-ITX / MicroATX 対応 ・ 公式ストアは掲載時点で在庫なし表示(他店は要確認)"
     q: "CORSAIR 2500X ホワイト CC-9011266-WW"
   - name: "Lian Li O11 Vision Compact ホワイト"
-    image: "https://lian-li.com/wp-content/uploads/2024/10/O11VP_W01.jpg"
-    image_credit: "Lian Li 公式サイト"
+    image: "https://dirac.co.jp/wp-content/uploads/2024/10/O11VP_003-1.jpg"
+    image_credit: "Lian Li 日本代理店 ディラック"
     price: "1万9,980円(発売時の市場想定売価・税込・2024年10月ディラック発表。現在の価格はストアで確認)"
     colors: [{name: ホワイト, hex: "#F6F6F4"}]
     note: "前面・上面・左側面の3面がガラスで、中身を一望できます。白い本体と白い内側で、白いデスクにそのままなじみます。付属のメッシュのパネルに替えると、上面をメッシュにもできます。"
@@ -76,6 +76,8 @@ products:
     jp: "型番 CA-1Z4-00M6WN-00 ・ 国内はアスクが取り扱い ・ MicroATX / Mini-ITX 対応 ・ 幅約21cm・奥行き約38cm・高さ約44cm"
     q: "Thermaltake View 170 TG ARGB Snow CA-1Z4-00M6WN-00"
 sources:
+  - {name: ディラック(Lian Li 日本代理店) O11 VISION COMPACT, url: "https://dirac.co.jp/o11-vision-compact/"}
+  - {name: ディラック(Lian Li 日本代理店) O11D EVO RGB, url: "https://dirac.co.jp/o11d-evo-rgb/"}
   - {name: NZXT 公式サイト, url: "https://nzxt.com/products/h6-flow"}
   - {name: エルミタージュ秋葉原(NZXT H6 Flow の発表記事), url: "https://www.gdm.or.jp/pressrelease/2023/1103/512866"}
   - {name: Fractal Design 公式サイト(North Chalk White TG Clear), url: "https://www.fractal-design.com/ja/products/cases/north/north/chalk-white-tg-clear/"}
