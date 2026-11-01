@@ -462,6 +462,10 @@ def build_post(p: dict, posts: list[dict]) -> str:
 """
     if items:
         items = f'<div class="items-list">{items}</div>'
+    # 本文に <!-- after-items --> があれば、そこから後ろ(選び方・比べ表など)を商品の下に出す。
+    # 長い説明で商品が下に押しやられないように(2026-11-01 PCケースの記事で選び方を厚くしたとき)
+    before, _, rest = p["html"].partition("<!-- after-items -->")
+    after = f'<div class="prose">{rest}</div>' if rest.strip() else ""
     japan = ""
     if p.get("japan"):
         japan = f'<h2>日本で買える？使える？</h2><div class="jp">{markdown.markdown(p["japan"])}</div>'
@@ -488,8 +492,9 @@ def build_post(p: dict, posts: list[dict]) -> str:
     <p class="date">{KIND[p['kind']]} ・ {p['date'].isoformat()} 掲載</p>
     {fig}
     {palette}
-    <div class="prose">{p['html']}</div>
+    <div class="prose">{before}</div>
     {items}
+    {after}
     {SIZE_LINK if p["category"] == "desk" else ""}
     {japan}
     {buy}

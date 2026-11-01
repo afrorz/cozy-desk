@@ -436,3 +436,11 @@ footer a { color: inherit; }
 .pcard .body { flex: 1; grid-template-rows: auto auto 1fr; }
 .pcard h3 { overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; min-height: 3em; }
 .pcard .jpnote { align-self: end; }
+
+/* 記事の中の表: スマホでは横にすべらせて読む(2026-11-01 PCケースの比べ表) */
+@media (max-width: 720px) {
+  .prose table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .prose th, .prose td { white-space: nowrap; padding: 9px 12px; font-size: 13px; }
+}
+.prose th { white-space: nowrap; }
+.items-list + .prose { margin-top: 10px; }
