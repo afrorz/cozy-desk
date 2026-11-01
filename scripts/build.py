@@ -24,7 +24,7 @@ CFG = yaml.safe_load((ROOT / "config" / "site.yaml").read_text(encoding="utf-8")
 SITE = CFG["site"]
 CATS = CFG["categories"]
 CAT = {c["slug"]: c for c in CATS}
-KIND = {"new": "海外の新作", "buy": "日本で今買える"}
+KIND = {"new": "海外の新作", "buy": "まとめ"}
 CSS_VER = int((ROOT / "assets" / "cozy.css").stat().st_mtime)  # 直したら古い見た目が残らないように
 FONTS = "https://fonts.googleapis.com/css2?family=DM+Mono:wght@400&family=Noto+Sans+JP:wght@400;500;700&family=Zen+Maru+Gothic:wght@700;900&display=swap"
 
@@ -342,7 +342,7 @@ def build_index(posts: list[dict]) -> str:
 
   <section class="sec" aria-labelledby="h-new">
     <div class="wrap">
-      <div class="sec-h"><h2 id="h-new">新着</h2><small>海外の新作と、日本で今買えるもの</small></div>
+      <div class="sec-h"><h2 id="h-new">新着</h2><small>海外の新作と、選んで集めたもの</small></div>
       <div class="bento">
 {latest}
       </div>

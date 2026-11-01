@@ -1,5 +1,5 @@
 ---
-title: "白・ベージュのヘッドホン、日本で今買える8つ。6千円台から AirPods Max 2 まで"
+title: "首にかけても絵になる。白とベージュのヘッドホン8選"
 date: 2026-11-01
 category: gear
 kind: buy

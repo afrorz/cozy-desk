@@ -1,9 +1,9 @@
 ---
-title: "白いPCケース、日本で今買える8つ。ガラス越しに淡く光る"
+title: "白いPCを、デスクの主役に。ガラス越しに淡く光るケース8選"
 date: 2026-10-31
 category: pc
 kind: buy
-summary: "白いデスクに置いてなじむ、強化ガラスつきの白いPCケースを8つ。ATX の大きめから mATX・ITX 対応の小さめまで、日本で買える物だけを集めました。"
+summary: "白いデスクに置いてなじむ、強化ガラスつきの白いPCケースを8つ。ATX の大きめから mATX・ITX 対応の小さめまで集めました。"
 thumbnail: "https://assets.corsair.com/image/upload/c_pad,q_auto,h_1024,w_1024,f_auto/products/Cases/3500x/gallery/CC-9011325-WW/CC-9011325-WW_01.webp"
 thumbnail_alt: "ガラスごしにピンクや水色に光る3つのファンが見える、白い PC ケース"
 thumbnail_credit: "CORSAIR 公式サイト"
