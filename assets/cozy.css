@@ -326,3 +326,106 @@ footer a { color: inherit; }
 .filters .flabel { font-size: 12px; color: var(--mute); align-self: center; min-width: 2.5em; }
 .cat-sec .filters { margin-bottom: 10px; }
 .cat-sec .filters:last-of-type { margin-bottom: 18px; }
+
+/* ── 道具(2026-11-01): 机の横幅を図で確かめる・白いデスクを組んでみる ── */
+.tools2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.tool-card { display: grid; gap: 4px; background: #E7D7C3; border-radius: 24px; padding: 22px 24px; text-decoration: none; color: var(--cocoa); transition: transform .15s ease, box-shadow .15s ease; }
+.tool-card.blush { background: var(--blush); }
+.tool-card b { font-family: var(--f-disp); font-weight: 900; font-size: 20px; line-height: 1.45; }
+.tool-card small { font-size: 13px; opacity: .8; line-height: 1.7; }
+.tool-card:hover { transform: translateY(-3px); box-shadow: 0 18px 36px -24px rgba(74,64,57,.6); }
+.size-link { display: flex; gap: 14px; align-items: baseline; flex-wrap: wrap; background: #E7D7C3; border-radius: 18px; padding: 14px 20px; text-decoration: none; margin: 0 0 8px; }
+.size-link b { font-family: var(--f-disp); font-size: 16px; }
+.size-link span { font-size: 13px; }
+.size-link b::after { content: " \2192"; color: var(--oak-d); }
+.article .size-link { margin: 22px 0; }
+.tool-hero { background: var(--milk); border-radius: 28px; padding: 24px 26px; margin: 8px 0 22px; }
+.tool-hero h1 { font-family: var(--f-disp); font-weight: 900; font-size: clamp(24px, 3vw, 34px); margin: 2px 0 6px; line-height: 1.45; }
+.tool-hero p { margin: 0; color: var(--mute); font-size: 14px; max-width: 46em; }
+
+/* 机の図 */
+.sizer { display: grid; grid-template-columns: minmax(280px, 380px) 1fr; gap: 22px; align-items: start; }
+.sizer-ctl { background: var(--milk); border-radius: 24px; padding: 18px 18px 8px; }
+.sizer-ctl .filters { margin-bottom: 12px; gap: 6px; }
+.sizer-ctl .filters .flabel { width: 100%; font-weight: 500; color: var(--cocoa); }
+.sizer-ctl .filters button { background: #fff; }
+.sizer-ctl .filters button.on { background: var(--cocoa); }
+.sizer-view { position: sticky; top: 12px; }
+.sizer-fig { background: var(--milk); border-radius: 24px; padding: 10px; }
+.sizer-fig svg { display: block; width: 100%; height: auto; max-height: 62vh; }
+#fig .desk { fill: #fff; stroke: var(--oak-d); stroke-width: .5; }
+#fig .thing { fill: var(--linen); stroke: var(--cocoa); stroke-width: .35; }
+#fig .stand { fill: var(--line); }
+#fig .screen { fill: var(--cocoa); }
+#fig .clamp { fill: var(--oak-d); }
+#fig .pad { fill: var(--blush); opacity: .7; }
+#fig .over { fill: #F2C9C0; stroke: #B85C4C; }
+#fig .screen.over { fill: #B85C4C; }
+#fig .dim { stroke: var(--mute); stroke-width: .3; }
+#fig .dimt { font: 500 3.6px var(--f-num); fill: var(--cocoa); }
+#fig .lb { font: 500 2.9px var(--f-body); fill: var(--cocoa); }
+#fig .lb.mute { fill: var(--mute); }
+#fig .me { fill: none; stroke: var(--oak-d); stroke-width: .8; stroke-linecap: round; }
+.sizer-read { list-style: none; padding: 0; margin: 14px 0 0; display: grid; gap: 8px; }
+.sizer-read li { background: var(--milk); border-radius: 14px; padding: 10px 14px; font-size: 13.5px; line-height: 1.7; border-left: 5px solid var(--line); }
+.sizer-read li b { display: block; font-family: var(--f-disp); font-size: 15px; }
+.sizer-read li.ok { border-left-color: var(--sage); }
+.sizer-read li.ng { border-left-color: #D58C7E; }
+.sizer-note { font-size: 12px; color: var(--mute); margin: 10px 2px 0; }
+.empty-tone a { color: var(--cocoa); }
+
+/* 白いデスクを組んでみる */
+.mydesk { display: grid; grid-template-columns: 1fr 360px; gap: 22px; align-items: start; }
+.picker #tabs { margin-bottom: 14px; }
+.cnt { font-family: var(--f-num); font-size: 11px; }
+.pick-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
+.pk { position: relative; display: grid; gap: 4px; align-content: start; text-align: left; font: inherit; color: var(--cocoa); background: var(--milk); border: 2px solid transparent; border-radius: 18px; padding: 8px 8px 12px; cursor: pointer; transition: border-color .15s, transform .15s; }
+.pk:hover { transform: translateY(-2px); }
+.pk.on { border-color: var(--cocoa); }
+.pk-img { display: block; aspect-ratio: 1; background: #fff; border-radius: 12px; padding: 8px; overflow: hidden; }
+.pk-img img { width: 100%; height: 100%; object-fit: contain; }
+.pk-name { font-size: 12.5px; line-height: 1.5; font-weight: 500; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; padding: 0 2px; }
+.pk-price { font-family: var(--f-num); font-size: 12px; color: var(--mute); padding: 0 2px; }
+.pk-ok { position: absolute; top: 14px; right: 14px; width: 24px; height: 24px; border-radius: 50%; background: #fff; box-shadow: 0 0 0 1.5px var(--line); }
+.pk.on .pk-ok { background: var(--cocoa); box-shadow: none; }
+.pk.on .pk-ok::after { content: ""; position: absolute; left: 8px; top: 5px; width: 6px; height: 10px; border: solid #fff; border-width: 0 2px 2px 0; transform: rotate(45deg); }
+.tray { position: sticky; top: 12px; background: var(--milk); border-radius: 26px; padding: 18px; scroll-margin-top: 12px; }
+.tray-head { display: flex; justify-content: space-between; align-items: baseline; }
+.tray-head h2 { font-family: var(--f-disp); font-size: 18px; margin: 0; }
+.tray-head span { font-family: var(--f-num); font-size: 12px; color: var(--mute); }
+.tray-board { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 12px 0; min-height: 110px; background: #E7D7C3; border-radius: 18px; padding: 10px; }
+.tray-empty { grid-column: 1 / -1; align-self: center; text-align: center; font-size: 13px; color: var(--cocoa); opacity: .75; margin: 0; }
+.tile { position: relative; margin: 0; background: #fff; border-radius: 12px; aspect-ratio: 1; padding: 6px 6px 16px; }
+.tile img { width: 100%; height: 100%; object-fit: contain; }
+.tile figcaption { position: absolute; left: 0; right: 0; bottom: 2px; text-align: center; font-size: 10px; color: var(--mute); }
+.rm { position: absolute; top: 2px; right: 2px; width: 22px; height: 22px; border-radius: 50%; border: 0; background: rgba(74,64,57,.75); color: #fff; font-size: 13px; line-height: 1; cursor: pointer; }
+.tray-sum { display: flex; justify-content: space-between; align-items: baseline; border-top: 1px dashed var(--line); padding-top: 10px; }
+.tray-sum b { font-family: var(--f-num); font-size: 22px; font-weight: 400; }
+.tray-note { font-size: 11.5px; color: var(--mute); margin: 2px 0 10px; }
+.tray-act { display: flex; gap: 6px; flex-wrap: wrap; }
+.tray-act button.btn { font: inherit; font-size: 12px; cursor: pointer; color: var(--cocoa); }
+.buylist { display: grid; gap: 10px; }
+.brow { display: grid; grid-template-columns: 72px 1fr; gap: 14px; background: var(--milk); border-radius: 18px; padding: 12px 14px; align-items: center; }
+.brow-img { display: block; width: 72px; height: 72px; background: #fff; border-radius: 12px; padding: 6px; }
+.brow-img img { width: 100%; height: 100%; object-fit: contain; }
+.brow b { font-family: var(--f-disp); font-size: 15px; line-height: 1.5; display: block; }
+.brow-meta { font-size: 12px; color: var(--mute); }
+.brow-meta .price { font-family: var(--f-num); color: var(--cocoa); }
+.tray-bar { display: none; }
+@media (max-width: 900px) {
+  .sizer, .mydesk { grid-template-columns: 1fr; }
+  .tray { position: static; }
+  /* スマホは図を上に貼り付けて、下のボタンを押しながら図が見えるようにする */
+  .sizer-view { display: contents; }
+  .sizer-fig { order: -1; position: sticky; top: 0; z-index: 2; box-shadow: 0 10px 24px -18px rgba(74,64,57,.6); }
+  .sizer-fig svg { max-height: 34vh; }
+  .sizer-read, .sizer-note { order: 1; margin-top: 0; }
+  .tool { padding-bottom: 70px; }
+  .tray-bar:not([hidden]) { display: flex; position: fixed; left: 12px; right: 12px; bottom: 12px; z-index: 5; justify-content: space-between; align-items: center; background: var(--cocoa); color: #fff; text-decoration: none; border-radius: 999px; padding: 12px 20px; font-size: 14px; box-shadow: 0 12px 30px -12px rgba(74,64,57,.7); }
+  .tray-bar b::after { content: " \2193"; }
+}
+@media (max-width: 540px) {
+  .tools2 { grid-template-columns: 1fr; }
+  .pick-grid { grid-template-columns: repeat(2, 1fr); }
+  .sizer-ctl .filters button { padding: 6px 11px; }
+}

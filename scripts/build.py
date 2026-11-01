@@ -6,7 +6,10 @@ python scripts/build.py --serve   # 作ったあと http://localhost:8790 で確
 from __future__ import annotations
 
 import datetime as dt
+import hashlib
 import html
+import json
+import re
 import shutil
 import sys
 from pathlib import Path
@@ -173,7 +176,7 @@ def page(*, title: str, desc: str, path: str, body: str, current: str = "", imag
 {body}
 <footer>
   <div class="wrap">
-    <span>© {years} {e(SITE['title'])} ・ <a href="/about/">このサイトについて</a> ・ <a href="https://x.com/{e(SITE['x_account'])}">X @{e(SITE['x_account'])}</a></span>
+    <span>© {years} {e(SITE['title'])} ・ <a href="/tools/desk-size/">机の横幅を図で確かめる</a> ・ <a href="/tools/my-desk/">デスクを組んでみる</a> ・ <a href="/about/">このサイトについて</a> ・ <a href="https://x.com/{e(SITE['x_account'])}">X @{e(SITE['x_account'])}</a></span>
     <span>{ad_note}</span>
   </div>
 </footer>
@@ -337,6 +340,13 @@ def build_index(posts: list[dict]) -> str:
     </div>
   </section>
 
+  <section class="sec" aria-labelledby="h-tools">
+    <div class="wrap">
+      <div class="sec-h"><h2 id="h-tools">迷ったら</h2><small>机の大きさを図で確かめる・自分のデスクを組んでみる</small></div>
+      {tool_cards()}
+    </div>
+  </section>
+
   <section class="sec" aria-labelledby="h-new">
     <div class="wrap">
       <div class="sec-h"><h2 id="h-new">新着</h2><small>海外の新作と、日本で今買えるもの</small></div>
@@ -393,6 +403,7 @@ def build_category(c: dict, posts: list[dict]) -> str:
         <p>{e(c['lead'])}色の名前と値段、日本で使えるかを確かめて載せています。</p>
       </div>
     </div>
+    {SIZE_LINK if c["slug"] == "desk" else ""}
     {grid}
   </div>
 </main>
@@ -478,6 +489,7 @@ def build_post(p: dict, posts: list[dict]) -> str:
     {palette}
     <div class="prose">{p['html']}</div>
     {items}
+    {SIZE_LINK if p["category"] == "desk" else ""}
     {japan}
     {buy}
     {srcs}
@@ -518,6 +530,309 @@ def build_about() -> str:
     return page(title="このサイトについて", desc="Cozy Desk の載せ方の決まりと運営者", path="/about/", body=body)
 
 
+# ── 道具(2026-11-01): 机の横幅を図で確かめる・自分のデスクを組む ──────────
+# どちらも「迷い」に答えて、そのまま載せている物の買うボタンへつなぐためのもの
+
+def price_yen(s: str | None) -> int | None:
+    """「3万1,800円」「8万300円」「12,980円」→ 円の数。読めなければ None"""
+    m = re.search(r"(?:(\d+)万)?([\d,]+)?円", s or "")
+    if not m or not (m.group(1) or m.group(2)):
+        return None
+    return int(m.group(1) or 0) * 10000 + int((m.group(2) or "0").replace(",", "") or 0)
+
+
+def item_id(name: str) -> str:
+    # 共有アドレスに入れる短い名前。物の名前から作るので、記事を足しても変わらない
+    return hashlib.sha1(name.encode("utf-8")).hexdigest()[:6]
+
+
+def catalog(posts: list[dict]) -> list[dict]:
+    """買うボタンが出せる物(日本で今買える物)を、種類の順に全部集める"""
+    rows, seen = [], set()
+    for c in CATS:
+        for it in products_in(c["slug"], posts):
+            if not it.get("q") or it["name"] in seen:
+                continue
+            seen.add(it["name"])
+            rows.append({"id": item_id(it["name"]), "cat": c["slug"], "name": it["name"], "img": it.get("image") or "",
+                         "price": (it.get("price") or "").split("(")[0], "yen": price_yen(it.get("price")),
+                         "url": it["url"], "btns": store_buttons(it["q"], "my-desk", it.get("stores"))})
+    ids = [r["id"] for r in rows]
+    if len(ids) != len(set(ids)):
+        sys.exit("物の短い名前がかぶった(item_id)。桁を増やす")
+    return rows
+
+
+def tool_cards() -> str:
+    return """<div class="tools2">
+  <a class="tool-card" href="/tools/desk-size/"><span class="eyebrow">٭ 図で確かめる</span><b>机の横幅、何cmにする？</b>
+    <small>モニターの大きさと台数、スピーカー、PC を選ぶと、机の上を縮尺どおりの図で見られます。</small></a>
+  <a class="tool-card blush" href="/tools/my-desk/"><span class="eyebrow">٭ 組んでみる</span><b>白いデスクを、組んでみる</b>
+    <small>載っている物から選ぶと、1枚に並んで合計の値段が出ます。組んだデスクは X に貼れます。</small></a>
+</div>"""
+
+
+def jdump(x) -> str:
+    # <script> の中に置く JSON。</script> で切れないように < を逃がす
+    return json.dumps(x, ensure_ascii=False).replace("<", "\\u003c")
+
+
+def seg(key: str, label: str, opts: list[tuple[str, str]], on: str) -> str:
+    return (f'<div class="filters seg" role="group" aria-label="{e(label)}" data-key="{key}"><span class="flabel">{e(label)}</span>'
+            + "".join(f'<button type="button" data-v="{e(v)}" class="{"on" if v == on else ""}" aria-pressed="{"true" if v == on else "false"}">{e(t)}</button>'
+                      for v, t in opts) + "</div>")
+
+
+SIZE_LINK = ('<a class="size-link" href="/tools/desk-size/"><b>横幅で迷ったら</b>'
+             '<span>モニターの大きさと台数を選ぶと、机の上を縮尺どおりの図で確かめられます</span></a>')
+
+
+def build_desk_size(posts: list[dict]) -> str:
+    wf = next(f for f in facets_of(CAT["desk"]) if f["key"] == "width")
+    cards = "\n".join(prodcard(it, [wf]) for it in products_in("desk", posts))
+    controls = "".join([
+        seg("w", "横幅", [("100", "100cm"), ("120", "120cm"), ("140", "140cm"), ("160", "160cm"), ("180", "180cm")], "120"),
+        seg("d", "奥行", [("60", "60cm"), ("70", "70cm"), ("80", "80cm")], "60"),
+        seg("mon", "モニター", [("54", "24インチ"), ("61", "27インチ"), ("71", "32インチ"), ("81", "34インチ横長")], "61"),
+        seg("n", "台数", [("1", "1台"), ("2", "2台")], "1"),
+        seg("arm", "置き方", [("0", "付属の台"), ("1", "モニターアーム")], "0"),
+        seg("spk", "スピーカー", [("0", "なし"), ("12", "小さめ"), ("15", "大きめ")], "12"),
+        seg("pc", "PC 本体", [("0", "机の下・なし"), ("1", "机の上")], "0"),
+        seg("kb", "キーボード", [("32", "小さめ"), ("36", "テンキーなし"), ("44", "テンキーつき")], "36"),
+    ])
+    js = r"""
+(() => {
+const S = {};
+document.querySelectorAll('.seg').forEach(g => {
+  S[g.dataset.key] = +g.querySelector('button.on').dataset.v;
+  g.querySelectorAll('button').forEach(b => b.addEventListener('click', () => {
+    g.querySelectorAll('button').forEach(x => { x.classList.toggle('on', x === b); x.setAttribute('aria-pressed', x === b); });
+    S[g.dataset.key] = +b.dataset.v; draw();
+  }));
+});
+const NS = 'http://www.w3.org/2000/svg', svg = document.getElementById('fig');
+function el(tag, a, txt) { const n = document.createElementNS(NS, tag); for (const k in a) n.setAttribute(k, a[k]); if (txt != null) n.textContent = txt; svg.appendChild(n); return n; }
+function box(x, y, w, h, cls, label) {
+  el('rect', {x, y, width: w, height: h, rx: 1.2, class: cls});
+  if (label) el('text', {x: x + w / 2, y: y + h / 2 + 1.1, class: 'lb', 'text-anchor': 'middle'}, label);
+}
+const INCH = {54: '24インチ', 61: '27インチ', 71: '32インチ', 81: '34インチ'};
+function draw() {
+  const W = S.w, D = S.d, M = 22, gap = 2;
+  const monW = S.mon, n = S.n, spk = S.spk, pcW = 25, pcD = 45, kb = S.kb;
+  const standD = S.arm ? 0 : 22;
+  // 奥の列: スピーカー・モニター・スピーカーを真ん中に、PC は右の奥
+  const mid = monW * n + (n - 1) + (spk ? (spk + gap) * 2 : 0);
+  const pcUse = S.pc ? pcW + gap : 0;
+  const free = W - mid - pcUse;
+  // 手前の列: キーボード＋マウスの場所(25cm)。奥行が浅いと PC 本体の手前にかかる
+  const frontNeed = kb + 5 + 25, frontAvail = W - (S.pc && D - pcD < 25 ? pcUse : 0);
+  svg.setAttribute('viewBox', `0 0 ${W + M * 2} ${D + M * 2 + 6}`);
+  svg.innerHTML = '';
+  const X = M, Y = M;
+  el('rect', {x: X, y: Y, width: W, height: D, rx: 2, class: 'desk'});
+  el('line', {x1: X, y1: Y - 9, x2: X + W, y2: Y - 9, class: 'dim'});
+  el('text', {x: X + W / 2, y: Y - 11.5, class: 'dimt', 'text-anchor': 'middle'}, `${W}cm`);
+  el('line', {x1: X - 9, y1: Y, x2: X - 9, y2: Y + D, class: 'dim'});
+  el('text', {x: X - 11.5, y: Y + D / 2, class: 'dimt', 'text-anchor': 'middle', transform: `rotate(-90 ${X - 11.5} ${Y + D / 2})`}, `${D}cm`);
+  const areaW = W - pcUse;
+  let cx = X + (areaW - mid) / 2;
+  const over = free < 0 ? ' over' : '';
+  const spkD = spk === 12 ? 12 : 18;
+  if (spk) { box(cx, Y + 4, spk, spkD, 'thing' + over, ''); cx += spk + gap; }
+  for (let i = 0; i < n; i++) {
+    if (standD) box(cx + monW / 2 - 11, Y + 2, 22, standD - 2, 'stand', '');
+    const sy = Y + (standD ? 9 : 3);
+    box(cx, sy, monW, 3.2, 'screen' + over, '');
+    el('text', {x: cx + monW / 2, y: sy + 9.5, class: 'lb', 'text-anchor': 'middle'}, INCH[monW]);
+    cx += monW + 1;
+  }
+  if (spk) { cx += gap - 1; box(cx, Y + 4, spk, spkD, 'thing' + over, ''); }
+  if (S.pc) box(X + W - pcW, Y, pcW, pcD, 'thing' + over, 'PC');
+  if (S.arm) el('rect', {x: X + areaW / 2 - 6, y: Y - 1.5, width: 12, height: 4, rx: 1, class: 'clamp'});
+  const fy = Y + D - 10 - 13, fx = X + (areaW - frontNeed) / 2 + 2;
+  const fover = frontNeed > frontAvail ? ' over' : '';
+  box(fx, fy, kb, 13, 'thing' + fover, 'キーボード');
+  el('rect', {x: fx + kb + 5, y: fy - 3, width: 25, height: 20, rx: 2, class: 'pad'});
+  el('ellipse', {cx: fx + kb + 17.5, cy: fy + 7, rx: 3.2, ry: 5.5, class: 'thing'});
+  el('path', {d: `M ${X + areaW / 2 - 14} ${Y + D + 12} q 14 -9 28 0`, class: 'me'});
+  el('text', {x: X + areaW / 2, y: Y + D + 19, class: 'lb mute', 'text-anchor': 'middle'}, 'ここに座る');
+  // 読み取り
+  const eye = D - (S.arm ? 8 : 12) + 15;
+  const depthNeed = (standD || 6) + 4 + 13 + 10;
+  const r = [];
+  r.push(free >= 0 ? `<li class="ok"><b>横はあと ${free}cm 余ります。</b>${free >= 20 ? '小物やライトを置く余裕があります。' : 'ほぼぴったりです。'}</li>`
+                   : `<li class="ng"><b>横が ${-free}cm 足りません。</b>横幅を広げるか、モニターかスピーカーを小さくします。${S.pc ? 'PC 本体を机の下に置くと、約27cm 空きます。' : ''}</li>`);
+  if (fover) r.push(`<li class="ng"><b>手前も狭いです。</b>キーボードとマウスの場所が、PC 本体とぶつかります。</li>`);
+  r.push(depthNeed <= D ? `<li class="ok"><b>奥行は足ります。</b>${S.arm ? 'モニターアームなら台の場所がいらず、手前が広く使えます。' : '付属の台は奥行を約22cm使います。'}</li>`
+                        : `<li class="ng"><b>奥行が窮屈です。</b>付属の台をやめてモニターアームにすると、約22cm 空きます。</li>`);
+  r.push(`<li><b>画面から目まで、およそ ${eye}cm。</b>厚生労働省の目安は40cm以上です。大きい画面ほど、離した方が端まで見渡しやすくなります。</li>`);
+  document.getElementById('read').innerHTML = r.join('');
+  // 合う机
+  const bucket = W >= 160 ? '160cm以上' : W + 'cm前後';
+  let shown = 0;
+  document.querySelectorAll('#desks .pcard').forEach(c => {
+    const hit = (c.getAttribute('data-f-width') || '').split(' ').includes(bucket);
+    c.hidden = !hit; shown += hit;
+  });
+  document.getElementById('desk-h').textContent = `横幅 ${bucket}の白い机`;
+  document.getElementById('desk-n').textContent = shown ? `${shown}点` : '';
+  document.getElementById('desk-none').hidden = shown > 0;
+  const more = [['/c/monitor/', S.arm ? '白いモニターアーム' : '白いモニター']];
+  if (spk) more.push(['/c/speaker/', '白い PC スピーカー']);
+  if (S.pc) more.push(['/c/pc/', '白い PC ケース']);
+  more.push(['/c/keyboard/', '白いキーボード'], ['/c/mouse/', '白いマウス'], ['/c/chair/', '白い椅子']);
+  document.getElementById('more').innerHTML = more.map(([u, t], i) => `<a class="btn${i ? '' : ' buy'}" href="${u}">${t}</a>`).join('');
+}
+draw();
+})();
+"""
+    body = f"""<main class="sec tool">
+  <div class="wrap">
+    <div class="crumb"><a href="/">トップ</a> / 机の横幅を図で確かめる</div>
+    <div class="tool-hero">
+      <span class="eyebrow">٭ 図で確かめる</span>
+      <h1>机の横幅、何cmにする？</h1>
+      <p>机の大きさと、載せたい物を選ぶと、上から見た図を縮尺どおりに描きます。横にあと何cm余るか、画面から目までどのくらい離れるかも出します。</p>
+    </div>
+    <div class="sizer">
+      <div class="sizer-ctl">{controls}</div>
+      <div class="sizer-view">
+        <div class="sizer-fig"><svg id="fig" role="img" aria-label="机を上から見た図"></svg></div>
+        <ul class="sizer-read" id="read" aria-live="polite"></ul>
+        <p class="sizer-note">大きさは、よくある物の目安です(24インチは幅約54cm、27インチは約61cm、32インチは約71cm、34インチの横長は約81cm)。買う物が決まったら、その物の寸法で確かめてください。</p>
+      </div>
+    </div>
+    <section class="cat-sec">
+      <div class="sec-h"><h2 id="desk-h">この横幅の白い机</h2><small id="desk-n"></small></div>
+      <div class="grid3" id="desks">{cards}</div>
+      <p class="empty-tone" id="desk-none" hidden>この横幅の机は、いま載っていません。<a href="/c/desk/">白い机を全部見る</a></p>
+    </section>
+    <section class="cat-sec">
+      <div class="sec-h"><h2>図の物を、白でそろえるなら</h2></div>
+      <div class="btns" id="more"></div>
+    </section>
+    <section class="cat-sec">{tool_cards()}</section>
+  </div>
+</main>
+<script>{js}</script>"""
+    return page(title="机の横幅、何cmにする？ 図で確かめる",
+                desc="机の横幅と奥行、モニターの大きさと台数、スピーカー、PC を選ぶと、机の上を縮尺どおりの図で描きます。横の余りと、画面から目までの距離も出します。",
+                path="/tools/desk-size/", body=body)
+
+
+def build_my_desk(posts: list[dict]) -> str:
+    rows = catalog(posts)
+    have = [c for c in CATS if any(r["cat"] == c["slug"] for r in rows)]
+    tabs = ('<div class="filters" role="group" aria-label="種類" id="tabs">'
+            + "".join(f'<button type="button" data-k="{c["slug"]}" class="{"on" if i == 0 else ""}">{e(c["name"])}<span class="cnt" data-c="{c["slug"]}"></span></button>'
+                      for i, c in enumerate(have)) + "</div>")
+    cats = {c["slug"]: c["name"] for c in CATS}
+    js = r"""
+(() => {
+const ITEMS = __ITEMS__;
+const CATS = __CATS__;
+const BY = Object.fromEntries(ITEMS.map(x => [x.id, x]));
+let picked = (new URLSearchParams(location.search).get('d') || '').split('.').filter(id => BY[id]);
+let tab = document.querySelector('#tabs button.on').dataset.k;
+const yen = n => n.toLocaleString('ja-JP') + '円';
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'})[c]);
+const pic = (x, alt) => x.img ? `<img src="${esc(x.img)}" alt="${alt}" loading="lazy" referrerpolicy="no-referrer">` : '';
+function url() { return location.origin + location.pathname + (picked.length ? '?d=' + picked.join('.') : ''); }
+function renderPick() {
+  document.getElementById('pick').innerHTML = ITEMS.filter(x => x.cat === tab).map(x => `
+    <button type="button" class="pk${picked.includes(x.id) ? ' on' : ''}" data-id="${x.id}" aria-pressed="${picked.includes(x.id)}">
+      <span class="pk-img">${pic(x, '')}</span>
+      <span class="pk-name">${esc(x.name)}</span><span class="pk-price">${esc(x.price)}</span><i class="pk-ok" aria-hidden="true"></i>
+    </button>`).join('');
+}
+function render() {
+  history.replaceState(null, '', url());
+  const sel = picked.map(id => BY[id]);
+  const sum = sel.reduce((a, x) => a + (x.yen || 0), 0);
+  document.getElementById('sum').textContent = yen(sum);
+  document.getElementById('cnt').textContent = sel.length ? sel.length + '点' : '';
+  document.getElementById('board').innerHTML = sel.length ? sel.map(x => `
+    <figure class="tile"><button type="button" class="rm" data-id="${x.id}" aria-label="${esc(x.name)} を外す">×</button>
+      ${pic(x, esc(x.name))}<figcaption>${esc(CATS[x.cat])}</figcaption></figure>`).join('')
+    : '<p class="tray-empty">一覧から選ぶと、ここに並びます。</p>';
+  document.querySelectorAll('#tabs .cnt').forEach(s => { const k = sel.filter(x => x.cat === s.dataset.c).length; s.textContent = k ? ' ' + k : ''; });
+  document.getElementById('buy-sec').hidden = !sel.length;
+  document.getElementById('buylist').innerHTML = sel.map(x => `
+    <div class="brow"><span class="brow-img">${pic(x, '')}</span>
+      <div><b>${esc(x.name)}</b><span class="brow-meta"><span class="price">${esc(x.price)}</span> ・ <a href="${esc(x.url)}">記事で詳しく見る</a></span>${x.btns}</div></div>`).join('');
+  const text = sel.length ? `白でそろえた私のデスク、${sel.length}点で合計${yen(sum)}` : '白いデスクを組んでみる';
+  document.getElementById('share').href = 'https://x.com/intent/post?text=' + encodeURIComponent(text + ' #CozyDesk') + '&url=' + encodeURIComponent(url());
+  document.getElementById('bar').hidden = !sel.length;
+  document.getElementById('bar-t').textContent = `${sel.length}点 ・ 合計${yen(sum)}`;
+  document.querySelectorAll('#pick .pk').forEach(b => { const on = picked.includes(b.dataset.id); b.classList.toggle('on', on); b.setAttribute('aria-pressed', on); });
+}
+document.getElementById('tabs').addEventListener('click', ev => {
+  const b = ev.target.closest('button'); if (!b) return;
+  tab = b.dataset.k;
+  document.querySelectorAll('#tabs button').forEach(x => x.classList.toggle('on', x === b));
+  renderPick();
+});
+document.getElementById('pick').addEventListener('click', ev => {
+  const b = ev.target.closest('.pk'); if (!b) return;
+  const id = b.dataset.id;
+  picked = picked.includes(id) ? picked.filter(x => x !== id) : [...picked, id];
+  render();
+});
+document.getElementById('board').addEventListener('click', ev => {
+  const b = ev.target.closest('.rm'); if (!b) return;
+  picked = picked.filter(x => x !== b.dataset.id); render();
+});
+document.getElementById('clear').addEventListener('click', () => { picked = []; render(); });
+document.getElementById('copy').addEventListener('click', async ev => {
+  const b = ev.currentTarget;
+  try { await navigator.clipboard.writeText(url()); b.textContent = 'コピーしました'; }
+  catch (_) { b.textContent = 'コピーできませんでした'; }
+  setTimeout(() => b.textContent = 'アドレスをコピー', 1800);
+});
+renderPick();
+render();
+})();
+""".replace("__ITEMS__", jdump(rows)).replace("__CATS__", jdump(cats))
+    body = f"""<main class="sec tool">
+  <div class="wrap">
+    <div class="crumb"><a href="/">トップ</a> / 白いデスクを組んでみる</div>
+    <div class="tool-hero">
+      <span class="eyebrow">٭ 組んでみる</span>
+      <h1>白いデスクを、組んでみる</h1>
+      <p>このサイトに載っている物から、気になる物を選んでください。選んだ物が1枚に並び、合計の値段と、買えるお店が出ます。組んだデスクは、アドレスをそのまま X に貼れます。</p>
+    </div>
+    <div class="mydesk">
+      <div class="picker">
+        {tabs}
+        <div class="pick-grid" id="pick"></div>
+      </div>
+      <aside class="tray" id="tray" aria-labelledby="tray-h">
+        <div class="tray-head"><h2 id="tray-h">私のデスク</h2><span id="cnt"></span></div>
+        <div class="tray-board" id="board"></div>
+        <div class="tray-sum"><span>合計</span><b id="sum">0円</b></div>
+        <p class="tray-note">掲載時点の値段の合計です。セールなどで変わります。</p>
+        <div class="tray-act">
+          <a class="btn buy" id="share" href="#" target="_blank" rel="noopener">X に貼る</a>
+          <button type="button" class="btn" id="copy">アドレスをコピー</button>
+          <button type="button" class="btn" id="clear">空にする</button>
+        </div>
+      </aside>
+    </div>
+    <section class="cat-sec" id="buy-sec" hidden>
+      <div class="sec-h"><h2>選んだ物を買うなら</h2><small>売っているお店のボタンだけ出しています</small></div>
+      <div class="buylist" id="buylist"></div>
+    </section>
+    <section class="cat-sec">{tool_cards()}</section>
+  </div>
+</main>
+<a class="tray-bar" id="bar" href="#tray" hidden><span id="bar-t"></span><b>見る</b></a>
+<script>{js}</script>"""
+    return page(title="白いデスクを、組んでみる",
+                desc="Cozy Desk に載っている白と淡い色のガジェットから選んで、自分のデスクを組めます。選んだ物が1枚に並び、合計の値段と買えるお店が出ます。",
+                path="/tools/my-desk/", body=body)
+
+
 # ── 書き出し ────────────────────────────────────────────────
 
 def write(rel: str, text: str) -> None:
@@ -537,12 +852,14 @@ def main() -> None:
         write(f"c/{c['slug']}/index.html", build_category(c, posts))
     for p in posts:
         write(f"p/{p['slug']}/index.html", build_post(p, posts))
+    write("tools/desk-size/index.html", build_desk_size(posts))
+    write("tools/my-desk/index.html", build_my_desk(posts))
     write("about/index.html", build_about())
     write("404.html", page(title="ページが見つかりません", desc="", path="/404.html",
                            body='<main class="article"><div class="wrap"><h1>ページが見つかりません</h1>'
                                 '<p><a href="/">トップへ戻る</a></p></div></main>'))
     base = SITE["base_url"].rstrip("/")
-    urls = ["/", "/about/"] + [f"/c/{c['slug']}/" for c in CATS] + [p["url"] for p in posts]
+    urls = ["/", "/about/", "/tools/desk-size/", "/tools/my-desk/"] + [f"/c/{c['slug']}/" for c in CATS] + [p["url"] for p in posts]
     write("sitemap.xml", '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
           + "".join(f"<url><loc>{base}{u}</loc></url>\n" for u in urls) + "</urlset>\n")
     write("robots.txt", f"User-agent: *\nAllow: /\nSitemap: {base}/sitemap.xml\n")
