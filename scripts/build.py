@@ -430,6 +430,21 @@ document.querySelectorAll('.filters').forEach(f => f.querySelectorAll('button').
                 body=body, current=c["slug"])
 
 
+def decorate_guide(html_: str) -> str:
+    """商品の下の「買う前に見る所」の見出しに飾りをつける(2026-11-01 本人「文字ばっかりだから、タイトルにあしらいを」)。
+    「選び方1: …」は番号の札＋見出し、「Nつを比べる」は「比べ表」の札、「買う前に見る所」は帯にする"""
+    steps = len(re.findall(r"<h2>選び方\d+[:：]", html_))
+    html_ = re.sub(r"<h2>選び方(\d+)[:：]\s*(.*?)</h2>",
+                   r'<h2 class="step"><span class="step-n">選び方 <b>\1</b></span><span class="step-t">\2</span></h2>', html_)
+    html_ = re.sub(r"<h2>(\d+)\s*つを比べる</h2>",
+                   r'<h2 class="step"><span class="step-n">比べ表</span><span class="step-t">\1つを比べる</span></h2>', html_)
+    sub = f"選び方{steps}つと、比べ表" if steps else "選び方と比べ表"
+    html_ = html_.replace('<h2 id="erabikata">買う前に見る所</h2>',
+                          f'<div class="guide-head" id="erabikata"><span class="eyebrow">٭ 失敗しないために</span>'
+                          f'<h2>買う前に見る所</h2><p>{sub}</p></div>')
+    return html_
+
+
 def build_post(p: dict, posts: list[dict]) -> str:
     c = CAT[p["category"]]
     fig = ""
@@ -465,7 +480,7 @@ def build_post(p: dict, posts: list[dict]) -> str:
     # 本文に <!-- after-items --> があれば、そこから後ろ(選び方・比べ表など)を商品の下に出す。
     # 長い説明で商品が下に押しやられないように(2026-11-01 PCケースの記事で選び方を厚くしたとき)
     before, _, rest = p["html"].partition("<!-- after-items -->")
-    after = f'<div class="prose">{rest}</div>' if rest.strip() else ""
+    after = f'<div class="prose guide">{decorate_guide(rest)}</div>' if rest.strip() else ""
     japan = ""
     if p.get("japan"):
         japan = f'<h2>日本で買える？使える？</h2><div class="jp">{markdown.markdown(p["japan"])}</div>'
