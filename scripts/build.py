@@ -132,6 +132,12 @@ def page(*, title: str, desc: str, path: str, body: str, current: str = "", imag
     if SITE.get("cf_analytics_token"):
         extra += ("<script defer src='https://static.cloudflareinsights.com/beacon.min.js' "
                   f"data-cf-beacon='{{\"token\": \"{e(SITE['cf_analytics_token'])}\"}}'></script>\n")
+    # GA4(2026-11-01)。X から来た人がどの記事を読み、紹介リンクへ進むかを見る。空なら出さない
+    if SITE.get("analytics_id"):
+        gid = e(SITE["analytics_id"])
+        extra += (f'<script async src="https://www.googletagmanager.com/gtag/js?id={gid}"></script>\n'
+                  "<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}"
+                  f"gtag('js',new Date());gtag('config','{gid}');</script>\n")
     year = dt.date.today().year
     years = f"{SITE['copyright_from']}" + (f"–{year}" if year > SITE["copyright_from"] else "")
     ad_note = "このサイトはアフィリエイト広告(Amazon・楽天・Yahoo!ショッピング)を含みます" if HAS_AFF else "Gadget Terminal の姉妹サイト"
@@ -459,6 +465,11 @@ def build_about() -> str:
     aff = ("紹介しているストアへのリンクの一部はアフィリエイトリンク(もしもアフィリエイト経由の Amazon・楽天市場・Yahoo!ショッピング)です。"
            "リンクから買い物をされると、運営者に紹介料が入ることがあります。紹介料の有無で、載せる物や書く内容は変えません。"
            if HAS_AFF else "いまはストアへのリンクに紹介料はついていません。")
+    analytics = ("<h2>アクセス解析について</h2><p>サイトの利用状況を知るため、Google社のアクセス解析(Google アナリティクス)を使っています。"
+                 "Google アナリティクスは Cookie を使ってアクセス状況を集計します。氏名やメールアドレスなど個人を特定する情報は含まれません。"
+                 "ブラウザの設定で Cookie を無効にすると、収集を拒否できます。"
+                 '詳しくは<a href="https://policies.google.com/technologies/partner-sites?hl=ja">Google のポリシー</a>をご覧ください。</p>\n'
+                 if SITE.get("analytics_id") else "")
     body = f"""<main class="article"><div class="wrap">
 <h1>このサイトについて</h1>
 <div class="prose">
@@ -472,7 +483,7 @@ def build_about() -> str:
 </ul>
 <h2>広告について</h2>
 <p>{aff}</p>
-<h2>運営</h2>
+{analytics}<h2>運営</h2>
 <p>{e(SITE['author'])} ・ お問い合わせ: {e(SITE['contact_email'])}</p>
 </div></div></main>"""
     return page(title="このサイトについて", desc="Cozy Desk の載せ方の決まりと運営者", path="/about/", body=body)

@@ -9,6 +9,8 @@ site:
   copyright_from: 2026
   # Cloudflare Web Analytics のトークン。空なら出さない
   cf_analytics_token: ""
+  # GA4(2026-11-01)。空ならタグも「アクセス解析について」も出ない
+  analytics_id: "G-PR6B79GV7B"
   search_console_verification: ""
 
 # 紹介リンク(もしも)。{url} に楽天・Amazon・Yahoo の検索ページのURL(エンコード済み)が入る。GT と同じ書き方
