@@ -24,7 +24,14 @@ affiliate:
 
 # 種類。並び順がそのままメニューの順になる
 categories:
-  - {slug: desk,     name: デスク,     sub: 天板・昇降デスク,          lead: 白い天板・白い脚のデスクと、昇降デスク。}
+  - slug: desk
+    name: デスク
+    sub: 天板・昇降デスク
+    lead: 白い天板・白い脚のデスクと、昇降デスク。
+    # 机は色より横幅と形で選ぶので、種類ページの軸を色から変える(物の側は products の facets: に書く)
+    facets:
+      - {key: width, name: 横幅, values: [100cm前後, 120cm前後, 140cm前後, 160cm以上]}
+      - {key: shape, name: 形,   values: [平机, 昇降, L字, 折りたたみ]}
   - {slug: chair,    name: 椅子,       sub: 白いメッシュ・ゲーミング,  lead: 白いメッシュの椅子と、白・淡い色のゲーミングチェア。}
   - {slug: pc,       name: PC,         sub: 白いケース・光るファン,    lead: 白いPCケースと、淡い色に光るファン。白デスクの主役。}
   - {slug: monitor,  name: モニター,   sub: 白い本体・モニターアーム,  lead: 白い本体のモニターと、白いモニターアーム。}

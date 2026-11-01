@@ -251,13 +251,33 @@ def products_in(slug: str, posts: list[dict]) -> list[dict]:
     return list(found.values())
 
 
-def prodcard(it: dict) -> str:
-    tones = sorted({tone(c) for c in it.get("colors") or []}, key=TONES.index)
+# 種類ページの「〜で選ぶ」の軸。site.yaml の categories に facets: を書いた種類はそれを使い(デスクは横幅と形)、
+# 書いていない種類は色。物の側は products の facets: {width: 160cm以上, shape: 昇降} のように書く
+TONE_FACET = {"key": "tone", "name": "色", "values": TONES}
+
+
+def facets_of(c: dict) -> list[dict]:
+    return c.get("facets") or [TONE_FACET]
+
+
+def facet_values(it: dict, f: dict) -> list[str]:
+    if f["key"] == "tone":
+        return sorted({tone(c) for c in it.get("colors") or []}, key=TONES.index)
+    v = (it.get("facets") or {}).get(f["key"])
+    vals = v if isinstance(v, list) else ([v] if v else [])
+    bad = [x for x in vals if x not in f["values"]]
+    if bad:
+        sys.exit(f'{it["name"]}: facets.{f["key"]} の値 {bad} は site.yaml に無い(使えるのは {f["values"]})')
+    return vals
+
+
+def prodcard(it: dict, facets: list[dict]) -> str:
+    attrs = "".join(f' data-f-{f["key"]}="{e(" ".join(facet_values(it, f)))}"' for f in facets)
     img = (f'<img src="{e(it["image"])}" alt="{e(it["name"])}" loading="lazy" referrerpolicy="no-referrer">'
            if it.get("image") else "")
     colors = "".join(f'<i style="background:{e(c["hex"])}" title="{e(c["name"])}"></i>' for c in it.get("colors") or [])
     price = f'<span class="price">{e(it["price"])}</span>' if it.get("price") else ""
-    return (f'<a class="pcard prod" href="{e(it["url"])}" data-tones="{" ".join(tones)}">'
+    return (f'<a class="pcard prod" href="{e(it["url"])}"{attrs}>'
             f'<div class="img fit{"" if img else " noimg"}">{img}</div>'
             f'<div class="body"><h3>{e(it["name"])}</h3><div class="meta">{price}{colors}</div>'
             f'<span class="jpnote">{e(it["from"])}</span></div></a>')
@@ -267,7 +287,7 @@ def pcard(p: dict) -> str:
     badge = f'<span class="badge">{KIND[p["kind"]]}</span>'
     price = f'<span class="price">{e(p["price"])}</span>' if p.get("price") else ""
     colors = "".join(f'<i style="background:{e(c["hex"])}" title="{e(c["name"])}"></i>' for c in p.get("colors") or [])
-    return (f'<a class="pcard" href="{p["url"]}" data-kind="{p["kind"]}">'
+    return (f'<a class="pcard" href="{p["url"]}" data-f-kind="{p["kind"]}">'
             f'<div class="img{" fit" if p.get("thumb_fit") else ""}{"" if p.get("thumbnail") else " noimg"}">{badge}{img_tag(p)}</div>'
             f'<div class="body"><h3>{e(p["title"])}</h3><div class="meta">{price}{colors}</div>'
             f'<span class="jpnote">{e(p["summary"])}</span></div></a>')
@@ -335,20 +355,24 @@ def build_category(c: dict, posts: list[dict]) -> str:
     if mine or items:
         grid = ""
         if items:
-            have = {t for it in items for c2 in it.get("colors") or [] for t in [tone(c2)]}
+            facets = facets_of(c)
             chips = ""
-            if len(have) > 1:
-                chips = ('<div class="filters" role="group" aria-label="色で選ぶ" data-for="prod">'
-                         '<button class="on" data-k="all">すべての色</button>'
-                         + "".join(f'<button data-k="{t}">{t}</button>' for t in TONES if t in have) + "</div>")
-            grid += (f'<section class="cat-sec"><div class="sec-h"><h2>色で選ぶ</h2><small>{len(items)}点</small></div>'
-                     f'{chips}<div class="grid3" data-list="prod">' + "\n".join(prodcard(it) for it in items)
-                     + '</div><p class="empty-tone" hidden>この色の物は、いま載っていません。</p></section>')
+            if len(items) > 1:
+                for f in facets:
+                    have = {v for it in items for v in facet_values(it, f)}
+                    if len(have) > 1:
+                        chips += (f'<div class="filters" role="group" aria-label="{e(f["name"])}で選ぶ" data-for="prod" data-facet="{f["key"]}">'
+                                  f'<span class="flabel">{e(f["name"])}</span><button class="on" data-k="all">すべて</button>'
+                                  + "".join(f'<button data-k="{e(v)}">{e(v)}</button>' for v in f["values"] if v in have) + "</div>")
+            head = "・".join(f["name"] for f in facets) + "で選ぶ" if chips else "載っている物"
+            grid += (f'<section class="cat-sec"><div class="sec-h"><h2>{e(head)}</h2><small>{len(items)}点</small></div>'
+                     f'{chips}<div class="grid3" data-list="prod">' + "\n".join(prodcard(it, facets) for it in items)
+                     + '</div><p class="empty-tone" hidden>この条件の物は、いま載っていません。</p></section>')
         if mine:
             kinds = sorted({p["kind"] for p in mine})
             chips = ""
             if len(kinds) > 1:
-                chips = ('<div class="filters" role="group" aria-label="記事の種類" data-for="post">'
+                chips = ('<div class="filters" role="group" aria-label="記事の種類" data-for="post" data-facet="kind">'
                          '<button class="on" data-k="all">すべて</button>'
                          + "".join(f'<button data-k="{k}">{KIND[k]}</button>' for k in kinds) + "</div>")
             grid += ('<section class="cat-sec"><div class="sec-h"><h2>記事</h2></div>' + chips
@@ -373,12 +397,17 @@ def build_category(c: dict, posts: list[dict]) -> str:
   </div>
 </main>
 <script>
+// 軸(色・横幅・形…)ごとにボタンの列があり、全部の列の条件を満たす物だけ見せる
 document.querySelectorAll('.filters').forEach(f => f.querySelectorAll('button').forEach(b => b.addEventListener('click', () => {{
   f.querySelectorAll('button').forEach(x => x.classList.toggle('on', x === b));
-  const k = b.dataset.k, list = document.querySelector('[data-list="' + f.dataset.for + '"]');
+  const groups = [...document.querySelectorAll('.filters[data-for="' + f.dataset.for + '"]')];
+  const list = document.querySelector('[data-list="' + f.dataset.for + '"]');
   let shown = 0;
   list.querySelectorAll('.pcard').forEach(c => {{
-    const hit = k === 'all' || (f.dataset.for === 'prod' ? c.dataset.tones.split(' ').includes(k) : c.dataset.kind === k);
+    const hit = groups.every(g => {{
+      const k = g.querySelector('button.on').dataset.k;
+      return k === 'all' || (c.getAttribute('data-f-' + g.dataset.facet) || '').split(' ').includes(k);
+    }});
     c.hidden = !hit; shown += hit;
   }});
   const none = list.parentElement.querySelector('.empty-tone');

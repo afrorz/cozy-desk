@@ -13,6 +13,7 @@ colors:
 products:
   - name: "サンワダイレクト 100-DESKF006 シンプルデスク 幅160cm ホワイト"
     category: desk
+    facets: {width: 160cm以上, shape: 平机}
     image: "https://cdn.sanwadirect.jp/images/goods/100-DESKF006_MX.JPG"
     image_credit: "サンワダイレクト 公式サイト"
     price: "1万4,480円(掲載時点・サンワダイレクト公式サイト・税込・送料当店負担)"

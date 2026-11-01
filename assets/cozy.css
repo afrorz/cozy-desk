@@ -321,3 +321,8 @@ footer a { color: inherit; }
 .pcard.prod .jpnote { overflow: hidden; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; }
 .empty-tone { color: var(--mute); font-size: 13.5px; padding: 18px 0; }
 .pcard[hidden] { display: none; }
+
+/* 種類ページの選ぶ列(横幅・形など)の見出し */
+.filters .flabel { font-size: 12px; color: var(--mute); align-self: center; min-width: 2.5em; }
+.cat-sec .filters { margin-bottom: 10px; }
+.cat-sec .filters:last-of-type { margin-bottom: 18px; }
