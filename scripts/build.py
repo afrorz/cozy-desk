@@ -340,19 +340,19 @@ def build_index(posts: list[dict]) -> str:
     </div>
   </section>
 
-  <section class="sec" aria-labelledby="h-tools">
-    <div class="wrap">
-      <div class="sec-h"><h2 id="h-tools">迷ったら</h2><small>机の大きさを図で確かめる・自分のデスクを組んでみる</small></div>
-      {tool_cards()}
-    </div>
-  </section>
-
   <section class="sec" aria-labelledby="h-new">
     <div class="wrap">
       <div class="sec-h"><h2 id="h-new">新着</h2><small>海外の新作と、日本で今買えるもの</small></div>
       <div class="bento">
 {latest}
       </div>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="h-tools">
+    <div class="wrap">
+      <div class="sec-h"><h2 id="h-tools">迷ったら</h2><small>机の大きさを図で確かめる・自分のデスクを組んでみる</small></div>
+      {tool_cards()}
     </div>
   </section>
 </main>"""
