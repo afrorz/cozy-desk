@@ -279,7 +279,8 @@ def prodcard(it: dict, facets: list[dict]) -> str:
     img = (f'<img src="{e(it["image"])}" alt="{e(it["name"])}" loading="lazy" referrerpolicy="no-referrer">'
            if it.get("image") else "")
     colors = "".join(f'<i style="background:{e(c["hex"])}" title="{e(c["name"])}"></i>' for c in it.get("colors") or [])
-    price = f'<span class="price">{e(it["price"])}</span>' if it.get("price") else ""
+    # 一覧では「6,990円」だけにして、カードの高さをそろえる。どこの値段かは記事の中に書いてある
+    price = f'<span class="price">{e(it["price"].split("(")[0])}</span>' if it.get("price") else ""
     return (f'<a class="pcard prod" href="{e(it["url"])}"{attrs}>'
             f'<div class="img fit{"" if img else " noimg"}">{img}</div>'
             f'<div class="body"><h3>{e(it["name"])}</h3><div class="meta">{price}{colors}</div>'
