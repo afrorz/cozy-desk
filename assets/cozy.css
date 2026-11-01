@@ -117,7 +117,8 @@ footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wr
 .article .board { margin: 22px 0 6px; }
 .credit { font-size: 11px; color: var(--mute); margin: 0 0 26px 6px; }
 .article h2 { font-family: var(--f-disp); font-weight: 700; font-size: 20px; margin: 36px 0 12px; }
-.article h2::before { content: "٭ "; color: var(--oak-d); }
+/* この星はアラビア文字の仲間(右から左に書く文字)なので、後ろに数字が来ると順番が入れ替わる。箱にして切り離す(11/1「8 ٭つを比べる」と出た) */
+.article h2::before { content: "٭"; color: var(--oak-d); display: inline-block; margin-right: .35em; }
 .palette { display: flex; gap: 18px; flex-wrap: wrap; background: var(--milk); border-radius: var(--radius); padding: 18px 20px; }
 .palette div { display: flex; align-items: center; gap: 8px; font-size: 14px; }
 .palette i { width: 30px; height: 30px; border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(74,64,57,.1); }
