@@ -254,8 +254,8 @@ footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wr
 @media (max-width: 720px) {
   .scene-copy { position: static; transform: none; width: auto; padding: 22px 20px 6px; }
   .scene-copy h1 br { display: none; }
-  /* 机まわり(絵の右6割)だけを見せる。点の位置は .stage の中の % なので崩れない */
-  .scene.photo .stage { width: 170%; margin-left: -70%; }
+  /* 机まわり(絵の 36%〜88%)だけを見せる。右の窓と壁の余白は切る。点の位置は .stage の中の % なので崩れない */
+  .scene.photo .stage { width: 190%; margin-left: -68%; }
 }
 /* 点が13個あるので、名前は押す前(ホバー・フォーカス)だけ出す */
 .hs .lab { opacity: 0; transform: translateX(-4px); pointer-events: none; transition: opacity .15s, transform .15s, background .15s, color .15s; }
