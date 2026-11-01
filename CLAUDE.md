@@ -17,6 +17,11 @@ content/posts/*.md → python scripts/build.py → public/ → git push で GitH
 - 「女性向け」と名乗らない(本人判断)
 - 見た目の元になった見本は `notes\desk-gadgets\design\`
 
+## 写真の点検
+
+- `python scripts/check_images.py` で、記事の写真が今も開けるかを確かめる(11/1 に Lian Li の公式サイトがロボットよけ画面を返し、写真が2枚消えたため)。開けない写真は、同じ物の公式・日本の正規代理店・公式ストアの写真に替える
+- 「要ブラウザ確認」(403)は、ブラウザでは開けることがある(エレコムなど)
+
 ## 公開
 
 検証(build.py が通る・記事数が想定どおり)してから push してよい。push すると数分で公開される。
