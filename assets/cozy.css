@@ -489,3 +489,22 @@ footer a { color: inherit; }
 .mini:hover { transform: translateY(-2px); box-shadow: 0 8px 16px -10px rgba(74, 64, 57, .5); }
 @media (max-width: 560px) { .mini { width: 76px; } }
 @media (prefers-reduced-motion: reduce) { .mini { transition: none; } }
+
+/* 選び方の中の、大きさで分けた箱(2026-11-02) */
+.sizes { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin: 14px 0 18px; }
+.sz-col { background: var(--milk); border: 1px solid var(--line); border-radius: 18px; padding: 14px 12px 10px; display: flex; flex-direction: column; gap: 8px; }
+.sz-head { padding: 0 4px 6px; border-bottom: 1px dashed var(--line); }
+.sz-tag { display: inline-block; font: 700 11.5px/1 var(--f-body); color: #fff; background: var(--oak-d); border-radius: 99px; padding: 5px 10px; }
+.sz-head b { display: block; font: 700 16px/1.4 var(--f-disp); margin-top: 8px; }
+.sz-head p { margin: 4px 0 0; font-size: 12.5px; line-height: 1.6; color: var(--mute); }
+.sz-item { display: grid; grid-template-columns: 58px 1fr; grid-template-rows: auto auto; column-gap: 10px; align-items: center;
+  background: #fff; border-radius: 14px; padding: 8px; text-decoration: none; color: var(--cocoa); transition: transform .15s ease, box-shadow .15s ease; }
+.sz-img { grid-row: span 2; width: 58px; height: 58px; }
+.sz-img img { width: 100%; height: 100%; object-fit: contain; }
+.sz-txt { display: flex; flex-direction: column; min-width: 0; }
+.sz-name { font-size: 12.5px; line-height: 1.45; font-weight: 500; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.sz-size { font: 400 11.5px/1.5 var(--f-num); color: var(--mute); }
+.sz-go { font-size: 11px; font-weight: 700; color: var(--buy); }
+.sz-go::after { content: " ›"; }
+.sz-item:hover { transform: translateY(-2px); box-shadow: 0 8px 16px -10px rgba(74, 64, 57, .5); }
+@media (prefers-reduced-motion: reduce) { .sz-item { transition: none; } }

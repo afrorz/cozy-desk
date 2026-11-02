@@ -107,30 +107,60 @@ def store_buttons(q: str, where: str, only: list[str] | None = None) -> str:
     return '<div class="btns">' + "".join(out) + "</div>"
 
 
+def first_store(it: dict, where: str) -> tuple[str, str, str]:
+    """(URL, aタグの追加属性, 「楽天」などの短い店の名前)。その物を売っている最初の店"""
+    key, label, base = next(st for st in STORES if not it.get("stores") or st[0] in it["stores"])
+    url = base.replace("{q}", quote(it.get("q") or it["name"], safe=""))
+    attrs = f' target="_blank" data-store="{key}" data-where="{e(where)}"'
+    if AFF.get(key):
+        url = AFF[key].replace("{url}", quote(url, safe=""))
+        attrs += ' rel="sponsored noopener"'
+    return url, attrs, label.replace("で見る", "").replace("ショッピング", "").strip()
+
+
 def mini_thumbs(html_: str, p: dict) -> str:
-    """本文の {{items:3,2}} を、その番号の物の小さな写真に置き換える。押すと売っている最初の店のページが開く
-    (2026-11-02 本人「選び方の中にサムネイルを入れたい。クリックしたら購入リンク先に飛ぶように」)"""
+    """本文の書き込みを、物の写真つきの部品に置き換える。押すと売っている最初の店のページが開く
+    (2026-11-02 本人「選び方の中にサムネイルを入れたい。クリックしたら購入リンク先に飛ぶように」「もっといい感じにまとめて」)
+    - {{items:3,2}} … その番号の物の小さな写真を並べる
+    - {{sizes ... }} … 1行に「札|見出し|説明|番号,番号」。大きさなどで分けた箱を横に並べ、物を写真・名前・大きさで1行ずつ出す"""
     prods = p.get("products") or []
 
-    def one(n: int) -> str:
+    def item(n: int) -> dict:
         if not 1 <= n <= len(prods):
-            sys.exit(f"{p['slug']}: {{{{items}}}} の番号 {n} の物がありません")
-        it = prods[n - 1]
-        key, label, base = next(st for st in STORES if not it.get("stores") or st[0] in it["stores"])
-        url = base.replace("{q}", quote(it.get("q") or it["name"], safe=""))
-        attrs = ""
-        if AFF.get(key):
-            url = AFF[key].replace("{url}", quote(url, safe=""))
-            attrs = ' rel="sponsored noopener"'
-        img = (f'<img src="{e(it["image"])}" alt="" loading="lazy" referrerpolicy="no-referrer">' if it.get("image") else "")
-        short = label.replace("で見る", "").replace("ショッピング", "").strip()
-        return (f'<a class="mini" href="{e(url)}" target="_blank"{attrs} data-store="{key}" data-where="{e(p["slug"])}" '
-                f'title="{e(it["name"])}を{e(short)}で見る">{img}<span>{e(short)}で見る</span></a>')
+            sys.exit(f"{p['slug']}: 本文の物の番号 {n} がありません")
+        return prods[n - 1]
 
+    def one(n: int) -> str:
+        it = item(n)
+        url, attrs, short = first_store(it, p["slug"])
+        img = f'<img src="{e(it["image"])}" alt="" loading="lazy" referrerpolicy="no-referrer">' if it.get("image") else ""
+        return (f'<a class="mini" href="{e(url)}"{attrs} title="{e(it["name"])}を{e(short)}で見る">{img}<span>{e(short)}で見る</span></a>')
+
+    def row(n: int) -> str:
+        it = item(n)
+        url, attrs, short = first_store(it, p["slug"])
+        m = re.search(r"約?[\d.]+×[\d.]+×[\d.]+cm", it.get("jp") or "")
+        size = f'<span class="sz-size">{e(m.group(0))}</span>' if m else ""
+        img = f'<img src="{e(it["image"])}" alt="" loading="lazy" referrerpolicy="no-referrer">' if it.get("image") else ""
+        return (f'<a class="sz-item" href="{e(url)}"{attrs}><span class="sz-img">{img}</span>'
+                f'<span class="sz-txt"><span class="sz-name">{e(it.get("short") or it["name"])}</span>{size}</span>'
+                f'<span class="sz-go">{e(short)}で見る</span></a>')
+
+    def sizes(m: re.Match) -> str:
+        cols = []
+        for line in m.group(1).strip().splitlines():
+            if not line.strip():
+                continue
+            tag, head, desc, nums = (x.strip() for x in line.split("|"))
+            cols.append(f'<div class="sz-col"><div class="sz-head"><span class="sz-tag">{e(tag)}</span>'
+                        f'<b>{e(head)}</b><p>{e(desc)}</p></div>'
+                        + "".join(row(int(x)) for x in nums.split(",") if x.strip()) + "</div>")
+        return f'<div class="sizes">{"".join(cols)}</div>'
+
+    html_ = re.sub(r"<p>\{\{sizes\s*(.*?)\}\}</p>", sizes, html_, flags=re.S)
     return re.sub(r"\{\{items:([\d,\s]+)\}\}",
                   lambda m: '<span class="minis">' + "".join(one(int(x)) for x in m.group(1).split(",") if x.strip()) + "</span>",
                   html_)
-
 
 def dots(colors, cls="dots") -> str:
     if not colors:
