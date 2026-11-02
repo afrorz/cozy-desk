@@ -612,3 +612,4 @@ a.mx-row:hover { background: #fff; }
   padding: 5px; background: #F4EFE9; box-sizing: border-box; }
 .pcard .img .collage img, .post .img .collage img { position: static; inset: auto; width: 100%; height: 100%; min-height: 0; object-fit: contain; background: #fff; border-radius: 8px; padding: 3%; box-sizing: border-box; }
 .img .collage.white { background: #fff; }
+.img .collage.milk { background: var(--milk); }
