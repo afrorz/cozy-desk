@@ -76,6 +76,8 @@ def load_posts() -> list[dict]:
         meta["slug"] = re.sub(r"^\d{4}-\d{2}-\d{2}-", "", path.stem)
         meta["url"] = f"/p/{meta['slug']}/"
         meta["date"] = meta["date"] if isinstance(meta["date"], dt.date) else dt.date.fromisoformat(str(meta["date"]))
+        if meta.get("updated") and not isinstance(meta["updated"], dt.date):  # 値段や物を入れ替えた日(画面に「更新」と出る)
+            meta["updated"] = dt.date.fromisoformat(str(meta["updated"]))
         meta["html"] = markdown.markdown(body, extensions=["tables", "attr_list"])
         posts.append(meta)
     posts.sort(key=lambda p: (p["date"], p["slug"]), reverse=True)
@@ -115,6 +117,18 @@ def store_buttons(q: str, where: str, only: list[str] | None = None) -> str:
     return '<div class="btns">' + "".join(out) + "</div>"
 
 
+def sized(url: str, w: int) -> str:
+    """写真の配信が縮める指定に対応していれば、表示の大きさに合わせて縮めた URL にする(2026-11-02 表示を軽くする)。
+    Shopify(width=)と imgix(w=)だけ。ほかの置き場所はそのまま"""
+    if not url:
+        return url
+    key = "width" if ("cdn.shopify.com" in url or "/cdn/shop/" in url) else "w" if "imgix.net" in url else ""
+    if not key:
+        return url
+    base, _, query = url.partition("?")
+    parts = [q for q in query.split("&") if q and not q.startswith(key + "=")]
+    return base + "?" + "&".join(parts + [f"{key}={w}"])
+
 def first_store(it: dict, where: str) -> tuple[str, str, str]:
     """(URL, aタグの追加属性, 「楽天」などの短い店の名前)。その物を売っている最初の店"""
     key, label, base = next(st for st in STORES if not it.get("stores") or st[0] in it["stores"])
@@ -145,7 +159,7 @@ def mini_thumbs(html_: str, p: dict) -> str:
     def one(n: int) -> str:
         it = item(n)
         url, attrs, short = first_store(it, p["slug"])
-        img = f'<img src="{e(it["image"])}" alt="" loading="lazy" referrerpolicy="no-referrer">' if it.get("image") else ""
+        img = f'<img src="{e(sized(it["image"], 200))}" alt="" loading="lazy" referrerpolicy="no-referrer">' if it.get("image") else ""
         return (f'<a class="mini" href="{e(url)}"{attrs} title="{e(it["name"])}を{e(short)}で見る">{img}<span>{e(short)}で見る</span></a>')
 
     def row(n: int) -> str:
@@ -153,7 +167,7 @@ def mini_thumbs(html_: str, p: dict) -> str:
         url, attrs, short = first_store(it, p["slug"])
         m = re.search(r"約?[\d.]+×[\d.]+×[\d.]+cm", it.get("jp") or "")
         size = f'<span class="sz-size">{e(m.group(0))}</span>' if m else ""
-        img = f'<img src="{e(it["image"])}" alt="" loading="lazy" referrerpolicy="no-referrer">' if it.get("image") else ""
+        img = f'<img src="{e(sized(it["image"], 200))}" alt="" loading="lazy" referrerpolicy="no-referrer">' if it.get("image") else ""
         return (f'<a class="sz-item" href="{e(url)}"{attrs}><span class="sz-img">{img}</span>'
                 f'<span class="sz-txt"><span class="sz-name">{e(it.get("short") or it["name"])}</span>{size}</span>'
                 f'<span class="sz-go">{e(short)}で見る</span></a>')
@@ -180,11 +194,11 @@ def mini_thumbs(html_: str, p: dict) -> str:
                 num, _, text = part.partition(":")
                 it = item(int(num))
                 url, attrs, short = first_store(it, p["slug"])
-                img = f'<img src="{e(it["image"])}" alt="" loading="lazy" referrerpolicy="no-referrer">' if it.get("image") else ""
+                img = f'<img src="{e(sized(it["image"], 200))}" alt="" loading="lazy" referrerpolicy="no-referrer">' if it.get("image") else ""
                 cls = "ft-card"
                 if it.get("inside"):  # 中を開いた写真があれば大きく出し、外の写真は右下に小さく(2026-11-02 本人「中の仕切り画像はマスト」)
                     cls += " has-in"
-                    img = (f'<img src="{e(it["inside"])}" alt="{e(it.get("short") or it["name"])}の中" loading="lazy" referrerpolicy="no-referrer">'
+                    img = (f'<img src="{e(sized(it["inside"], 700))}" alt="{e(it.get("short") or it["name"])}の中" loading="lazy" referrerpolicy="no-referrer">'
                            f'<span class="ft-out">{img}</span>')
                 cards.append(f'<a class="{cls}" href="{e(url)}"{attrs}><span class="ft-img">{img}</span>'
                              f'<span class="ft-txt"><b>{e(it.get("short") or it["name"])}</b><span>{e(text.strip())}</span>'
@@ -194,7 +208,7 @@ def mini_thumbs(html_: str, p: dict) -> str:
         return f'<div class="features">{"".join(bands)}</div>'
 
     def thumb(it: dict) -> str:
-        return f'<img src="{e(it["image"])}" alt="" loading="lazy" referrerpolicy="no-referrer">' if it.get("image") else ""
+        return f'<img src="{e(sized(it["image"], 200))}" alt="" loading="lazy" referrerpolicy="no-referrer">' if it.get("image") else ""
 
     def matrix(m: re.Match) -> str:
         lines = [x for x in m.group(1).strip().splitlines() if x.strip()]
@@ -264,7 +278,7 @@ def nav(current: str = "") -> str:
     return f'<nav class="cats" aria-label="種類で探す">{links}</nav>'
 
 
-def page(*, title: str, desc: str, path: str, body: str, current: str = "", image: str = "", pr: bool = False) -> str:
+def page(*, title: str, desc: str, path: str, body: str, current: str = "", image: str = "", pr: bool = False, ld: list | None = None) -> str:
     full = f"{title}｜{SITE['title']}" if title else f"{SITE['title']}｜{SITE['tagline']}"
     url = SITE["base_url"].rstrip("/") + path
     og = image or SITE["base_url"].rstrip("/") + "/assets/scene.jpg"
@@ -280,6 +294,8 @@ def page(*, title: str, desc: str, path: str, body: str, current: str = "", imag
         extra += (f'<script async src="https://www.googletagmanager.com/gtag/js?id={gid}"></script>\n'
                   "<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}"
                   f"gtag('js',new Date());gtag('config','{gid}');</script>\n")
+    for block in ld or []:  # 検索エンジン向けの構造化データ(2026-11-02)
+        extra += '<script type="application/ld+json">' + json.dumps(block, ensure_ascii=False).replace("</", "<\\/") + "</script>\n"
     year = dt.date.today().year
     years = f"{SITE['copyright_from']}" + (f"–{year}" if year > SITE["copyright_from"] else "")
     ad_note = "このサイトはアフィリエイト広告(Amazon・楽天・Yahoo!ショッピング)を含みます" if HAS_AFF else "Gadget Terminal の姉妹サイト"
@@ -329,7 +345,7 @@ def page(*, title: str, desc: str, path: str, body: str, current: str = "", imag
 def img_tag(p: dict) -> str:
     if not p.get("thumbnail"):
         return icon(p["category"])
-    return f'<img src="{e(p["thumbnail"])}" alt="{e(p.get("thumbnail_alt") or p["title"])}" loading="lazy" referrerpolicy="no-referrer">'
+    return f'<img src="{e(sized(p["thumbnail"], 600))}" alt="{e(p.get("thumbnail_alt") or p["title"])}" loading="lazy" referrerpolicy="no-referrer">'
 
 
 def thumb(p: dict) -> str:
@@ -415,7 +431,7 @@ def facet_values(it: dict, f: dict) -> list[str]:
 
 def prodcard(it: dict, facets: list[dict]) -> str:
     attrs = "".join(f' data-f-{f["key"]}="{e(" ".join(facet_values(it, f)))}"' for f in facets)
-    img = (f'<img src="{e(it["image"])}" alt="{e(it["name"])}" loading="lazy" referrerpolicy="no-referrer">'
+    img = (f'<img src="{e(sized(it["image"], 400))}" alt="{e(it["name"])}" loading="lazy" referrerpolicy="no-referrer">'
            if it.get("image") else "")
     colors = "".join(f'<i style="background:{e(c["hex"])}" title="{e(c["name"])}"></i>' for c in it.get("colors") or [])
     # 一覧では「6,990円」だけにして、カードの高さをそろえる。どこの値段かは記事の中に書いてある
@@ -620,7 +636,7 @@ def note_board(p: dict, shots: list) -> str:
             cards.append(
                 f'<a class="nb-card" href="#item-{i}" title="{e(it["name"])}" '
                 f'style="left:{x:.1f}%;{pos};width:{w:.1f}%;--tilt:{TILTS[k_all % 12]}deg;--tape:{TAPES[k_all % 4]}">'
-                f'<img src="{e(it["image"])}" alt="{e(it["name"])}" referrerpolicy="no-referrer"></a>')
+                f'<img src="{e(sized(it["image"], 400))}" alt="{e(it["name"])}" referrerpolicy="no-referrer"></a>')
             k_all += 1
     lead, big = board_words(p)
     credits = "・".join(dict.fromkeys(it.get("image_credit") for _, it in shots if it.get("image_credit")))
@@ -636,7 +652,7 @@ def build_post(p: dict, posts: list[dict]) -> str:
     if p.get("board_style") == "note" and len(shots) >= 3:  # 記事ごとに選ぶ(11/2 本人「とりあえずガジェットポーチだけ」)
         fig = note_board(p, shots)
     elif p.get("thumbnail"):
-        fig = (f'<figure class="board{" fit" if p.get("thumb_fit") else ""}"><img src="{e(p["thumbnail"])}" '
+        fig = (f'<figure class="board{" fit" if p.get("thumb_fit") else ""}"><img src="{e(sized(p["thumbnail"], 1000))}" '
                f'alt="{e(p.get("thumbnail_alt") or p["title"])}" referrerpolicy="no-referrer"></figure>'
                f'<p class="credit">画像: {e(p.get("thumbnail_credit"))}</p>')
     palette = ""
@@ -645,7 +661,7 @@ def build_post(p: dict, posts: list[dict]) -> str:
                    + "".join(f'<div><i style="background:{e(x["hex"])}"></i>{e(x["name"])}</div>' for x in p["colors"]) + "</div>")
     items = ""
     for i, it in enumerate(p.get("products") or [], 1):
-        img = (f'<div class="it-img"><img src="{e(it["image"])}" alt="{e(it["name"])}" loading="lazy" referrerpolicy="no-referrer"></div>'
+        img = (f'<div class="it-img"><img src="{e(sized(it["image"], 600))}" alt="{e(it["name"])}" loading="lazy" referrerpolicy="no-referrer"></div>'
                if it.get("image") else f'<div class="it-img noimg">{icon(p["category"])}</div>')
         colors = "".join(f'<i style="background:{e(x["hex"])}" title="{e(x["name"])}"></i>' for x in it.get("colors") or [])
         cname = "・".join(x["name"] for x in it.get("colors") or [])
@@ -691,7 +707,7 @@ def build_post(p: dict, posts: list[dict]) -> str:
     {pr}
     <h1>{e(p['title']).replace('。', '。<br class="br-pc">', 1) if p.get('title_break') else e(p['title'])}</h1>
     <p class="lead">{e(p['summary'])}</p>
-    <p class="date">{KIND[p['kind']]} ・ {p['date'].isoformat()} 掲載</p>
+    <p class="date">{KIND[p['kind']]} ・ <time datetime="{p['date'].isoformat()}">{p['date'].isoformat()}</time> 掲載{f" ・ <time datetime='{p['updated'].isoformat()}'>{p['updated'].isoformat()}</time> 更新" if p.get('updated') else ""}</p>
     {fig}
     {palette}
     <div class="prose">{before}</div>
@@ -707,7 +723,26 @@ def build_post(p: dict, posts: list[dict]) -> str:
     img = p.get("thumbnail") or ""
     if img.startswith("/"):
         img = SITE["base_url"].rstrip("/") + img
-    return page(title=p["title"], desc=p["summary"], path=p["url"], body=body, current=p["category"], image=img)
+    base = SITE["base_url"].rstrip("/")
+    ld = [{
+        "@context": "https://schema.org", "@type": "Article", "headline": p["title"], "description": p["summary"],
+        "datePublished": p["date"].isoformat(), "dateModified": (p.get("updated") or p["date"]).isoformat(),
+        "mainEntityOfPage": base + p["url"], "inLanguage": "ja",
+        **({"image": [img]} if img else {}),
+        "author": {"@type": "Organization", "name": f'{SITE["title"]} 編集部', "url": base + "/about/"},
+        "publisher": {"@type": "Organization", "name": SITE["title"], "url": base + "/"},
+    }, {
+        "@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "トップ", "item": base + "/"},
+            {"@type": "ListItem", "position": 2, "name": c["name"], "item": f'{base}/c/{c["slug"]}/'},
+            {"@type": "ListItem", "position": 3, "name": p["title"], "item": base + p["url"]}],
+    }]
+    if p.get("products"):
+        ld.append({"@context": "https://schema.org", "@type": "ItemList", "name": p["title"], "itemListElement": [
+            {"@type": "ListItem", "position": i, "name": it["name"], "url": f'{base}{p["url"]}#item-{i}',
+             **({"image": it["image"]} if it.get("image") else {})}
+            for i, it in enumerate(p["products"], 1)]})
+    return page(title=p["title"], desc=p["summary"], path=p["url"], body=body, current=p["category"], image=img, ld=ld)
 
 
 def build_about() -> str:
@@ -762,7 +797,7 @@ def catalog(posts: list[dict]) -> list[dict]:
             if not it.get("q") or it["name"] in seen:
                 continue
             seen.add(it["name"])
-            rows.append({"id": item_id(it["name"]), "cat": c["slug"], "name": it["name"], "img": it.get("image") or "",
+            rows.append({"id": item_id(it["name"]), "cat": c["slug"], "name": it["name"], "img": sized(it.get("image") or "", 200),
                          "price": (it.get("price") or "").split("(")[0], "yen": price_yen(it.get("price")),
                          "url": it["url"], "btns": store_buttons(it["q"], "my-desk", it.get("stores"))})
     ids = [r["id"] for r in rows]
