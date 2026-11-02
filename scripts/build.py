@@ -547,8 +547,9 @@ def build_category(c: dict, posts: list[dict]) -> str:
                 chips = ('<div class="filters" role="group" aria-label="記事の種類" data-for="post" data-facet="kind">'
                          '<button class="on" data-k="all">すべて</button>'
                          + "".join(f'<button data-k="{k}">{KIND[k]}</button>' for k in kinds) + "</div>")
-            grid += ('<section class="cat-sec"><div class="sec-h"><h2>記事</h2></div>' + chips
-                     + '<div class="grid3" data-list="post">' + "\n".join(pcard(p) for p in mine) + "</div></section>")
+            # 記事を物の一覧より上に出す(2026-11-03 本人。比べた記事で決めてもらってから店へ送る方が買われやすい)
+            grid = ('<section class="cat-sec"><div class="sec-h"><h2>記事</h2></div>' + chips
+                     + '<div class="grid3" data-list="post">' + "\n".join(pcard(p) for p in mine) + "</div></section>") + grid
     else:
         grid = ('<div class="empty"><p>この種類の記事は、いま準備しています。</p>'
                 '<p>ほかの種類から、白と淡い色の物を見てみてください。</p>'
