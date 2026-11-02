@@ -343,6 +343,12 @@ def page(*, title: str, desc: str, path: str, body: str, current: str = "", imag
 # ── 部品 ────────────────────────────────────────────────────
 
 def img_tag(p: dict) -> str:
+    if p.get("card_items"):  # まとめ記事のカードに物を4つ並べる(2026-11-03 本人「1商品だけでなく複数商品を載せてクリックさせたい」)
+        items = p.get("products") or []
+        picks = [items[n - 1] for n in p["card_items"] if 0 < n <= len(items) and items[n - 1].get("image")][:4]
+        return ('<span class="collage">' + "".join(
+            f'<img src="{e(sized(it["image"], 300))}" alt="{e(it["name"])}" loading="lazy" referrerpolicy="no-referrer">'
+            for it in picks) + "</span>")
     if not p.get("thumbnail"):
         return icon(p["category"])
     return f'<img src="{e(sized(p["thumbnail"], 600))}" alt="{e(p.get("thumbnail_alt") or p["title"])}" loading="lazy" referrerpolicy="no-referrer">'
