@@ -26,7 +26,7 @@ CATS = CFG["categories"]
 CAT = {c["slug"]: c for c in CATS}
 KIND = {"new": "海外の新作", "buy": "まとめ"}
 CSS_VER = int((ROOT / "assets" / "cozy.css").stat().st_mtime)  # 直したら古い見た目が残らないように
-FONTS = "https://fonts.googleapis.com/css2?family=DM+Mono:wght@400&family=Noto+Sans+JP:wght@400;500;700&family=Zen+Maru+Gothic:wght@700;900&display=swap"
+FONTS = "https://fonts.googleapis.com/css2?family=DM+Mono:wght@400&family=Klee+One:wght@600&family=Noto+Sans+JP:wght@400;500;700&family=Zen+Maru+Gothic:wght@700;900&display=swap"
 
 # 種類のアイコン(線画)。一覧とページの見出しで使う
 ICON = {
@@ -445,20 +445,57 @@ def decorate_guide(html_: str) -> str:
     return html_
 
 
+TAPES = ["#F3C9D1", "#CFE0E8", "#E8DCC8", "#D9E5CF"]
+TILTS = [-5, 4, -3, 5, 4, -6, 7, -4, 3, -2, 6, -5]
+JIT_X = [0.0, 1.2, -0.8, 0.6, -1.0, 0.9, -0.5, 1.1, -1.2, 0.4, -0.7, 0.8]
+JIT_Y = [0.0, -1.5, 1.2, -0.6, 1.4, -1.0, 0.8, -1.3, 0.5, 1.1, -0.9, 0.3]
+
+
+def board_words(p: dict) -> tuple[str, str]:
+    """看板の札の文字(小さい行, 大きい行)。記事の board: {lead, title} があればそれを使う"""
+    b = p.get("board") or {}
+    if b.get("title"):
+        return b.get("lead", ""), b["title"]
+    t = p["title"]
+    if "。" in t:
+        lead, _, big = t.partition("。")
+        return lead, big
+    return CAT[p["category"]]["name"], t
+
+
+def note_board(p: dict, shots: list) -> str:
+    """まとめ記事の看板。方眼ノートに写真をマスキングテープで貼った形(2026-11-02 本人が見本3案から選んだ)。
+    物の数から、上の段と下の段に分けて、置き場所と傾きを自動で決める。真ん中に題の札。押すとその物へ飛ぶ"""
+    n = len(shots)
+    rows = [shots[: (n + 1) // 2], shots[(n + 1) // 2:]]
+    cards = []
+    k_all = 0
+    for r, row in enumerate(rows):
+        k = len(row)
+        slot = 96 / max(k, 1)
+        w = min(21.0, slot - 1.8)
+        for j, (i, it) in enumerate(row):
+            x = 2 + j * slot + (slot - w) / 2 + JIT_X[k_all % 12]
+            y = 5 + JIT_Y[k_all % 12] if r == 0 else 5 - JIT_Y[k_all % 12]
+            pos = f"top:{y:.1f}%" if r == 0 else f"bottom:{y:.1f}%"
+            cards.append(
+                f'<a class="nb-card" href="#item-{i}" title="{e(it["name"])}" '
+                f'style="left:{x:.1f}%;{pos};width:{w:.1f}%;--tilt:{TILTS[k_all % 12]}deg;--tape:{TAPES[k_all % 4]}">'
+                f'<img src="{e(it["image"])}" alt="{e(it["name"])}" referrerpolicy="no-referrer"></a>')
+            k_all += 1
+    lead, big = board_words(p)
+    credits = "・".join(dict.fromkeys(it.get("image_credit") for _, it in shots if it.get("image_credit")))
+    return (f'<figure class="board note">{"".join(cards)}'
+            f'<div class="nb-label"><small>{e(lead)}</small><b>{e(big)}</b></div></figure>'
+            f'<p class="credit">画像: {e(credits)}</p>')
+
+
 def build_post(p: dict, posts: list[dict]) -> str:
     c = CAT[p["category"]]
     fig = ""
-    shots = [(i, it) for i, it in enumerate(p.get("products") or [], 1) if it.get("image")][:10]
+    shots = [(i, it) for i, it in enumerate(p.get("products") or [], 1) if it.get("image")][:12]
     if p["kind"] == "buy" and len(shots) >= 3:
-        # まとめ記事の看板は、紹介する物を全部並べる(2026-11-02 本人「看板にはこれから紹介するガジェットをたくさん見せたい」)
-        # 数が奇数なら1つ目を大きく、偶数なら同じ大きさで2段に並べる。押すとその物の場所へ飛ぶ
-        n = len(shots)
-        tiles = "".join(
-            f'<a class="lay-tile" href="#item-{i}" title="{e(it["name"])}"><img src="{e(it["image"])}" alt="{e(it["name"])}" referrerpolicy="no-referrer"></a>'
-            for i, it in shots)
-        credits = "・".join(dict.fromkeys(it.get("image_credit") for _, it in shots if it.get("image_credit")))
-        fig = (f'<figure class="board lay {"odd" if n % 2 else "even"}" style="--cols:{(n - 1) // 2 if n % 2 else n // 2}">{tiles}</figure>'
-               f'<p class="credit">画像: {e(credits)}</p>')
+        fig = note_board(p, shots)
     elif p.get("thumbnail"):
         fig = (f'<figure class="board{" fit" if p.get("thumb_fit") else ""}"><img src="{e(p["thumbnail"])}" '
                f'alt="{e(p.get("thumbnail_alt") or p["title"])}" referrerpolicy="no-referrer"></figure>'
