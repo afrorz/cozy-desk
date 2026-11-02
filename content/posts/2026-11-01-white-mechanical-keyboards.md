@@ -3,7 +3,6 @@ title: "打つのが楽しい白いキーボード、日本で今買える8つ�
 date: 2026-11-01
 category: keyboard
 kind: buy
-board: {lead: "6千円台から HHKB まで", title: "打つのが楽しい白いキーボード8選"}
 summary: "カチャカチャと打つ感触を楽しめる、白いメカニカルキーボードと高級キーボードを8つ選びました。NuPhy・Keychron・Lofree・ロジクール・Razer・HHKB・REALFORCE など。多くは日本語配列で選べます。"
 thumbnail: "https://cdn.shopify.com/s/files/1/0322/6488/0265/files/newmain2_bd56f441-a955-4315-993e-69a0761f1203.webp?v=1792029963"
 thumbnail_alt: "NuPhy Air75 V3 のホワイト。白いキーに、ところどころ赤・黄・緑のキーが入った薄いキーボード"

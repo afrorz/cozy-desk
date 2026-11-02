@@ -494,7 +494,7 @@ def build_post(p: dict, posts: list[dict]) -> str:
     c = CAT[p["category"]]
     fig = ""
     shots = [(i, it) for i, it in enumerate(p.get("products") or [], 1) if it.get("image")][:12]
-    if p["kind"] == "buy" and len(shots) >= 3:
+    if p.get("board_style") == "note" and len(shots) >= 3:  # 記事ごとに選ぶ(11/2 本人「とりあえずガジェットポーチだけ」)
         fig = note_board(p, shots)
     elif p.get("thumbnail"):
         fig = (f'<figure class="board{" fit" if p.get("thumb_fit") else ""}"><img src="{e(p["thumbnail"])}" '
