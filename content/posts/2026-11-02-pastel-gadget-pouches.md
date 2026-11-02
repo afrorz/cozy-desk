@@ -61,7 +61,7 @@ products:
     stores: [amazon]
   - name: "Bellroy Tech Kit Saltbush"
     short: "Bellroy Tech Kit"
-    image: "https://bellroy-product-images.imgix.net/bellroy_dot_com_gallery_image/JPY/ETKA-SAB-217/0"
+    image: "https://bellroy-product-images.imgix.net/bellroy_dot_com_gallery_image/JPY/ETKA-SAB-217/0?bg-remove=true&fm=png&w=800"
     image_credit: "Bellroy 公式サイト"
     price: "9,900円(掲載時点・Bellroy 公式サイト・税込)"
     colors: [{name: Saltbush, hex: "#E3DACB"}]
