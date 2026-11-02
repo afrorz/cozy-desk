@@ -448,7 +448,18 @@ def decorate_guide(html_: str) -> str:
 def build_post(p: dict, posts: list[dict]) -> str:
     c = CAT[p["category"]]
     fig = ""
-    if p.get("thumbnail"):
+    shots = [(i, it) for i, it in enumerate(p.get("products") or [], 1) if it.get("image")][:10]
+    if p["kind"] == "buy" and len(shots) >= 3:
+        # まとめ記事の看板は、紹介する物を全部並べる(2026-11-02 本人「看板にはこれから紹介するガジェットをたくさん見せたい」)
+        # 数が奇数なら1つ目を大きく、偶数なら同じ大きさで2段に並べる。押すとその物の場所へ飛ぶ
+        n = len(shots)
+        tiles = "".join(
+            f'<a class="lay-tile" href="#item-{i}" title="{e(it["name"])}"><img src="{e(it["image"])}" alt="{e(it["name"])}" referrerpolicy="no-referrer"></a>'
+            for i, it in shots)
+        credits = "・".join(dict.fromkeys(it.get("image_credit") for _, it in shots if it.get("image_credit")))
+        fig = (f'<figure class="board lay {"odd" if n % 2 else "even"}" style="--cols:{(n - 1) // 2 if n % 2 else n // 2}">{tiles}</figure>'
+               f'<p class="credit">画像: {e(credits)}</p>')
+    elif p.get("thumbnail"):
         fig = (f'<figure class="board{" fit" if p.get("thumb_fit") else ""}"><img src="{e(p["thumbnail"])}" '
                f'alt="{e(p.get("thumbnail_alt") or p["title"])}" referrerpolicy="no-referrer"></figure>'
                f'<p class="credit">画像: {e(p.get("thumbnail_credit"))}</p>')
