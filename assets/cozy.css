@@ -538,3 +538,58 @@ footer a { color: inherit; }
   box-shadow: 0 4px 10px -4px rgba(74, 64, 57, .45); }
 .ft-out img { width: 100%; height: 100%; object-fit: contain; }
 .ft-card.has-in .ft-txt { padding: 0 4px; }
+
+/* 選び方の中の、物×できることの早見の表(2026-11-02) */
+.mx { margin: 14px 0 18px; background: var(--milk); border: 1px solid var(--line); border-radius: 18px; padding: 6px; }
+.mx-row { display: grid; grid-template-columns: minmax(150px, 1.5fr) repeat(var(--n), minmax(0, 1fr)); align-items: center; gap: 6px;
+  padding: 8px; border-radius: 12px; text-decoration: none; color: var(--cocoa); }
+.mx-row + .mx-row:not(.mx-top) { border-top: 1px dashed var(--line); }
+a.mx-row:hover { background: #fff; }
+.mx-top { padding: 6px 8px 8px; }
+.mx-h { text-align: center; font: 700 12.5px/1.3 var(--f-disp); color: var(--cocoa); background: #fff; border-radius: 99px; padding: 6px 4px; }
+.mx-name { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.mx-img { flex: none; width: 46px; height: 46px; background: #fff; border-radius: 10px; padding: 3px; }
+.mx-img img { width: 100%; height: 100%; object-fit: contain; }
+.mx-name b { display: block; font-size: 12.5px; line-height: 1.4; }
+.mx-name em { font-style: normal; font-size: 10.5px; font-weight: 700; color: var(--buy); }
+.mx-name em::after { content: " ›"; }
+.mx-c { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 3px; }
+.mx-c i { display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: var(--oak-d); color: #fff; font: 700 13px/1 var(--f-body); font-style: normal; }
+.mx-c small { font-size: 10.5px; line-height: 1.45; color: #6E625A; }
+.mx-c.no { color: #C9BFB5; font-size: 14px; }
+@media (max-width: 560px) {
+  .mx-row { grid-template-columns: minmax(0, 1.9fr) repeat(var(--n), minmax(0, 1fr)); gap: 3px; padding: 8px 4px; }
+  .mx-img { width: 30px; height: 30px; padding: 2px; }
+  .mx-name b { font-size: 11px; line-height: 1.35; }
+  .mx-c i { width: 20px; height: 20px; font-size: 11px; }
+  .mx-name { gap: 6px; }
+  .mx-name em { display: none; }
+  .mx-h { font-size: 11px; padding: 5px 2px; }
+  .mx-c small { font-size: 9.5px; }
+}
+
+/* 選び方の中の、強さの段(2026-11-02) */
+.drops { display: flex; flex-direction: column; gap: 10px; margin: 14px 0 14px; }
+.dp-row { display: grid; grid-template-columns: 52px minmax(140px, 1fr) 2fr; align-items: center; gap: 14px;
+  background: var(--milk); border: 1px solid var(--line); border-radius: 18px; padding: 14px; }
+.dp-icon { display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; background: #fff; }
+.dp-icon i { width: 20px; height: 20px; border-radius: 0 50% 50% 50%; transform: rotate(45deg); background: #8FB6CC; }
+.dp-row.lv1 .dp-icon i { background: #C3D8E3; }
+.dp-row.lv2 .dp-icon i { background: transparent; border: 2px dashed #C9BFB5; }
+.dp-txt b { display: block; font: 700 15px/1.4 var(--f-disp); }
+.dp-txt p { margin: 3px 0 0; font-size: 12px; line-height: 1.6; color: var(--mute); }
+.dp-items { display: flex; flex-wrap: wrap; gap: 10px; }
+.dp-item { display: flex; flex-direction: column; align-items: center; width: 74px; text-decoration: none; color: var(--cocoa); }
+.dp-img { width: 58px; height: 58px; border-radius: 50%; background: #fff; padding: 7px; box-shadow: 0 4px 10px -6px rgba(74, 64, 57, .4);
+  transition: transform .15s ease; }
+.dp-img img { width: 100%; height: 100%; object-fit: contain; }
+.dp-item > span:last-child { margin-top: 5px; font-size: 10.5px; line-height: 1.35; text-align: center; }
+.dp-item:hover .dp-img { transform: translateY(-2px); }
+@media (max-width: 640px) {
+  .dp-row { grid-template-columns: 44px 1fr; }
+  .dp-icon { width: 44px; height: 44px; }
+  .dp-items { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+  .dp-item { width: auto; }
+  .dp-img { width: 52px; height: 52px; }
+}
+@media (prefers-reduced-motion: reduce) { .dp-img { transition: none; } }

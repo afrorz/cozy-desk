@@ -123,7 +123,9 @@ def mini_thumbs(html_: str, p: dict) -> str:
     (2026-11-02 本人「選び方の中にサムネイルを入れたい。クリックしたら購入リンク先に飛ぶように」「もっといい感じにまとめて」)
     - {{items:3,2}} … その番号の物の小さな写真を並べる
     - {{sizes ... }} … 1行に「札|見出し|説明|番号,番号」。大きさなどで分けた箱を横に並べ、物を写真・名前・大きさで1行ずつ出す
-    - {{features ... }} … 1行に「見出し|説明|番号:特徴の文;番号:特徴の文」。分け方ごとの帯を縦に積み、物の札(写真・名前・長めの説明)を並べる"""
+    - {{features ... }} … 1行に「見出し|説明|番号:特徴の文;番号:特徴の文」。分け方ごとの帯を縦に積み、物の札(写真・名前・長めの説明)を並べる
+    - {{matrix ... }} … 1行目に列の名前「A|B|C」、2行目から「番号:○|説明|」(空=なし、○=あり、文=ありと一言)。物×できることの早見の表
+    - {{drops ... }} … 1行に「見出し|説明|番号,番号」。上から強い順の段に、しずくの印と物の丸い写真を並べる(水や汚れへの強さなど)"""
     prods = p.get("products") or []
 
     def item(n: int) -> dict:
@@ -182,6 +184,46 @@ def mini_thumbs(html_: str, p: dict) -> str:
                          f'<i>{len(cards)}点</i></div><div class="ft-cards">{"".join(cards)}</div></div>')
         return f'<div class="features">{"".join(bands)}</div>'
 
+    def thumb(it: dict) -> str:
+        return f'<img src="{e(it["image"])}" alt="" loading="lazy" referrerpolicy="no-referrer">' if it.get("image") else ""
+
+    def matrix(m: re.Match) -> str:
+        lines = [x for x in m.group(1).strip().splitlines() if x.strip()]
+        heads = [h.strip() for h in lines[0].split("|")]
+        out = ['<div class="mx" style="--n:%d"><div class="mx-row mx-top"><span></span>' % len(heads)
+               + "".join(f'<span class="mx-h">{e(h)}</span>' for h in heads) + "</div>"]
+        for line in lines[1:]:
+            num, _, cells = line.partition(":")
+            it = item(int(num))
+            url, attrs, short = first_store(it, p["slug"])
+            vals = [c.strip() for c in cells.split("|")] + [""] * len(heads)
+            tds = ""
+            for h, v in zip(heads, vals):
+                if not v:
+                    tds += f'<span class="mx-c no" aria-label="{e(h)}: なし">-</span>'
+                else:
+                    note = "" if v == "○" else f'<small>{e(v)}</small>'
+                    tds += f'<span class="mx-c yes"><i aria-label="{e(h)}">✓</i>{note}</span>'
+            out.append(f'<a class="mx-row" href="{e(url)}"{attrs}><span class="mx-name"><span class="mx-img">{thumb(it)}</span>'
+                       f'<span><b>{e(it.get("short") or it["name"])}</b><em>{e(short)}で見る</em></span></span>{tds}</a>')
+        return "".join(out) + "</div>"
+
+    def drops(m: re.Match) -> str:
+        rows = []
+        for k, line in enumerate(x for x in m.group(1).strip().splitlines() if x.strip()):
+            head, desc, nums = (x.strip() for x in line.split("|"))
+            items_ = []
+            for x in nums.split(","):
+                it = item(int(x))
+                url, attrs, short = first_store(it, p["slug"])
+                items_.append(f'<a class="dp-item" href="{e(url)}"{attrs} title="{e(it["name"])}を{e(short)}で見る">'
+                              f'<span class="dp-img">{thumb(it)}</span><span>{e(it.get("short") or it["name"])}</span></a>')
+            rows.append(f'<div class="dp-row lv{k}"><span class="dp-icon" aria-hidden="true"><i></i></span>'
+                        f'<div class="dp-txt"><b>{e(head)}</b><p>{e(desc)}</p></div><div class="dp-items">{"".join(items_)}</div></div>')
+        return f'<div class="drops">{"".join(rows)}</div>'
+
+    html_ = re.sub(r"<p>\{\{matrix\s*(.*?)\}\}</p>", matrix, html_, flags=re.S)
+    html_ = re.sub(r"<p>\{\{drops\s*(.*?)\}\}</p>", drops, html_, flags=re.S)
     html_ = re.sub(r"<p>\{\{sizes\s*(.*?)\}\}</p>", sizes, html_, flags=re.S)
     html_ = re.sub(r"<p>\{\{features\s*(.*?)\}\}</p>", features, html_, flags=re.S)
     return re.sub(r"\{\{items:([\d,\s]+)\}\}",
