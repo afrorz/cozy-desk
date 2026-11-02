@@ -602,3 +602,6 @@ a.mx-row:hover { background: #fff; }
 .tb-item em { display: block; font-style: normal; font-size: 11px; font-weight: 700; color: var(--buy); line-height: 1.3; }
 .tb-item em::after { content: " ›"; }
 .tb-item:hover b { text-decoration: underline; }
+
+/* 題を「。」の後ろで改行する(記事の title_break: true。PC だけ。2026-11-02) */
+@media (max-width: 640px) { .br-pc { display: none; } }

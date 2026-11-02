@@ -681,7 +681,7 @@ def build_post(p: dict, posts: list[dict]) -> str:
   <div class="wrap">
     <div class="crumb"><a href="/">トップ</a> / <a href="/c/{c['slug']}/">{e(c['name'])}</a></div>
     {pr}
-    <h1>{e(p['title'])}</h1>
+    <h1>{e(p['title']).replace('。', '。<br class="br-pc">', 1) if p.get('title_break') else e(p['title'])}</h1>
     <p class="lead">{e(p['summary'])}</p>
     <p class="date">{KIND[p['kind']]} ・ {p['date'].isoformat()} 掲載</p>
     {fig}
