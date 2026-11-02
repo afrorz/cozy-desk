@@ -26,7 +26,7 @@ CATS = CFG["categories"]
 CAT = {c["slug"]: c for c in CATS}
 KIND = {"new": "海外の新作", "buy": "まとめ"}
 CSS_VER = int((ROOT / "assets" / "cozy.css").stat().st_mtime)  # 直したら古い見た目が残らないように
-FONTS = "https://fonts.googleapis.com/css2?family=DM+Mono:wght@400&family=Klee+One:wght@600&family=Noto+Sans+JP:wght@400;500;700&family=Zen+Maru+Gothic:wght@700;900&display=swap"
+FONTS = "https://fonts.googleapis.com/css2?family=DM+Mono:wght@400&family=Noto+Sans+JP:wght@400;500;700&family=Zen+Maru+Gothic:wght@700;900&display=swap"
 
 # 種類のアイコン(線画)。一覧とページの見出しで使う
 ICON = {
