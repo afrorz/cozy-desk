@@ -3,6 +3,7 @@ title: "打つたびに気分が上がる、あなたの相棒キーボード"
 date: 2026-10-31
 category: keyboard
 kind: buy
+card_items: [1, 2, 6, 8]   # 記事一覧のカードに並べる物の番号(4つ)
 summary: "ロジクールと Keychron の日本の公式ストアで売っている、オフホワイト・ペールグレー・ローズのキーボードを8つ集めました。全部、日本語配列です。テンキーのある物、小さな物、丸いキーの物から選べます。"
 thumbnail: "https://resource.logitech.com/content/dam/logitech/en/products/keyboards/pebble-keys-2-k380s/2026/gallery/tonal-rose/pebble-keys-k380s-2-tonal-rose-top-angle-gallery-1-jp.png"
 thumbnail_alt: "ロジクール Pebble Keys 2 K380s のローズ。薄くて丸いキーが並ぶ小さなキーボード"

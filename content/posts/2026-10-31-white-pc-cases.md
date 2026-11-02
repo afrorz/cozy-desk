@@ -3,6 +3,7 @@ title: "白いPCを、デスクの主役に。ガラス越しに淡く光るケ�
 date: 2026-10-31
 category: pc
 kind: buy
+card_items: [1, 2, 3, 8]   # 記事一覧のカードに並べる物の番号(4つ)
 summary: "白いデスクに置いてなじむ、強化ガラスつきの白いPCケースを8つ。大きさ・CPU の冷やし方(空冷・水冷)・グラフィックボードの長さなど、買う前に見る所と、8つの寸法の比べ表をつけました。"
 thumbnail: "https://assets.corsair.com/image/upload/c_pad,q_auto,h_1024,w_1024,f_auto/products/Cases/3500x/gallery/CC-9011325-WW/CC-9011325-WW_01.webp"
 thumbnail_alt: "ガラスごしにピンクや水色に光る3つのファンが見える、白い PC ケース"

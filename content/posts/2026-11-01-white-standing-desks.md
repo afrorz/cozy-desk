@@ -3,6 +3,7 @@ title: "立っても座っても白いまま。脚まで白い電動昇降デス
 date: 2026-11-01
 category: desk
 kind: buy
+card_items: [1, 3, 5, 6]   # 記事一覧のカードに並べる物の番号(4つ)
 summary: "天板も脚も白い電動の昇降デスクを、FlexiSpot・ニトリ・山善・サンワダイレクト・Pixio から7つ選びました。幅100cmのコンパクトな物から、モニター2枚が載る140〜160cmまで。値段は3万円台から8万円台です。"
 thumbnail: "https://pixiogaming.jp/cdn/shop/files/pxds1200ewh_item.png?v=1762855786"
 thumbnail_alt: "天板も脚も白い電動昇降デスク"

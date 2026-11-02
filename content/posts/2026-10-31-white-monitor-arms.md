@@ -3,6 +3,7 @@ title: "モニターを浮かせてかっこいいデスクにレベルアップ
 date: 2026-10-31
 category: monitor
 kind: buy
+card_items: [1, 4, 6, 7]   # 記事一覧のカードに並べる物の番号(4つ)
 summary: "モニターの後ろの支柱を白にすると、画面だけが机の上にふわっと浮いて見えます。日本のサンワサプライ・エレコム・グリーンハウスで買える白いモニターアームを、1画面用と2画面用あわせて7つ選びました。"
 thumbnail: "https://cdn.sanwa.co.jp/product/syohin_img/C/CR-LAC2403W_MX.jpg"
 thumbnail_alt: "白い2画面用のモニターアーム。クランプで机の端に付ける"

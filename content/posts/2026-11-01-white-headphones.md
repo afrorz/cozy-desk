@@ -3,6 +3,7 @@ title: "首にかけても絵になる。白とベージュのヘッドホン8�
 date: 2026-11-01
 category: gear
 kind: buy
+card_items: [1, 5, 6, 8]   # 記事一覧のカードに並べる物の番号(4つ)
 summary: "ソニー・Anker・オーディオテクニカ・JBL・Apple から、白・オフホワイト・ベージュ・ピンクベージュのヘッドホンを8つ選びました。6千円台の軽いものから、ノイズキャンセリングの上位機まで。形・重さ・ケーブルでつなぐときの注意など買う前に見る所と、8つの比べ表をつけました。"
 thumbnail: "https://cdn.shopify.com/s/files/1/0508/4381/2001/files/D1402N21.jpg?v=1776307273"
 thumbnail_alt: "Anker Soundcore Space 2 のオフホワイト。丸みのある白いヘッドホン"

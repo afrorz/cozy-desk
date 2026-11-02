@@ -3,6 +3,7 @@ title: "白いだけじゃない、あなたのクリエイティブを刺激す
 date: 2026-10-31
 category: chair
 kind: buy
+card_items: [1, 2, 3, 4]   # 記事一覧のカードに並べる物の番号(4つ)
 summary: "白デスクの写真でよく見る、白いフレームと白いメッシュの背もたれのチェア。日本の公式ストアで買える白色モデルを、3万円台から10万円まで4つ集めました。"
 thumbnail: "https://cdn.shopify.com/s/files/1/0551/2632/7355/files/lite_f_3000px_06.jpg?v=1775539967"
 thumbnail_alt: "背もたれも座面も白いメッシュの COFO Chair Lite ホワイト"
