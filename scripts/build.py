@@ -125,6 +125,7 @@ def mini_thumbs(html_: str, p: dict) -> str:
     - {{sizes ... }} … 1行に「札|見出し|説明|番号,番号」。大きさなどで分けた箱を横に並べ、物を写真・名前・大きさで1行ずつ出す
     - {{features ... }} … 1行に「見出し|説明|番号:特徴の文;番号:特徴の文」。分け方ごとの帯を縦に積み、物の札(写真・名前・長めの説明)を並べる
     - {{matrix ... }} … 1行目に列の名前「A|B|C」、2行目から「番号:○|説明|」(空=なし、○=あり、文=ありと一言)。物×できることの早見の表
+    - {{cell:3}} … 比べ表の名前の欄に書く。小さな写真・短い名前・店のリンクになる
     - {{drops ... }} … 1行に「見出し|説明|番号,番号」。上から強い順の段に、しずくの印と物の丸い写真を並べる(水や汚れへの強さなど)"""
     prods = p.get("products") or []
 
@@ -222,6 +223,13 @@ def mini_thumbs(html_: str, p: dict) -> str:
                         f'<div class="dp-txt"><b>{e(head)}</b><p>{e(desc)}</p></div><div class="dp-items">{"".join(items_)}</div></div>')
         return f'<div class="drops">{"".join(rows)}</div>'
 
+    def cell(m: re.Match) -> str:  # 比べ表の名前の欄。小さな写真・短い名前・店のリンク
+        it = item(int(m.group(1)))
+        url, attrs, short = first_store(it, p["slug"])
+        return (f'<a class="tb-item" href="{e(url)}"{attrs}><span class="tb-img">{thumb(it)}</span>'
+                f'<span><b>{e(it.get("short") or it["name"])}</b><em>{e(short)}で見る</em></span></a>')
+
+    html_ = re.sub(r"\{\{cell:(\d+)\}\}", cell, html_)
     html_ = re.sub(r"<p>\{\{matrix\s*(.*?)\}\}</p>", matrix, html_, flags=re.S)
     html_ = re.sub(r"<p>\{\{drops\s*(.*?)\}\}</p>", drops, html_, flags=re.S)
     html_ = re.sub(r"<p>\{\{sizes\s*(.*?)\}\}</p>", sizes, html_, flags=re.S)
