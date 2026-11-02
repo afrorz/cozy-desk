@@ -107,6 +107,31 @@ def store_buttons(q: str, where: str, only: list[str] | None = None) -> str:
     return '<div class="btns">' + "".join(out) + "</div>"
 
 
+def mini_thumbs(html_: str, p: dict) -> str:
+    """本文の {{items:3,2}} を、その番号の物の小さな写真に置き換える。押すと売っている最初の店のページが開く
+    (2026-11-02 本人「選び方の中にサムネイルを入れたい。クリックしたら購入リンク先に飛ぶように」)"""
+    prods = p.get("products") or []
+
+    def one(n: int) -> str:
+        if not 1 <= n <= len(prods):
+            sys.exit(f"{p['slug']}: {{{{items}}}} の番号 {n} の物がありません")
+        it = prods[n - 1]
+        key, label, base = next(st for st in STORES if not it.get("stores") or st[0] in it["stores"])
+        url = base.replace("{q}", quote(it.get("q") or it["name"], safe=""))
+        attrs = ""
+        if AFF.get(key):
+            url = AFF[key].replace("{url}", quote(url, safe=""))
+            attrs = ' rel="sponsored noopener"'
+        img = (f'<img src="{e(it["image"])}" alt="" loading="lazy" referrerpolicy="no-referrer">' if it.get("image") else "")
+        short = label.replace("で見る", "").replace("ショッピング", "").strip()
+        return (f'<a class="mini" href="{e(url)}" target="_blank"{attrs} data-store="{key}" data-where="{e(p["slug"])}" '
+                f'title="{e(it["name"])}を{e(short)}で見る">{img}<span>{e(short)}で見る</span></a>')
+
+    return re.sub(r"\{\{items:([\d,\s]+)\}\}",
+                  lambda m: '<span class="minis">' + "".join(one(int(x)) for x in m.group(1).split(",") if x.strip()) + "</span>",
+                  html_)
+
+
 def dots(colors, cls="dots") -> str:
     if not colors:
         return ""
@@ -527,7 +552,7 @@ def build_post(p: dict, posts: list[dict]) -> str:
         items = f'<div class="items-list">{items}</div>'
     # 本文に <!-- after-items --> があれば、そこから後ろ(選び方・比べ表など)を商品の下に出す。
     # 長い説明で商品が下に押しやられないように(2026-11-01 PCケースの記事で選び方を厚くしたとき)
-    before, _, rest = p["html"].partition("<!-- after-items -->")
+    before, _, rest = mini_thumbs(p["html"], p).partition("<!-- after-items -->")
     after = f'<div class="prose guide">{decorate_guide(rest)}</div>' if rest.strip() else ""
     japan = ""
     if p.get("japan"):

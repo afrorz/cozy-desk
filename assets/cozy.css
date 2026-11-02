@@ -479,3 +479,13 @@ footer a { color: inherit; }
     .nb-label { width: 66%; }
 }
 @media (prefers-reduced-motion: reduce) { .nb-card { transition: none; } }
+
+/* 選び方の中の小さな写真。押すと店のページへ(2026-11-02) */
+.minis { display: flex; flex-wrap: wrap; gap: 10px; margin: 8px 0 4px; }
+.mini { display: flex; flex-direction: column; align-items: center; width: 92px; padding: 6px 6px 5px; background: #fff; border: 1px solid var(--line);
+  border-radius: 14px; text-decoration: none; transition: transform .15s ease, box-shadow .15s ease; }
+.mini img { width: 100%; aspect-ratio: 1; object-fit: contain; }
+.mini span { font-size: 10.5px; line-height: 1.3; color: var(--buy); font-weight: 700; margin-top: 3px; white-space: nowrap; }
+.mini:hover { transform: translateY(-2px); box-shadow: 0 8px 16px -10px rgba(74, 64, 57, .5); }
+@media (max-width: 560px) { .mini { width: 76px; } }
+@media (prefers-reduced-motion: reduce) { .mini { transition: none; } }
