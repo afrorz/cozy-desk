@@ -122,7 +122,8 @@ def mini_thumbs(html_: str, p: dict) -> str:
     """本文の書き込みを、物の写真つきの部品に置き換える。押すと売っている最初の店のページが開く
     (2026-11-02 本人「選び方の中にサムネイルを入れたい。クリックしたら購入リンク先に飛ぶように」「もっといい感じにまとめて」)
     - {{items:3,2}} … その番号の物の小さな写真を並べる
-    - {{sizes ... }} … 1行に「札|見出し|説明|番号,番号」。大きさなどで分けた箱を横に並べ、物を写真・名前・大きさで1行ずつ出す"""
+    - {{sizes ... }} … 1行に「札|見出し|説明|番号,番号」。大きさなどで分けた箱を横に並べ、物を写真・名前・大きさで1行ずつ出す
+    - {{features ... }} … 1行に「見出し|説明|番号:特徴の文;番号:特徴の文」。分け方ごとの帯を縦に積み、物の札(写真・名前・長めの説明)を並べる"""
     prods = p.get("products") or []
 
     def item(n: int) -> dict:
@@ -157,7 +158,27 @@ def mini_thumbs(html_: str, p: dict) -> str:
                         + "".join(row(int(x)) for x in nums.split(",") if x.strip()) + "</div>")
         return f'<div class="sizes">{"".join(cols)}</div>'
 
+    def features(m: re.Match) -> str:
+        bands = []
+        for line in m.group(1).strip().splitlines():
+            if not line.strip():
+                continue
+            head, desc, rest = (x.strip() for x in line.split("|", 2))
+            cards = []
+            for part in rest.split(";"):
+                num, _, text = part.partition(":")
+                it = item(int(num))
+                url, attrs, short = first_store(it, p["slug"])
+                img = f'<img src="{e(it["image"])}" alt="" loading="lazy" referrerpolicy="no-referrer">' if it.get("image") else ""
+                cards.append(f'<a class="ft-card" href="{e(url)}"{attrs}><span class="ft-img">{img}</span>'
+                             f'<span class="ft-txt"><b>{e(it.get("short") or it["name"])}</b><span>{e(text.strip())}</span>'
+                             f'<em>{e(short)}で見る</em></span></a>')
+            bands.append(f'<div class="ft-band"><div class="ft-head"><b>{e(head)}</b><span>{e(desc)}</span>'
+                         f'<i>{len(cards)}点</i></div><div class="ft-cards">{"".join(cards)}</div></div>')
+        return f'<div class="features">{"".join(bands)}</div>'
+
     html_ = re.sub(r"<p>\{\{sizes\s*(.*?)\}\}</p>", sizes, html_, flags=re.S)
+    html_ = re.sub(r"<p>\{\{features\s*(.*?)\}\}</p>", features, html_, flags=re.S)
     return re.sub(r"\{\{items:([\d,\s]+)\}\}",
                   lambda m: '<span class="minis">' + "".join(one(int(x)) for x in m.group(1).split(",") if x.strip()) + "</span>",
                   html_)
