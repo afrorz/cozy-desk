@@ -631,7 +631,7 @@ def note_board(p: dict, shots: list) -> str:
         w = min(21.0, slot - 1.8)
         for j, (i, it) in enumerate(row):
             x = 2 + j * slot + (slot - w) / 2 + JIT_X[k_all % 12]
-            y = 5 + JIT_Y[k_all % 12] if r == 0 else 5 - JIT_Y[k_all % 12]
+            y = 8.5 + JIT_Y[k_all % 12] if r == 0 else 5 - JIT_Y[k_all % 12]
             pos = f"top:{y:.1f}%" if r == 0 else f"bottom:{y:.1f}%"
             cards.append(
                 f'<a class="nb-card" href="#item-{i}" title="{e(it["name"])}" '

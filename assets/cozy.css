@@ -469,7 +469,7 @@ footer a { color: inherit; }
   background: var(--tape); opacity: .78; transform: rotate(-4deg); }
 .nb-card:hover { transform: rotate(0deg) translateY(-3px); z-index: 8; }
 .nb-card:focus-visible { outline: 3px solid var(--oak-d); outline-offset: 3px; z-index: 8; }
-.nb-label { position: absolute; left: 50%; top: 50%; width: 44%; transform: translate(-50%, -50%) rotate(-2deg); z-index: 9;
+.nb-label { position: absolute; left: 50%; top: 46%; width: 44%; transform: translate(-50%, -50%); z-index: 9;
   background: #fff; border-radius: 14px; padding: 2.2cqw 1.6cqw; text-align: center; box-shadow: 0 14px 26px -14px rgba(74, 64, 57, .5); }
 .nb-label small { display: block; font: 700 max(10px, 1.75cqw)/1.4 var(--f-disp); letter-spacing: .04em; color: var(--oak-d); }
 .nb-label b { display: block; font: 900 max(15px, 3.5cqw)/1.3 var(--f-disp); color: var(--cocoa); margin-top: .4cqw; }
