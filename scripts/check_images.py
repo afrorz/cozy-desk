@@ -36,9 +36,9 @@ def collect() -> list[tuple[str, str, str]]:
             m = re.match(r'\s*-?\s*name:\s*"?(.+?)"?\s*$', line)
             if m and line.lstrip().startswith("- name:"):
                 name = m.group(1)
-            m = re.match(r'\s*(image|thumbnail):\s*"?([^"\s]+)"?', line)
+            m = re.match(r'\s*(image|thumbnail|inside):\s*"?([^"\s]+)"?', line)
             if m and m.group(2).startswith("http"):
-                rows.append((m.group(2), path.name, "(記事の表紙)" if m.group(1) == "thumbnail" else name))
+                rows.append((m.group(2), path.name, "(記事の表紙)" if m.group(1) == "thumbnail" else name + ("(中の写真)" if m.group(1) == "inside" else "")))
     return rows
 
 

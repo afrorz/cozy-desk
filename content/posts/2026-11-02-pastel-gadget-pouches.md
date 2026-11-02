@@ -22,6 +22,7 @@ products:
   - name: "tomtoc Terra-A27 小物ポーチ サンドベージュ"
     short: "tomtoc Terra-A27"                # 選び方の箱などで使う短い呼び名
     image: "https://cdn.shopify.com/s/files/1/0256/7979/0179/files/laptop_A27P1_08f2cd28-f1c6-4457-9cdf-97f1a8cfc53d.jpg?v=1762768172"
+    inside: "https://cdn.shopify.com/s/files/1/0256/7979/0179/files/BL3A3297_b4fdaee9-902a-4bec-9574-04c21018dcb2.jpg"
     image_credit: "tomtoc 公式サイト"
     price: "3,290円(掲載時点・tomtoc 公式店の希望小売価格・税込)"
     colors: [{name: サンドベージュ, hex: "#D9C7AE"}]
@@ -32,6 +33,7 @@ products:
   - name: "Wpc. はっ水キルティングガジェットポーチ フラワーレースオフ"
     short: "Wpc. キルティング"
     image: "https://image.rakuten.co.jp/wpc-worldparty/cabinet/2026fw/wpc/0000/w110_06.jpg"
+    inside: "https://wpcstore.itembox.cloud/product/017/000000001702/000000001702-12.jpg"
     image_credit: "Wpc. 公式ストア"
     price: "2,200円(掲載時点・Wpc. 公式ストア・税込)"
     colors: [{name: フラワーレースオフ, hex: "#F2EBDD"}]
@@ -42,6 +44,7 @@ products:
   - name: "MOTTERU sofumo マシカクポーチ ラメ ピンクライラック"
     short: "MOTTERU マシカクポーチ"
     image: "https://motteru.co.jp/wp/wp-content/uploads/2024/11/mot-gpouch02-pk.jpg"
+    inside: "https://motteru.co.jp/wp/wp-content/uploads/2024/11/mot-gpouch02_a07-1.jpg"
     image_credit: "MOTTERU 公式サイト"
     price: "2,480円(掲載時点・MOTTERU 公式サイト・税込)"
     colors: [{name: ピンクライラック, hex: "#EFC7CF", tone: ピンク}]
@@ -52,6 +55,7 @@ products:
   - name: "tomtoc Light-T12 ガジェットポーチ S ピンク"
     short: "tomtoc Light-T12 S"
     image: "https://cdn.shopify.com/s/files/1/0256/7979/0179/files/T12S1P1.png?v=1767500118"
+    inside: "https://cdn.shopify.com/s/files/1/0256/7979/0179/files/BL3A4589_0dec6289-cf58-4efc-af0b-9f1934bbf22a.jpg"
     image_credit: "tomtoc 公式サイト"
     price: "2,690円(掲載時点・tomtoc の Amazon 公式ストア・税込)"
     colors: [{name: ピンク, hex: "#E8B9BE"}]
@@ -62,6 +66,7 @@ products:
   - name: "Bellroy Tech Kit Saltbush"
     short: "Bellroy Tech Kit"
     image: "https://bellroy-product-images.imgix.net/bellroy_dot_com_gallery_image/JPY/ETKA-SAB-217/0?bg-remove=true&fm=png&w=800"
+    inside: "https://bellroy-product-images.imgix.net/bellroy_dot_com_gallery_image/JPY/ETKA-SAB-217/1?w=800"   # 中を開いた公式写真(選び方2の札に出る)
     image_credit: "Bellroy 公式サイト"
     price: "9,900円(掲載時点・Bellroy 公式サイト・税込)"
     colors: [{name: Saltbush, hex: "#E3DACB"}]
@@ -72,6 +77,7 @@ products:
   - name: "無印良品 リンクルナイロン 大きく開くポーチ・L ピンク"
     short: "無印良品 大きく開くポーチ・L"
     image: "https://image.rakuten.co.jp/mujirushi-ryohin/cabinet/item47/4550584475849.jpg"
+    inside: "https://image.rakuten.co.jp/mujirushi-ryohin/cabinet/item47/4550584475849_04.jpg"
     image_credit: "無印良品 楽天市場店(公式)"
     price: "1,590円(掲載時点・無印良品 公式・税込)"
     colors: [{name: ピンク, hex: "#E7D3D8"}]
@@ -82,6 +88,7 @@ products:
   - name: "コクヨ カバコ ハーフポケット サックスブルー"
     short: "コクヨ カバコ"
     image: "https://www.kokuyo.com/system/files/styles/width_900/private/SET43917.jpg.webp?itok=SYiBFIFa"
+    inside: "https://www.kokuyo.com/system/files/SEA43920.jpg"
     image_credit: "コクヨ 公式サイト"
     price: "1,980円(掲載時点・メーカー希望小売価格・税込)"
     colors: [{name: サックスブルー, hex: "#BCD6E2"}]
@@ -92,6 +99,7 @@ products:
   - name: "MILESTO UTILITY ハンギングオーガナイザー 2L グレージュ"
     short: "MILESTO ハンギングオーガナイザー"
     image: "https://bruno-onlineshop.com/client_info/IDEA/itemimage/07643128/07643128_sku_65016e2c9536a.jpg"
+    inside: "https://image.rakuten.co.jp/milesto/cabinet/item/2023_3/7643124_16.jpg"
     image_credit: "MILESTO 公式オンラインショップ"
     price: "3,520円(掲載時点・MILESTO 楽天公式店・税込)"
     colors: [{name: グレージュ, hex: "#D9C3B6"}]
@@ -102,6 +110,7 @@ products:
   - name: "HIGHTIDE nähe ソフトグリッドポーチ L クリア"
     short: "HIGHTIDE ソフトグリッドポーチ L"
     image: "https://www.hightide.co.jp/wp-content/uploads/2026/06/GB338_CL_1.jpg"
+    inside: "https://www.hightide.co.jp/wp-content/uploads/2026/06/GB338_IMG2.jpg"
     image_credit: "HIGHTIDE 公式サイト"
     price: "2,090円(掲載時点・ハイタイド公式ショップ・税込)"
     colors: [{name: クリア, hex: "#F4F5F5"}]
@@ -154,8 +163,8 @@ sources:
 ポーチの中がひと部屋だけだと、ケーブルがからまり、底の物が取り出しにくくなります。
 
 {{features
-ケーブルを1本ずつ留める|ゴムで留めると、ケーブルがからまない|5:ケーブル用のゴム6本・網のポケット2つ・モバイルバッテリー用のポケット;2:仕切りとゴムつき
-ポケットで分ける|入れる場所を決めておくと、底の物まで取り出しやすい|7:幅の違う仕切り3つ・広いポケット・ファスナーつきの網のポケット;8:ファスナーつきの網のポケット3段。1段は取り外して使える;1:ポケット3つ(1つはファスナーつき);4:ポケットが複数;6:仕分けポケットと網の仕切り;9:ファスナーつきの仕切りポケット
+ケーブルを1本ずつ留める|ゴムで留めると、ケーブルがからまない|5:ケーブル用のゴム6本・網のポケット2つ・モバイルバッテリー用のポケット;2:仕切りとゴムつき(中の写真は別の柄)
+ポケットで分ける|入れる場所を決めておくと、底の物まで取り出しやすい|7:幅の違う仕切り3つ・広いポケット・ファスナーつきの網のポケット;8:ファスナーつきの網のポケット3段。1段は取り外して使える(中の写真は別の色);1:ポケット3つ(1つはファスナーつき);4:ポケットが複数;6:仕分けポケットと網の仕切り;9:ファスナーつきの仕切りポケット
 中の作りは記載なし|公式に書かれていないので、小物を分けずに入れる前提で選ぶ|3:手のひらほどの正方形。仕切りやポケットの記載なし
 }}
 

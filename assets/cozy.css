@@ -531,3 +531,10 @@ footer a { color: inherit; }
 .ft-txt em::after { content: " ›"; }
 .ft-card:hover { transform: translateY(-2px); box-shadow: 0 8px 16px -10px rgba(74, 64, 57, .5); }
 @media (prefers-reduced-motion: reduce) { .ft-card { transition: none; } }
+.ft-card.has-in { flex-direction: column; gap: 10px; padding: 10px 10px 12px; }
+.ft-card.has-in .ft-img { position: relative; width: 100%; height: auto; aspect-ratio: 3/2; }
+.ft-card.has-in .ft-img > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; border-radius: 10px; background: #F6F3EF; }
+.ft-out { position: absolute; right: 8px; bottom: 8px; width: 46px; height: 46px; background: #fff; border-radius: 12px; padding: 4px;
+  box-shadow: 0 4px 10px -4px rgba(74, 64, 57, .45); }
+.ft-out img { width: 100%; height: 100%; object-fit: contain; }
+.ft-card.has-in .ft-txt { padding: 0 4px; }

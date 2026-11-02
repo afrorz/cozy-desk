@@ -170,7 +170,12 @@ def mini_thumbs(html_: str, p: dict) -> str:
                 it = item(int(num))
                 url, attrs, short = first_store(it, p["slug"])
                 img = f'<img src="{e(it["image"])}" alt="" loading="lazy" referrerpolicy="no-referrer">' if it.get("image") else ""
-                cards.append(f'<a class="ft-card" href="{e(url)}"{attrs}><span class="ft-img">{img}</span>'
+                cls = "ft-card"
+                if it.get("inside"):  # 中を開いた写真があれば大きく出し、外の写真は右下に小さく(2026-11-02 本人「中の仕切り画像はマスト」)
+                    cls += " has-in"
+                    img = (f'<img src="{e(it["inside"])}" alt="{e(it.get("short") or it["name"])}の中" loading="lazy" referrerpolicy="no-referrer">'
+                           f'<span class="ft-out">{img}</span>')
+                cards.append(f'<a class="{cls}" href="{e(url)}"{attrs}><span class="ft-img">{img}</span>'
                              f'<span class="ft-txt"><b>{e(it.get("short") or it["name"])}</b><span>{e(text.strip())}</span>'
                              f'<em>{e(short)}で見る</em></span></a>')
             bands.append(f'<div class="ft-band"><div class="ft-head"><b>{e(head)}</b><span>{e(desc)}</span>'
