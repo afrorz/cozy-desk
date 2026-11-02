@@ -6,7 +6,6 @@ kind: buy
 title_break: true          # PC では題を「。」の後ろで改行する
 board_style: note          # 看板を手帳デコ風(写真を貼った形)にする
 card_items: [1, 3, 7, 9]   # 記事一覧のカードに並べる物の番号(4つ、色がばらけるように)
-card_white: true           # カードの4つの写真のすき間を白にする(11/3 本人「外枠の色を白に」)
 summary: "tomtoc・Wpc.・MOTTERU・Bellroy のガジェットポーチと、無印良品・コクヨ・MILESTO・HIGHTIDE の、ガジェット入れに使われているポーチから、ベージュ・ピンク・水色・半透明の9つを選びました。大きさ・中の仕切り・立つかどうかなど買う前に見る所と、9つの比べ表をつけました。"
 thumbnail: "https://cdn.shopify.com/s/files/1/0256/7979/0179/files/laptop_A27P1_08f2cd28-f1c6-4457-9cdf-97f1a8cfc53d.jpg?v=1762768172"
 thumbnail_alt: "tomtoc Terra-A27 のサンドベージュ。波のようなキルティングの、ふっくらしたポーチ"
