@@ -68,6 +68,7 @@ thumbnail: "https://…"           # 一番目立つ公式画像。無ければ�
 thumbnail_alt: "…"
 thumbnail_credit: "NZXT 公式サイト"
 thumb_fit: true                  # 切り抜き写真(白背景の製品画像)なら true、部屋の写真なら書かない
+# board_style: note             # まとめ記事の看板を手帳デコ風(物の写真を方眼ノートに貼った形)にする。今はガジェットポーチの記事だけ(11/2 本人)。札の文字は題の「。」の前後、合わなければ board: {lead: …, title: …}
 colors:                          # その記事の物の色(サイトの一覧に丸で出る)
   - {name: ホワイト, hex: "#F7F6F2"}
 products:                        # buy のとき
