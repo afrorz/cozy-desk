@@ -70,12 +70,20 @@ def load_posts() -> list[dict]:
             sys.exit(f"{path.name}: kind は new か buy")
         if meta.get("draft"):
             continue
-        meta["slug"] = path.stem
-        meta["url"] = f"/p/{path.stem}/"
+        # URL に日付を入れない(2026-11-02 本人。まとめ記事は値段と物を入れ替えて使い続けるので、日付が古く見えないように)
+        # ファイル名は日付つきのまま。古い日付つきの URL には、新しい URL へ移るページを置く(main の「古い URL」)
+        meta["old_slug"] = path.stem
+        meta["slug"] = re.sub(r"^\d{4}-\d{2}-\d{2}-", "", path.stem)
+        meta["url"] = f"/p/{meta['slug']}/"
         meta["date"] = meta["date"] if isinstance(meta["date"], dt.date) else dt.date.fromisoformat(str(meta["date"]))
         meta["html"] = markdown.markdown(body, extensions=["tables", "attr_list"])
         posts.append(meta)
     posts.sort(key=lambda p: (p["date"], p["slug"]), reverse=True)
+    seen = {}
+    for p in posts:
+        if p["slug"] in seen:
+            sys.exit(f"URL が重なる: {seen[p['slug']]} と {p['old_slug']}(日付を除いた名前を変える)")
+        seen[p["slug"]] = p["old_slug"]
     return posts
 
 
@@ -1052,6 +1060,14 @@ def main() -> None:
         write(f"c/{c['slug']}/index.html", build_category(c, posts))
     for p in posts:
         write(f"p/{p['slug']}/index.html", build_post(p, posts))
+        if p["old_slug"] != p["slug"]:  # 古い日付つきの URL(X に貼ったリンクなど)から新しい URL へ移す
+            new = SITE["base_url"].rstrip("/") + p["url"]
+            write(f"p/{p['old_slug']}/index.html",
+                  f'<!doctype html><html lang="ja"><head><meta charset="utf-8"><title>{e(p["title"])}</title>'
+                  f'<link rel="canonical" href="{e(new)}"><meta name="robots" content="noindex">'
+                  f'<meta http-equiv="refresh" content="0; url={e(p["url"])}">'
+                  f'<script>location.replace({json.dumps(p["url"])} + location.hash)</script></head>'
+                  f'<body><p><a href="{e(p["url"])}">{e(p["title"])}</a></p></body></html>')
     write("tools/desk-size/index.html", build_desk_size(posts))
     write("tools/my-desk/index.html", build_my_desk(posts))
     write("about/index.html", build_about())

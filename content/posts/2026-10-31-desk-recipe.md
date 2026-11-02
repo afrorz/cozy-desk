@@ -151,12 +151,12 @@ sources:
 
 選んだ物の詳しい候補は、それぞれの記事にあります。
 
-- チェア: [白いメッシュのチェア](/p/2026-10-31-white-mesh-chairs/)
-- PC: [白いPCケース](/p/2026-10-31-white-pc-cases/)
-- モニターアーム: [白いモニターアーム](/p/2026-10-31-white-monitor-arms/)
-- スピーカー: [白いPCスピーカー](/p/2026-10-31-white-pc-speakers/)
-- マウス: [白・オフホワイト・ローズのワイヤレスマウス](/p/2026-10-31-pastel-mice/)
-- 壁のライト: [壁掛けライト](/p/2026-10-31-hexagon-wall-lights/)
+- チェア: [白いメッシュのチェア](/p/white-mesh-chairs/)
+- PC: [白いPCケース](/p/white-pc-cases/)
+- モニターアーム: [白いモニターアーム](/p/white-monitor-arms/)
+- スピーカー: [白いPCスピーカー](/p/white-pc-speakers/)
+- マウス: [白・オフホワイト・ローズのワイヤレスマウス](/p/pastel-mice/)
+- 壁のライト: [壁掛けライト](/p/hexagon-wall-lights/)
 
 ## 全部そろえた合計
 
