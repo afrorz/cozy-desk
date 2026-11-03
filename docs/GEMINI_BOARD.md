@@ -13,17 +13,21 @@
 | 画像が横1024ピクセルで小さかった | 「高解像度・横2000ピクセル以上」と書き、本人にも大きいサイズで出してもらうよう伝える |
 | 左下に机の角と床が入り、写真を乗せる場所が狭かった | 「左半分は上から下まで何もない壁と床だけ」と書く |
 | 机が壁から離れて、宙に浮いたように見えた(キーボード) | 「机の奥のふちは壁にぴったりつける」と書く |
+| 「LEFT half は空」と書いたら、左右2枚に分けた絵になった(キーボード) | 「左半分」と書かない。「1つの続いた部屋。机は右寄り、左は同じ壁が続いて空いている」「2枚に分けない」と書く |
+| 文で頼んでも横1024ピクセルのまま | Gemini の保存の選択肢(高画質・拡大)を本人に使ってもらう。なければそのまま使う |
 
 ## 共通の文(毎回そのまま入れる)
 
 ```
+One single continuous room scene, seen in one shot. Not a split image, not a diptych, not two panels — the wall, the light and the floor continue smoothly across the whole picture.
+
 Style: a soft, minimal 3D illustration of a cozy, all-white home office, like a pastel interior render. Warm off-white walls, soft diffused morning light from a window on the right, gentle leaf shadows on the wall.
 
 Floor: very pale whitewashed oak flooring, almost white with a faint warm cream tint. Never brown or medium wood.
 
 Furniture: white desk, with its back edge pushed flush against the wall (no gap between the desk and the wall). If a chair is visible, it is a white gaming-style chair (tall backrest with side wings, headrest pillow, lumbar pillow) in off-white and cream with subtle blush-pink accents. No black parts.
 
-LEFT half of the image, from top to bottom: plain off-white wall and pale floor only. No desk corner, no furniture, no objects, no decorations — clean empty negative space (a title card and product photos will be placed there later).
+Layout: the desk stands against the back wall, placed toward the right side of the room. To the left of the desk, the same wall simply continues as wide, calm empty space with soft light — nothing placed there (a title card and product photos will be added later).
 
 Color palette: off-white, cream, light beige, soft blush pink, pale lavender, pale grey. No black or dark objects.
 
@@ -34,7 +38,7 @@ Composition: wide 16:9, high resolution (at least 2000 pixels wide), clean, airy
 
 ## 記事ごとに足す文(主役)
 
-- 主役の物を RIGHT half に置き、数・形・つながり方を具体的に書く
+- 主役の物は机の上に置き(机は右寄り)、数・形・つながり方を具体的に書く
 - 文字が出やすい物(キーボードのキー、画面、箱)は「文字・記号なし(blank)」と書く
 - 画面は「ピンクからラベンダーのやわらかいグラデーションの壁紙」
 
