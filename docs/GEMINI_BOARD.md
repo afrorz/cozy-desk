@@ -14,6 +14,7 @@
 | 左下に机の角と床が入り、写真を乗せる場所が狭かった | 「左半分は上から下まで何もない壁と床だけ」と書く |
 | 机が壁から離れて、宙に浮いたように見えた(キーボード) | 「机の奥のふちは壁にぴったりつける」と書く |
 | 「LEFT half は空」と書いたら、左右2枚に分けた絵になった(キーボード) | 「左半分」と書かない。「1つの続いた部屋。机は右寄り、左は同じ壁が続いて空いている」「2枚に分けない」と書く |
+| 左を空けるよう強く書いたら、カメラが引いて主役(キーボード)がとても小さくなった | カメラを「机の近くから、商品写真のように」と書き、大きさを割合で書く(机は右60%で右と下にはみ出す・主役は横幅の1/3・左の空きは40%) |
 | 文で頼んでも横1024ピクセルのまま | Gemini の保存の選択肢(高画質・拡大)を本人に使ってもらう。なければそのまま使う |
 
 ## 共通の文(毎回そのまま入れる)
@@ -27,7 +28,9 @@ Floor: very pale whitewashed oak flooring, almost white with a faint warm cream 
 
 Furniture: white desk, with its back edge pushed flush against the wall (no gap between the desk and the wall). If a chair is visible, it is a white gaming-style chair (tall backrest with side wings, headrest pillow, lumbar pillow) in off-white and cream with subtle blush-pink accents. No black parts.
 
-Layout: the desk stands against the back wall, placed toward the right side of the room. To the left of the desk, the same wall simply continues as wide, calm empty space with soft light — nothing placed there (a title card and product photos will be added later).
+Camera: a close-up view of the desktop from the front-left and slightly above, like a product photo of a desk setup. The camera is near the desk, not far away in the room.
+
+Layout and sizes: the desk stands against the back wall. The desk top fills the right 60% of the picture and runs off the right and bottom edges of the frame. The hero product is LARGE (about one third of the image width). To the left of the desk, only the same wall continues as calm empty space with soft light — about 40% of the picture, nothing placed there (a title card and product photos will be added later).
 
 Color palette: off-white, cream, light beige, soft blush pink, pale lavender, pale grey. No black or dark objects.
 
