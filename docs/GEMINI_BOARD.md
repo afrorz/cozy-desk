@@ -15,6 +15,7 @@
 | 机が壁から離れて、宙に浮いたように見えた(キーボード) | 「机の奥のふちは壁にぴったりつける」と書く |
 | 「LEFT half は空」と書いたら、左右2枚に分けた絵になった(キーボード) | 「左半分」と書かない。「1つの続いた部屋。机は右寄り、左は同じ壁が続いて空いている」「2枚に分けない」と書く |
 | 左を空けるよう強く書いたら、カメラが引いて主役(キーボード)がとても小さくなった | カメラを「机の近くから、商品写真のように」と書き、大きさを割合で書く(机は右60%で右と下にはみ出す・主役は横幅の1/3・左の空きは40%) |
+| 「左」を空けるよう書いたら、カメラが左前から机の角を見る形になり、L字の机が部屋の真ん中に出て、椅子が机の向こう(壁側)に入った(電源タップ) |「まっすぐな長方形の机(L字・角の机ではない)」「カメラは奥の壁にほぼ正面から向く。机の手前のふちは絵の下の方をほぼ水平に横切る」と書く。椅子の置き場に迷いそうなら「椅子は入れない」と書く |
 | 文で頼んでも横1024ピクセルのまま | Gemini の保存の選択肢(高画質・拡大)を本人に使ってもらう。なければそのまま使う |
 
 ## 共通の文(毎回そのまま入れる)
@@ -26,9 +27,9 @@ Style: a soft, minimal 3D illustration of a cozy, all-white home office, like a 
 
 Floor: very pale whitewashed oak flooring, almost white with a faint warm cream tint. Never brown or medium wood.
 
-Furniture: white desk, with its back edge pushed flush against the wall (no gap between the desk and the wall). If a chair is visible, it is a white gaming-style chair (tall backrest with side wings, headrest pillow, lumbar pillow) in off-white and cream with subtle blush-pink accents. No black parts.
+Furniture: one simple straight rectangular white desk (not L-shaped, not a corner desk), with its back edge pushed flush against the wall (no gap between the desk and the wall). If a chair is visible, it is a white gaming-style chair (tall backrest with side wings, headrest pillow, lumbar pillow) in off-white and cream with subtle blush-pink accents. No black parts.
 
-Camera: a close-up view of the desktop from the front-left and slightly above, like a product photo of a desk setup. The camera is near the desk, not far away in the room.
+Camera: facing the back wall almost straight on, from slightly above and slightly to the left, like a product photo of a desk setup. The front edge of the desk runs almost horizontally across the lower part of the picture (the desk corner never points at the camera). The camera is near the desk, not far away in the room.
 
 Layout and sizes: the desk stands against the back wall. The desk top fills the right 60% of the picture and runs off the right and bottom edges of the frame. The hero product is LARGE (about one third of the image width). To the left of the desk, only the same wall continues as calm empty space with soft light — about 40% of the picture, nothing placed there (a title card and product photos will be added later).
 
