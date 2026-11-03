@@ -119,10 +119,13 @@ def store_buttons(q: str, where: str, only: list[str] | None = None) -> str:
 
 def sized(url: str, w: int) -> str:
     """写真の配信が縮める指定に対応していれば、表示の大きさに合わせて縮めた URL にする(2026-11-02 表示を軽くする)。
-    Shopify(width=)と imgix(w=)だけ。ほかの置き場所はそのまま"""
+    Shopify・Creative(width=)と imgix・Fractal(w=)と、ロジクール(URL の途中に w_幅。2026-11-03 5MB が 9KB に)。ほかの置き場所はそのまま"""
     if not url:
         return url
-    key = "width" if ("cdn.shopify.com" in url or "/cdn/shop/" in url) else "w" if "imgix.net" in url else ""
+    if "resource.logitech.com/content/" in url:
+        return url.replace("resource.logitech.com/content/", f"resource.logitech.com/w_{w},c_limit,q_auto,f_auto/content/", 1)
+    key = ("width" if ("cdn.shopify.com" in url or "/cdn/shop/" in url or "img.creative.com" in url)
+           else "w" if ("imgix.net" in url or "assets.fractal-design.com" in url) else "")
     if not key:
         return url
     base, _, query = url.partition("?")
