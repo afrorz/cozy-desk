@@ -680,3 +680,14 @@ a.mx-row:hover { background: #fff; }
   .board.garland .sb-label small { font-size: 9px; }
   .board.garland .sb-label b { font-size: 14px; white-space: nowrap; margin-top: 0; }
 }
+
+/* こつぶ(サイトのキャラクター、docs/CHARACTER.md)が、ページの一番下の線の上に後ろ姿で立っている。説明は書かない(2026-11-03 本人) */
+footer .wrap { position: relative; }
+.kotsubu-foot { position: absolute; right: 7%; bottom: calc(100% + 26px); width: auto; height: 66px;
+  filter: drop-shadow(2px 3px 2px rgba(74, 64, 57, .28)); }
+@media (max-width: 560px) { .kotsubu-foot { height: 54px; right: 8%; } }
+/* こつぶがヘッダーの右の空いた所に、ちょこんと立っている(2026-11-03 本人) */
+.top .wrap { position: relative; }
+.kotsubu-head { position: absolute; right: 2%; top: -6px; width: auto; height: 52px;
+  filter: drop-shadow(2px 3px 2px rgba(74, 64, 57, .25)); }
+@media (max-width: 560px) { .kotsubu-head { height: 42px; top: -4px; right: 3%; } }
