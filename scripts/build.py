@@ -625,6 +625,23 @@ def board_words(p: dict) -> tuple[str, str]:
     return CAT[p["category"]]["name"], t
 
 
+def scene_board(p: dict, shots: list) -> str:
+    """まとめ記事の看板。本人が Gemini で作った部屋の絵(board_image:)の、何もない左側に題の札と物の写真を乗せる
+    (2026-11-03 本人「イラストを Gemini で作り、商品画像とタイトルを上に乗せる」)。押すとその物へ飛ぶ"""
+    lead, big = board_words(p)
+    n = len(shots)
+    top = (n + 1) // 2
+    cards = "".join(
+        f'<a class="sb-card" href="#item-{i}" title="{e(it["name"])}" style="--r:{0 if k < top else 1};--c:{k if k < top else k - top}">'
+        f'<img src="{e(sized(it["image"], 300))}" alt="{e(it["name"])}" referrerpolicy="no-referrer"></a>'
+        for k, (i, it) in enumerate(shots))
+    credits = "・".join(dict.fromkeys(it.get("image_credit") for _, it in shots if it.get("image_credit")))
+    return (f'<figure class="board scene" style="background-image:url({e(p["board_image"])})">'
+            f'<div class="sb-label"><small>{e(lead)}</small><b>{e(big)}</b></div>'
+            f'<div class="sb-cards" style="--top:{top}">{cards}</div></figure>'
+            f'<p class="credit">画像: 部屋の絵は Cozy Desk 作成(イメージ)・{e(credits)}</p>')
+
+
 def note_board(p: dict, shots: list) -> str:
     """まとめ記事の看板。方眼ノートに写真をマスキングテープで貼った形(2026-11-02 本人が見本3案から選んだ)。
     物の数から、上の段と下の段に分けて、置き場所と傾きを自動で決める。真ん中に題の札。押すとその物へ飛ぶ"""
@@ -658,6 +675,8 @@ def build_post(p: dict, posts: list[dict]) -> str:
     shots = [(i, it) for i, it in enumerate(p.get("products") or [], 1) if it.get("image")][:12]
     if p.get("board_style") == "note" and len(shots) >= 3:  # 記事ごとに選ぶ(11/2 本人「とりあえずガジェットポーチだけ」)
         fig = note_board(p, shots)
+    elif p.get("board_style") == "scene" and p.get("board_image") and shots:
+        fig = scene_board(p, shots)
     elif p.get("thumbnail"):
         fig = (f'<figure class="board{" fit" if p.get("thumb_fit") else ""}"><img src="{e(sized(p["thumbnail"], 1000))}" '
                f'alt="{e(p.get("thumbnail_alt") or p["title"])}" referrerpolicy="no-referrer"></figure>'
