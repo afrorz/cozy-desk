@@ -639,3 +639,29 @@ a.mx-row:hover { background: #fff; }
 /* 写真の角の丸みを、カードの外の丸みから5pxのすき間を引いた値にそろえる(2026-11-03 本人「外枠と内側の角丸の R が微妙に違う」) */
 .pcard .img .collage img { border-radius: calc(22px - 5px); }
 .post .img .collage img { border-radius: calc(var(--radius) - 5px); }
+
+/* {{drops:battery}}: 電池の印(1段目が乾電池、2段目が充電式。2026-11-03 キーボード) */
+.drops.battery .dp-icon i { width: 14px; height: 24px; border-radius: 3px; transform: none; background: var(--oak); position: relative; }
+.drops.battery .dp-icon i::before { content: ""; position: absolute; top: -4px; left: 4px; width: 6px; height: 3px; border-radius: 1px; background: inherit; }
+.drops.battery .dp-row.lv1 .dp-icon i { background: transparent; border: 2px solid var(--oak-d); }
+.drops.battery .dp-row.lv1 .dp-icon i::before { background: var(--oak-d); top: -6px; left: 2px; }
+.drops.battery .dp-row.lv1 .dp-icon i::after { content: "+"; position: absolute; inset: 0; display: grid; place-items: center; font: 700 12px/1 var(--f-body); color: var(--oak-d); }
+
+/* {{bars}}: 物ごとの横棒(厚さ・重さなど。2026-11-03 キーボード) */
+.bars { display: flex; flex-direction: column; gap: 6px; margin: 14px 0; padding: 14px 16px; background: var(--milk); border-radius: 18px; }
+.br-row { display: grid; grid-template-columns: minmax(150px, 34%) 1fr; align-items: center; gap: 12px; padding: 4px 6px; border-radius: 12px;
+  text-decoration: none; color: var(--cocoa); transition: background .15s ease; }
+.br-row:hover { background: #fff; }
+.br-name { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.br-name b { font: 700 13px/1.4 var(--f-disp); }
+.br-img { flex: none; width: 46px; height: 46px; background: #fff; border-radius: 10px; padding: 4px; box-shadow: 0 4px 10px -6px rgba(74, 64, 57, .4); }
+.br-img img { width: 100%; height: 100%; object-fit: contain; }
+.br-track { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.br-track i { display: block; height: 12px; min-width: 6px; border-radius: 999px; background: linear-gradient(90deg, var(--blush), var(--oak)); }
+.br-track em { flex: none; font-style: normal; font: 500 12px/1 var(--f-num); color: var(--cocoa); }
+@media (max-width: 560px) {
+  .bars { padding: 10px; }
+  .br-row { grid-template-columns: 1fr; gap: 4px; }
+  .br-track { padding-left: 56px; }
+}
+@media (prefers-reduced-motion: reduce) { .br-row { transition: none; } }

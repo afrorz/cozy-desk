@@ -149,7 +149,9 @@ def mini_thumbs(html_: str, p: dict) -> str:
     - {{matrix ... }} … 1行目に列の名前「A|B|C」、2行目から「番号:○|説明|」(空=なし、○=あり、文=ありと一言)。物×できることの早見の表
     - {{cell:3}} … 比べ表の名前の欄に書く。小さな写真・短い名前・店のリンクになる
     - {{drops ... }} … 1行に「見出し|説明|番号,番号」。上から強い順の段に、しずくの印と物の丸い写真を並べる(水や汚れへの強さなど)
-      {{drops:updown ... }} と書くと、しずくの代わりに上下の矢印の印になる(高さを手で動かせるかなど。2026-11-03 モニターアーム)"""
+      {{drops:updown ... }} と書くと、しずくの代わりに上下の矢印の印になる(高さを手で動かせるかなど。2026-11-03 モニターアーム)
+      {{drops:battery ... }} は電池の印(1段目が乾電池、2段目が充電式。2026-11-03 キーボード)
+    - {{bars ... }} … 1行に「番号|数|表示」。物ごとに横棒を並べ、数の大きさで棒の長さを変える(厚さ・重さなど。2026-11-03 キーボード)"""
     prods = p.get("products") or []
 
     def item(n: int) -> dict:
@@ -246,6 +248,18 @@ def mini_thumbs(html_: str, p: dict) -> str:
                         f'<div class="dp-txt"><b>{e(head)}</b><p>{e(desc)}</p></div><div class="dp-items">{"".join(items_)}</div></div>')
         return f'<div class="drops{" " + m.group(1) if m.group(1) else ""}">{"".join(rows)}</div>'
 
+    def bars(m: re.Match) -> str:
+        rows = [[x.strip() for x in line.split("|")] for line in m.group(1).strip().splitlines() if line.strip()]
+        top = max(float(r[1]) for r in rows)
+        out = []
+        for num, val, label in rows:
+            it = item(int(num))
+            url, attrs, short = first_store(it, p["slug"])
+            out.append(f'<a class="br-row" href="{e(url)}"{attrs}><span class="br-name"><span class="br-img">{thumb(it)}</span>'
+                       f'<b>{e(it.get("short") or it["name"])}</b></span>'
+                       f'<span class="br-track"><i style="width:{float(val) / top * 100:.0f}%"></i><em>{e(label)}</em></span></a>')
+        return f'<div class="bars">{"".join(out)}</div>'
+
     def cell(m: re.Match) -> str:  # 比べ表の名前の欄。小さな写真・短い名前・店のリンク
         it = item(int(m.group(1)))
         url, attrs, short = first_store(it, p["slug"])
@@ -255,6 +269,7 @@ def mini_thumbs(html_: str, p: dict) -> str:
     html_ = re.sub(r"\{\{cell:(\d+)\}\}", cell, html_)
     html_ = re.sub(r"<p>\{\{matrix\s*(.*?)\}\}</p>", matrix, html_, flags=re.S)
     html_ = re.sub(r"<p>\{\{drops(?::(\w+))?\s*(.*?)\}\}</p>", drops, html_, flags=re.S)
+    html_ = re.sub(r"<p>\{\{bars\s*(.*?)\}\}</p>", bars, html_, flags=re.S)
     html_ = re.sub(r"<p>\{\{sizes\s*(.*?)\}\}</p>", sizes, html_, flags=re.S)
     html_ = re.sub(r"<p>\{\{features\s*(.*?)\}\}</p>", features, html_, flags=re.S)
     return re.sub(r"\{\{items:([\d,\s]+)\}\}",
