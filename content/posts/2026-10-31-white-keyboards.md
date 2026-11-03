@@ -5,6 +5,9 @@ category: keyboard
 kind: buy
 updated: 2026-11-03
 card_items: [1, 2, 6, 8]   # 記事一覧のカードに並べる物の番号(4つ)
+board_style: scene         # 看板を、Gemini で作った部屋の絵＋題＋物の写真にする(11/3 本人)
+board_image: "/assets/boards/keyboards.jpg"
+board: {lead: "打つたびに気分が上がる", title: "あなたの相棒キーボード"}   # 題に「。」がないので札の2行を書く
 summary: "ロジクールと Keychron の日本の公式ストアで売っている、オフホワイト・ペールグレー・ローズのキーボードを8つ集めました。全部、日本語配列です。テンキーのある物、小さな物、丸いキーの物から選べます。"
 thumbnail: "https://resource.logitech.com/content/dam/logitech/en/products/keyboards/pebble-keys-2-k380s/2026/gallery/tonal-rose/pebble-keys-k380s-2-tonal-rose-top-angle-gallery-1-jp.png"
 thumbnail_alt: "ロジクール Pebble Keys 2 K380s のローズ。薄くて丸いキーが並ぶ小さなキーボード"
