@@ -665,3 +665,18 @@ a.mx-row:hover { background: #fff; }
   .br-track { padding-left: 56px; }
 }
 @media (prefers-reduced-motion: reduce) { .br-row { transition: none; } }
+
+/* board_style: garland — 絵のひもの空のクリップに、写真カードを吊るす(2026-11-03 変わり種の電源タップだけ) */
+.gb-card { position: absolute; display: block; width: 7.8%; background: #fff; padding: .55cqw .55cqw 1.4cqw;
+  border-radius: 3px; transform: translate(-50%, -1.2cqw) rotate(var(--tilt)); transform-origin: 50% 0;
+  box-shadow: 0 1.4cqw 1.6cqw -1.1cqw rgba(74,64,57,.6); transition: transform .2s ease; }
+.gb-card img { display: block; width: 100%; aspect-ratio: 1; object-fit: contain; }
+.gb-card:hover { transform: translate(-50%, -1.2cqw) rotate(0deg) scale(1.06); z-index: 5; }
+.gb-card:focus-visible { outline: 3px solid var(--oak-d); outline-offset: 3px; z-index: 5; }
+.board.garland .sb-label { top: 7%; }
+@media (prefers-reduced-motion: reduce) { .gb-card { transition: none; } }
+@media (max-width: 560px) {
+  .board.garland .sb-label { top: 4%; left: 4%; max-width: none; padding: 1.8cqw 3cqw; }
+  .board.garland .sb-label small { font-size: 9px; }
+  .board.garland .sb-label b { font-size: 14px; white-space: nowrap; margin-top: 0; }
+}

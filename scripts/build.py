@@ -661,6 +661,21 @@ def scene_board(p: dict, shots: list) -> str:
             f'<p class="credit">画像: 部屋の絵は Cozy Desk 作成(イメージ)・{e(credits)}</p>')
 
 
+def garland_board(p: dict, shots: list) -> str:
+    """まとめ記事の看板。Gemini の部屋の絵に描いてもらった、ひもと空のクリップに写真カードを吊るす(2026-11-03 本人が見本4案からガーランドを選んだ)。
+    クリップの位置は記事の board_pins: [[横%, 縦%], ...](クリップの下の端・絵に対する割合)。押すとその物へ飛ぶ"""
+    lead, big = board_words(p)
+    cards = "".join(
+        f'<a class="gb-card" href="#item-{i}" title="{e(it["name"])}" '
+        f'style="left:{x}%;top:{y}%;--tilt:{TILTS[k % 12] * .6:.1f}deg">'
+        f'<img src="{e(sized(it["image"], 300))}" alt="{e(it["name"])}" referrerpolicy="no-referrer"></a>'
+        for k, ((i, it), (x, y)) in enumerate(zip(shots, p["board_pins"])))
+    credits = "・".join(dict.fromkeys(it.get("image_credit") for _, it in shots if it.get("image_credit")))
+    return (f'<figure class="board scene garland" style="background-image:url({e(p["board_image"])})">'
+            f'<div class="sb-label"><small>{e(lead)}</small><b>{e(big)}</b></div>{cards}</figure>'
+            f'<p class="credit">画像: 部屋の絵は Cozy Desk 作成(イメージ)・{e(credits)}</p>')
+
+
 def note_board(p: dict, shots: list) -> str:
     """まとめ記事の看板。方眼ノートに写真をマスキングテープで貼った形(2026-11-02 本人が見本3案から選んだ)。
     物の数から、上の段と下の段に分けて、置き場所と傾きを自動で決める。真ん中に題の札。押すとその物へ飛ぶ"""
@@ -694,6 +709,8 @@ def build_post(p: dict, posts: list[dict]) -> str:
     shots = [(i, it) for i, it in enumerate(p.get("products") or [], 1) if it.get("image")][:12]
     if p.get("board_style") == "note" and len(shots) >= 3:  # 記事ごとに選ぶ(11/2 本人「とりあえずガジェットポーチだけ」)
         fig = note_board(p, shots)
+    elif p.get("board_style") == "garland" and p.get("board_image") and p.get("board_pins") and shots:  # この記事だけ(11/3)
+        fig = garland_board(p, shots)
     elif p.get("board_style") == "scene" and p.get("board_image") and shots:
         fig = scene_board(p, shots)
     elif p.get("thumbnail"):
