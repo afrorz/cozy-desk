@@ -632,3 +632,7 @@ a.mx-row:hover { background: #fff; }
   .sb-cards { top: 46%; width: 50%; gap: 1cqw; }
 }
 @media (prefers-reduced-motion: reduce) { .sb-card { transition: none; } }
+/* {{drops:updown}}: しずくの代わりに上下の矢印(高さを手で動かせるか。2026-11-03 モニターアーム) */
+.drops.updown .dp-icon i { display: none; }
+.drops.updown .dp-icon::before { content: "↕"; font: 700 24px/1 var(--f-body); color: var(--oak-d); }
+.drops.updown .dp-row.lv1 .dp-icon::before { content: "⇣"; color: #C9BFB5; }

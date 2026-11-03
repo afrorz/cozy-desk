@@ -148,7 +148,8 @@ def mini_thumbs(html_: str, p: dict) -> str:
     - {{features ... }} … 1行に「見出し|説明|番号:特徴の文;番号:特徴の文」。分け方ごとの帯を縦に積み、物の札(写真・名前・長めの説明)を並べる
     - {{matrix ... }} … 1行目に列の名前「A|B|C」、2行目から「番号:○|説明|」(空=なし、○=あり、文=ありと一言)。物×できることの早見の表
     - {{cell:3}} … 比べ表の名前の欄に書く。小さな写真・短い名前・店のリンクになる
-    - {{drops ... }} … 1行に「見出し|説明|番号,番号」。上から強い順の段に、しずくの印と物の丸い写真を並べる(水や汚れへの強さなど)"""
+    - {{drops ... }} … 1行に「見出し|説明|番号,番号」。上から強い順の段に、しずくの印と物の丸い写真を並べる(水や汚れへの強さなど)
+      {{drops:updown ... }} と書くと、しずくの代わりに上下の矢印の印になる(高さを手で動かせるかなど。2026-11-03 モニターアーム)"""
     prods = p.get("products") or []
 
     def item(n: int) -> dict:
@@ -233,7 +234,7 @@ def mini_thumbs(html_: str, p: dict) -> str:
 
     def drops(m: re.Match) -> str:
         rows = []
-        for k, line in enumerate(x for x in m.group(1).strip().splitlines() if x.strip()):
+        for k, line in enumerate(x for x in m.group(2).strip().splitlines() if x.strip()):
             head, desc, nums = (x.strip() for x in line.split("|"))
             items_ = []
             for x in nums.split(","):
@@ -243,7 +244,7 @@ def mini_thumbs(html_: str, p: dict) -> str:
                               f'<span class="dp-img">{thumb(it)}</span><span>{e(it.get("short") or it["name"])}</span></a>')
             rows.append(f'<div class="dp-row lv{k}"><span class="dp-icon" aria-hidden="true"><i></i></span>'
                         f'<div class="dp-txt"><b>{e(head)}</b><p>{e(desc)}</p></div><div class="dp-items">{"".join(items_)}</div></div>')
-        return f'<div class="drops">{"".join(rows)}</div>'
+        return f'<div class="drops{" " + m.group(1) if m.group(1) else ""}">{"".join(rows)}</div>'
 
     def cell(m: re.Match) -> str:  # 比べ表の名前の欄。小さな写真・短い名前・店のリンク
         it = item(int(m.group(1)))
@@ -253,7 +254,7 @@ def mini_thumbs(html_: str, p: dict) -> str:
 
     html_ = re.sub(r"\{\{cell:(\d+)\}\}", cell, html_)
     html_ = re.sub(r"<p>\{\{matrix\s*(.*?)\}\}</p>", matrix, html_, flags=re.S)
-    html_ = re.sub(r"<p>\{\{drops\s*(.*?)\}\}</p>", drops, html_, flags=re.S)
+    html_ = re.sub(r"<p>\{\{drops(?::(\w+))?\s*(.*?)\}\}</p>", drops, html_, flags=re.S)
     html_ = re.sub(r"<p>\{\{sizes\s*(.*?)\}\}</p>", sizes, html_, flags=re.S)
     html_ = re.sub(r"<p>\{\{features\s*(.*?)\}\}</p>", features, html_, flags=re.S)
     return re.sub(r"\{\{items:([\d,\s]+)\}\}",
