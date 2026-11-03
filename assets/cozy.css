@@ -636,3 +636,6 @@ a.mx-row:hover { background: #fff; }
 .drops.updown .dp-icon i { display: none; }
 .drops.updown .dp-icon::before { content: "↕"; font: 700 24px/1 var(--f-body); color: var(--oak-d); }
 .drops.updown .dp-row.lv1 .dp-icon::before { content: "⇣"; color: #C9BFB5; }
+/* 写真の角の丸みを、カードの外の丸みから5pxのすき間を引いた値にそろえる(2026-11-03 本人「外枠と内側の角丸の R が微妙に違う」) */
+.pcard .img .collage img { border-radius: calc(22px - 5px); }
+.post .img .collage img { border-radius: calc(var(--radius) - 5px); }
