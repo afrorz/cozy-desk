@@ -709,6 +709,33 @@ def note_board(p: dict, shots: list) -> str:
             f'<p class="credit">画像: {e(credits)}</p>')
 
 
+def clip_fig(c: dict, title: str) -> str:
+    """メーカー公式 YouTube 動画の3秒・音なしの切り出し(2026-11-04 本人「メーカー動画を使えるところは使いたい」)。
+    写真と同じ大きさの枠で、画面に入ったら読み込んで自動でくり返す(CLIP_JS)。出典は元の動画へのリンク"""
+    f = str(c.get("file") or "")
+    if not f or not (ROOT / "assets" / "clips" / f).exists():
+        return ""
+    poster = f[:-4] + ".jpg"
+    poster = f' poster="/assets/clips/{e(poster)}"' if (ROOT / "assets" / "clips" / poster).exists() else ""
+    cap = f'<span>{e(c["caption"])}</span>' if c.get("caption") else ""
+    credit = e(c.get("credit") or "メーカー公式 YouTube")
+    if c.get("source"):
+        credit = f'<a href="{e(c["source"])}" rel="nofollow noopener" target="_blank">{credit}</a>'
+    return (f'<figure class="clip"><video muted loop playsinline preload="none" width="960" height="540"{poster} '
+            f'data-clip="/assets/clips/{e(f)}" aria-label="{e(c.get("caption") or title)}"></video>'
+            f'<figcaption>{cap}<small>映像: {credit}</small></figcaption></figure>')
+
+
+# 映像は画面に入ったときだけ読み込んで再生し、外れたら止める。動きを減らす設定の人には再生ボタンだけ出す(GT と同じ)
+CLIP_JS = """<script>(function(){var vs=document.querySelectorAll('video[data-clip]');if(!vs.length)return;
+var calm=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+function load(v){if(!v.src){v.src=v.dataset.clip;}}
+if(calm||!('IntersectionObserver' in window)){vs.forEach(function(v){load(v);v.controls=true;});return;}
+var io=new IntersectionObserver(function(es){es.forEach(function(e){var v=e.target;
+if(e.isIntersecting){load(v);var p=v.play();if(p&&p.catch)p.catch(function(){v.controls=true;});}else{v.pause();}});},{rootMargin:'200px 0px'});
+vs.forEach(function(v){io.observe(v);});})();</script>"""
+
+
 def build_post(p: dict, posts: list[dict]) -> str:
     c = CAT[p["category"]]
     fig = ""
@@ -750,7 +777,18 @@ def build_post(p: dict, posts: list[dict]) -> str:
         items = f'<div class="items-list">{items}</div>'
     # 本文に <!-- after-items --> があれば、そこから後ろ(選び方・比べ表など)を商品の下に出す。
     # 長い説明で商品が下に押しやられないように(2026-11-01 PCケースの記事で選び方を厚くしたとき)
-    before, _, rest = mini_thumbs(p["html"], p).partition("<!-- after-items -->")
+    html_ = mini_thumbs(p["html"], p)
+    # 動く映像: 本文に {{clip:1}} と書いた所に置く。書いていない映像は一番上の写真のすぐ下に並べる
+    clips = [clip_fig(c, p["title"]) for c in p.get("clips") or []]
+    placed = set()
+    for n, fig_ in enumerate(clips, 1):
+        mark = f"<p>{{{{clip:{n}}}}}</p>"
+        if fig_ and mark in html_:
+            html_ = html_.replace(mark, fig_)
+            placed.add(n)
+    html_ = re.sub(r"<p>\{\{clip:\d+\}\}</p>", "", html_)
+    top_clips = "".join(f for n, f in enumerate(clips, 1) if f and n not in placed)
+    before, _, rest = html_.partition("<!-- after-items -->")
     after = f'<div class="prose guide">{decorate_guide(rest)}</div>' if rest.strip() else ""
     japan = ""
     if p.get("japan"):
@@ -780,6 +818,7 @@ def build_post(p: dict, posts: list[dict]) -> str:
     <p class="lead">{e(p['summary'])}</p>
     <p class="date">{kind_label(p)} ・ <time datetime="{p['date'].isoformat()}">{p['date'].isoformat()}</time> 掲載{f" ・ <time datetime='{p['updated'].isoformat()}'>{p['updated'].isoformat()}</time> 更新" if p.get('updated') else ""}</p>
     {fig}
+    {top_clips}
     {palette}
     <div class="prose">{before}</div>
     {items}
@@ -790,6 +829,7 @@ def build_post(p: dict, posts: list[dict]) -> str:
     {srcs}
   </div>
 </main>
+{CLIP_JS if any(clips) else ""}
 {related}"""
     img = p.get("thumbnail") or ""
     if img.startswith("/"):

@@ -57,6 +57,22 @@ git pull --rebase -q
 - `thumbnail` は公式の写真の URL。開けることを確かめる。白背景の切り抜き写真なら `thumb_fit: true`
 - `sources:` に確かめたページを全部書く
 
+## 2.5 メーカー公式の動画があれば入れる(2026-11-04 本人「メーカー動画を使えるところは使いたい」)
+
+メーカー自身の公式 YouTube チャンネルに、その物の動画があれば、3秒・音なしで最大3カット切り出して記事に入れる。写真と同じ枠で自動でくり返し動く。
+
+- 探す: 公式の製品ページ・発表文に埋め込まれた動画、または YouTube で「メーカー名 型番」。**チャンネルがメーカー自身の物だけ**。レビュー・ニュース・ほかの人の動画は使わない
+- 場面を選ぶ: 動画を `.cache` に落とし、1秒ごとの一覧画像を作って見てから、物の動き(打つ・開く・光る・付ける)がよく見える3秒を選ぶ。カットの初めに別の場面が混ざらないようにする
+- 足す(gadget-shorts の Python で動かす):
+
+```bash
+D:\MyDocument\ClaudeApp\shorts\gadget-shorts\.venv\Scripts\python.exe scriptsdd_clip.py <記事の名前> <カットの名前> <YouTube の URL> <始まりの秒> --caption "電卓モードで打っているところ"
+```
+
+- 置き場所: 本文に `{{clip:1}}` のように書いた所に出る。書かなければ一番上の写真のすぐ下。1カット目は上、2・3カット目は「ここがかわいい」「大きさと使い方」の中に置くと読みやすい(例: yunzii-c21)
+- できた mp4 を一覧にして、狙った場面か見る。違えば時間をずらして作り直す
+- 公式の動画が無ければ入れない(写真だけでよい)
+
 ## 3. X の下書きの画像
 
 ```bash
@@ -73,7 +89,7 @@ python scripts/x_new.py --image "<公式写真のURL>" --out assets/x/<今日の
 ```bash
 python scripts/build.py
 python scripts/check_images.py
-git add content assets/x && git -c commit.gpgsign=false commit -m "新作: <物の名前>" && git push
+git add content assets/x assets/clips && git -c commit.gpgsign=false commit -m "新作: <物の名前>" && git push
 ```
 
 - build.py が通り、記事の数が1本増えていること
