@@ -1,0 +1,35 @@
+name: 新作の候補を集める
+
+# PR TIMES の一覧は直近1時間半ぶんしか載らないので30分おきに回す。
+# 集めた候補(data/candidates/<日付>.json)は、毎朝の記事づくり(docs/DAILY.md)が読む。
+on:
+  schedule:
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: collect
+  cancel-in-progress: false
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - run: python3 scripts/collect.py
+      - name: 変わっていれば保存
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898189+github-actions[bot]@users.noreply.github.com"
+          git add data
+          git diff --cached --quiet && exit 0
+          git commit -m "新作の候補を集めた"
+          for i in 1 2 3; do git pull --rebase -q && git push -q && break; sleep 5; done

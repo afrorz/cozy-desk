@@ -7,6 +7,8 @@ Gadget Terminal(`media\GadgetTerminal`)の姉妹サイト。収益は紹介料(�
 content/posts/*.md → python scripts/build.py → public/ → git push で GitHub Pages に公開
 ```
 
+- **毎日の新作(2026-11-04〜)**: `collect.yml` が30分おきに候補を `data/candidates/` へ集め、毎朝5時の予定タスクが `docs/DAILY.md` の手順で1件書いて公開し、X の下書きを x-poster の Cozy タブへ送る。国内と海外は半々。まとめ記事は週1本
+
 ## 決まり
 
 - **最大の目的は紹介料で稼ぐこと(2026-10-31 本人)。** 載せる物は楽天・Amazon・Yahoo の1つ以上で正規に売っている物(3つそろう必要はない)。機能や記事を足すときは、クリックと購入が増えるかを先に考える

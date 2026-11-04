@@ -1,0 +1,25 @@
+# 新作の候補を集める所(scripts/collect.py)。2026-11-04 本人「新発売のガジェットを1日1件」「国内と海外は半々」
+# region: jp = 日本の発表(買うボタンが置ける)/ world = 海外の発表
+# PR TIMES の一覧は直近1時間半ぶんしか載らないので、collect.yml が30分おきに回す
+feeds:
+  - {name: PR TIMES, region: jp, url: "https://prtimes.jp/index.rdf"}
+  - {name: PC Watch, region: jp, url: "https://pc.watch.impress.co.jp/data/rss/1.0/pcw/feed.rdf"}
+  - {name: AV Watch, region: jp, url: "https://av.watch.impress.co.jp/data/rss/1.0/avw/feed.rdf"}
+  - {name: ITmedia PC USER, region: jp, url: "https://rss.itmedia.co.jp/rss/2.0/pcuser.xml"}
+  - {name: ASCII.jp PC, region: jp, url: "https://ascii.jp/pc/rss.xml"}
+  - {name: マイナビニュース PC, region: jp, url: "https://news.mynavi.jp/rss/digital/pc"}
+  - {name: GetNavi web, region: jp, url: "https://getnavi.jp/feed/"}
+  - {name: Yanko Design, region: world, url: "https://www.yankodesign.com/feed/"}
+  - {name: Notebookcheck, region: world, url: "https://www.notebookcheck.net/News.152.100.html?type=rss&view=all"}
+  - {name: TechPowerUp, region: world, url: "https://www.techpowerup.com/rss/news"}
+  - {name: Gizmochina, region: world, url: "https://www.gizmochina.com/feed/"}
+  - {name: Tom's Hardware, region: world, url: "https://www.tomshardware.com/feeds/all"}
+
+# 色の言葉と物の言葉が両方入っている話題だけを候補にする(どちらも題と説明から探す)
+words:
+  jp:
+    color: [ホワイト, 白い, 白色, 白を基調, オフホワイト, アイボリー, ピンク, ベージュ, パステル, くすみ, ミルク, クリーム, ラベンダー, ミント, 淡い, ペール, かわいい, カワイイ, 可愛い, グレージュ, ライトブルー, ライトグレー, サクラ, 桜色, 新色]
+    thing: [キーボード, マウス, スピーカー, モニター, ディスプレイ, デスク, ヘッドホン, ヘッドフォン, イヤホン, 充電器, 電源タップ, タップ, デスクライト, ライト, 照明, PCケース, ハブ, スタンド, ポーチ, Webカメラ, ウェブカメラ, マイク, ケーブル, モニターアーム, チェア, 椅子, ノートPC, パソコン, タブレット, モバイルバッテリー, ゲーミング, キーキャップ, ミニPC, 加湿器, ファン, リストレスト, マウスパッド, ガジェット]
+  world:
+    color: [white, pink, pastel, cute, kawaii, cream, beige, lavender, mint, milky, ivory, "new color", colorway, sakura]
+    thing: [keyboard, mouse, speaker, monitor, desk, headphone, headset, earbuds, charger, power strip, lamp, light, pc case, hub, stand, webcam, microphone, chair, keycap, mini pc, mousepad, desk mat, numpad, macropad, gadget]

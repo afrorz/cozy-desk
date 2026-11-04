@@ -25,6 +25,10 @@ SITE = CFG["site"]
 CATS = CFG["categories"]
 CAT = {c["slug"]: c for c in CATS}
 KIND = {"new": "海外の新作", "buy": "まとめ"}
+
+
+def kind_label(p: dict) -> str:
+    return "新作" if p["kind"] == "new" and p.get("origin") == "jp" else KIND[p["kind"]]
 CSS_VER = int((ROOT / "assets" / "cozy.css").stat().st_mtime)  # 直したら古い見た目が残らないように
 FONTS = "https://fonts.googleapis.com/css2?family=DM+Mono:wght@400&family=Noto+Sans+JP:wght@400;500;700&family=Zen+Maru+Gothic:wght@700;900&display=swap"
 
@@ -381,7 +385,7 @@ def thumb(p: dict) -> str:
 
 
 def post_card(p: dict, cls: str = "") -> str:
-    meta = f'{CAT[p["category"]]["name"]} ・ {KIND[p["kind"]]}'
+    meta = f'{CAT[p["category"]]["name"]} ・ {kind_label(p)}'
     if p.get("price"):
         meta += f' ・ {e(p["price"])}'
     return (f'<a class="post {cls}" href="{p["url"]}">{dots(p.get("colors"))}{thumb(p)}'
@@ -470,7 +474,7 @@ def prodcard(it: dict, facets: list[dict]) -> str:
 
 
 def pcard(p: dict) -> str:
-    badge = f'<span class="badge">{KIND[p["kind"]]}</span>'
+    badge = f'<span class="badge">{kind_label(p)}</span>'
     price = f'<span class="price">{e(p["price"])}</span>' if p.get("price") else ""
     colors = "".join(f'<i style="background:{e(c["hex"])}" title="{e(c["name"])}"></i>' for c in p.get("colors") or [])
     return (f'<a class="pcard" href="{p["url"]}" data-f-kind="{p["kind"]}">'
@@ -752,7 +756,10 @@ def build_post(p: dict, posts: list[dict]) -> str:
     if p.get("japan"):
         japan = f'<h2>日本で買える？使える？</h2><div class="jp">{markdown.markdown(p["japan"])}</div>'
     buy = ""
-    if p.get("alt_q"):
+    if p["kind"] == "new" and p.get("q"):  # 日本で売っている新作(origin: jp)は、その物を買うボタン(2026-11-04〜 毎日の新作)
+        buy = (f'<div class="buybox"><h3>{e(p.get("product") or "この商品")}を買える店</h3>'
+               f'<p>値段・在庫・発売日は各ストアで確かめてください。</p>{store_buttons(p["q"], p["slug"], p.get("stores"))}</div>')
+    elif p.get("alt_q"):
         buy = (f'<div class="buybox"><h3>日本で今買える、近い色・形の{e(c["name"])}</h3>'
                f'<p>値段・在庫は各ストアで確かめてください。</p>{store_buttons(p["alt_q"], p["slug"])}</div>')
     srcs = ""
@@ -771,7 +778,7 @@ def build_post(p: dict, posts: list[dict]) -> str:
     {pr}
     <h1>{e(p['title']).replace('。', '。<br class="br-pc">', 1) if p.get('title_break') else e(p['title'])}</h1>
     <p class="lead">{e(p['summary'])}</p>
-    <p class="date">{KIND[p['kind']]} ・ <time datetime="{p['date'].isoformat()}">{p['date'].isoformat()}</time> 掲載{f" ・ <time datetime='{p['updated'].isoformat()}'>{p['updated'].isoformat()}</time> 更新" if p.get('updated') else ""}</p>
+    <p class="date">{kind_label(p)} ・ <time datetime="{p['date'].isoformat()}">{p['date'].isoformat()}</time> 掲載{f" ・ <time datetime='{p['updated'].isoformat()}'>{p['updated'].isoformat()}</time> 更新" if p.get('updated') else ""}</p>
     {fig}
     {palette}
     <div class="prose">{before}</div>

@@ -1,0 +1,116 @@
+# 毎朝の新作の記事(1日1件)
+
+2026-11-04 本人決定: Gadget Terminal と同じように、新しく出たガジェットを1日1件記事にして、X の下書きまで作る。
+
+- 国内の新作と海外の新作は半々
+- 記事は確認なしで自動で公開する
+- X は今までどおり、本人が x-poster の Cozy タブで確かめてから投稿する
+- まとめ記事(kind: buy)は別に週1本続ける。この手順では作らない
+
+毎朝5時の予定タスク「Cozy Desk の新作記事」がこの手順で動く。
+
+## 0. 準備
+
+```bash
+cd D:\MyDocument\ClaudeApp\media\CozyDesk
+git pull --rebase -q
+```
+
+30分おきの `collect.yml` が `data/candidates/` に候補を足しているので、必ず最初に pull する。
+
+## 1. 候補を選ぶ
+
+1. `data/candidates/` の昨日と今日のファイルを読む。足りなければ、その前の2〜3日も見る
+2. もう記事にした物は外す。`content/posts/` の `sources:` の URL と `product:` を見る
+3. **国内と海外を半々にする。** 新作の記事(`kind: new`)の直近2本の `origin:` を見て、少ない方を優先する。良い候補が無ければ、もう一方から選ぶ
+4. 候補が少ない日や、合う物が無い日は、自分で探す
+   - 国内: PR TIMES・メーカーのニュースのページ(エレコム・サンワサプライ・CIO・Anker・ロジクール・バッファロー・オウルテック・MOFT・3COINS など)で、「ホワイト」「新色」「新発売」を探す
+   - 海外: Keychron・Yunzii・Lofree・NuPhy・Logitech・Razer(白・ピンクの限定色)・Yanko Design で、この1週間の発表を探す
+5. 選ぶ基準
+   - 白デスク・淡色デスクに置く物。キーボード・マウス・スピーカー・ヘッドホン・充電器・タップ・ライト・PC ケース・モニター・デスク・椅子・小物など
+   - **色は基本白。かわいければ白にこだわらない**(本人)。ピンク・ベージュ・ラベンダー・ミントなどの淡い色はよい
+   - 発表・発売・予約開始から1週間以内
+   - 国内の物は、楽天・Amazon・Yahoo のどれかで買える(予約できる)物を優先する。メーカーか正規の店が売っている物に限る
+   - 海外の物は、日本で売っていなくてもよい(本人が「半々」を選んだ)。その場合は記事末の「日本で買える？使える？」と近い物を探すボタン(`alt_q`)で受ける
+   - 無線の物が日本向けか確かめられないときは、海外の新作として扱う。国内の新作として書かない
+6. **よい候補が1件も無ければ、その日は書かない。** 無理に埋めない。報告に「今日は合う新作が無かった」と書いて終わる
+
+## 2. 記事を書く
+
+書き方は `docs/WRITING.md` のとおり。公式ページで確かめた事実だけを書き、使った感想は書かない。例は `content/posts/2026-10-31-yunzii-c21.md`。
+
+- ファイル: `content/posts/<今日の日付>-<英小文字の短い名前>.md`
+- `kind: new` に加えて、次を書く
+  - `origin: jp`(日本の発表)か `origin: world`(海外の発表)
+  - `product: "エレコム ◯◯"`: 物の名前。X の下書きと、買うボタンの見出しに使う
+- **日本の新作(`origin: jp`)**
+  - `q:` に、楽天・Amazon・Yahoo の検索でその物が一番上に出る言葉を書く(型番＋色)。書いたら実際に検索して確かめる
+  - 売っている店だけを `stores: [amazon, rakuten]` のように書く。記事の最後に「◯◯を買える店」のボタンが出る
+  - 値段は、メーカーの希望小売価格か公式ストアの値段に「掲載時点」をつける。発売日も書く
+  - `japan:` と `alt_q:` は書かない(日本で買えるので)
+- **海外の新作(`origin: world`)**
+  - `japan:` は期待を残す書き方にする。否定は最初の1文だけにして、来る見込み・今すぐの選び方へつなぐ。無線の物は「日本向けの発売を待つのが安心です」とやさしく書く
+  - `alt_q:` に、日本で売っている近い色・形の物に当たる言葉を書く
+  - 値段はドルのまま。円にしない
+- 本文は「ここがかわいい」(色・形・素材の事実を箇条書き)と「大きさと使い方」(表)。くわしい例は yunzii-c21
+- タイトルは景色・気分・かわいさから入る(WRITING.md の「タイトル」)。煽らない・感嘆符なし
+- `thumbnail` は公式の写真の URL。開けることを確かめる。白背景の切り抜き写真なら `thumb_fit: true`
+- `sources:` に確かめたページを全部書く
+
+## 3. X の下書きの画像
+
+```bash
+python scripts/x_new.py --image "<公式写真のURL>" --out assets/x/<今日の日付>-<名前>.jpg --credit "画像: ◯◯ 公式サイト・Cozy Desk(シロネ)" --face wow
+```
+
+- 白背景の製品写真なら切り抜いて大きく置く。部屋の写真なら `--photo` をつける
+- 顔は物に合わせて選ぶ: wow(驚き)・happy・calm・smug
+- できた画像を開いて見る。切り抜きが欠けていたり、文字が重なっていたりしたら、別の写真で作り直す
+- 公式サイトがプログラムからの取得を断る写真(403)は、ブラウザで開いて画面から取り、そのファイルを `--image` に渡す。リファラーの偽装はしない
+
+## 4. 確かめて公開する
+
+```bash
+python scripts/build.py
+python scripts/check_images.py
+git add content assets/x && git -c commit.gpgsign=false commit -m "新作: <物の名前>" && git push
+```
+
+- build.py が通り、記事の数が1本増えていること
+- コミットの最後に `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>` をつける
+- push したら公開を待つ: `gh run list -L 1` の headSha が今のコミットになり、`gh run watch` が成功するまで
+- 公開後、記事の URL(`https://cozydesk.gadgetterminal.com/p/<名前>/`)と画像の URL が 200 を返すことを確かめる
+
+## 5. X の下書きを送る
+
+`x/drafts/<今日の日付>-new.json` に1件書く(git には入らない)。型と口調は `docs/X_POSTING.md`。
+
+```json
+[{
+  "id": "<今日の日付>-<名前>",
+  "type": 1,
+  "planned": "<今日の日付>",
+  "title": "<記事のタイトル>",
+  "articleUrl": "https://cozydesk.gadgetterminal.com/p/<名前>/",
+  "text": "<シロネの一言>\n#PR",
+  "reply": "https://cozydesk.gadgetterminal.com/p/<名前>/",
+  "images": ["https://cozydesk.gadgetterminal.com/assets/x/<今日の日付>-<名前>.jpg"],
+  "memo": "<確かめた所: 公式の発表日・値段・色の出どころ>"
+}]
+```
+
+- 本文はシロネの口調(少し眠そう・短い・はしゃがない)。物の感想・使った話は書かない
+- **「日本で買えるか」「日本未発売」は書かない**(本人)。日本で買えるかは記事の中で書く
+- `#PR` を本文に入れる。リンクは返信(`reply`)に置く
+- 送る:
+
+```bash
+cd D:\MyDocument\ClaudeApp\apps\x-poster
+node scripts/push-cozy.mjs "D:/MyDocument/ClaudeApp/media/CozyDesk/x/drafts/<今日の日付>-new.json"
+```
+
+`200 {"created":1,...}` が返れば終わり。
+
+## 6. 報告
+
+1〜3行で、日本語で書く: 何の記事を書いたか(国内か海外か)、記事の URL、X の下書きを送ったか。書かなかった日はその理由。
