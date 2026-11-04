@@ -1,27 +1,39 @@
-"""X の「新作」の画像(1200x675)を作る。公式写真を切り抜いて大きく置き、右下にシロネの顔のスタンプ。
+r"""X の「新作」の画像(1200x675)を作る。2026-11-04 本人が3案から選んだ形(案①)。
 
-    python scripts/x_new.py --image <公式写真のURLかファイル> --out assets/x/<id>.jpg \
-        --credit "画像: ◯◯ 公式サイト・Cozy Desk(シロネ)" [--face wow] [--photo]
+  左 720px: 公式写真(白背景ならそのまま、まわりは写真の角の色で埋める)
+  右 480px: 淡いラベンダーの面に「新作」の札・メーカー名・物の名前・悩みを解決する一言、右下にシロネ
+  シロネは斜めの姿(docs/character/shirone/diag.png)で、左の写真の方を向く。**物に背を向けさせない**(本人)
 
---face  : wow(驚き)/ happy / calm / smug(docs/character/shirone/face_*.png)。物に合わせて選ぶ
---photo : 部屋の写真など切り抜けない写真のとき。切り抜かずに角丸の写真として置く
-決まりは docs/X_POSTING.md(背景は継ぎ目なし・文字は丸文字)。
+    python scripts/x_new.py --image <公式写真のURLかファイル> --out assets/x/<id>.jpg ^
+        --maker ELECOM --name "しろちゃん|ディスプレイケーブル" --hook "顔を見れば、|充電の強さがわかる" ^
+        --credit "画像: エレコム・Cozy Desk(シロネ)" [--zoom 0.85] [--fx 0.5]
+
+--name : 物の名前。「|」で2行に分けると、1行目が大きく2行目が少し小さい。長いと自動で縮む
+--hook : 悩み→解決の一言(docs/X_POSTING.md「いちばん大事なこと」)。「|」で2行まで
+--zoom : 写真の大きさ。1.0 で左の面いっぱい(はみ出た所は切れる)。物の端が切れるなら小さくする
+--fx   : 写真を左右どちらに寄せて切るか(0=左を見せる・1=右を見せる)
+文字は丸文字 Zen Maru Gothic(scripts/fonts)。
 """
 from __future__ import annotations
 
 import argparse
 import io
-import sys
 import urllib.request
 from pathlib import Path
 
-import numpy as np
-from PIL import Image, ImageDraw, ImageFilter
+from PIL import Image, ImageDraw, ImageFont
 
-sys.path.insert(0, str(Path(__file__).resolve().parent))
-from x_render import DESK, SH, H, W, base, credit, place  # noqa: E402
-
+ROOT = Path(__file__).resolve().parent.parent
+FD = ROOT / "scripts" / "fonts"
+SHIRONE = ROOT / "docs" / "character" / "shirone" / "diag.png"
 UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130 Safari/537.36"
+W, H, LW = 1200, 675, 720
+INK, ACC, SUB, CREDIT = (74, 64, 92), (122, 107, 170), (130, 120, 148), (150, 142, 165)
+TX, TW = LW + 56, 1200 - LW - 56 - 40  # 右の面の文字の左端と幅
+
+
+def F(n: int, w: str = "Bold") -> ImageFont.FreeTypeFont:
+    return ImageFont.truetype(str(FD / f"ZenMaruGothic-{w}.ttf"), n)
 
 
 def load(src: str) -> Image.Image:
@@ -31,75 +43,76 @@ def load(src: str) -> Image.Image:
     return Image.open(src)
 
 
-def cutout(im: Image.Image) -> Image.Image:
-    """もう透明な背景ならそのまま。そうでなければ rembg で切り抜き、中の穴(白い部品など)は元の色で埋める"""
-    if im.mode in ("RGBA", "LA", "P"):
-        a = np.array(im.convert("RGBA"))[..., 3]
-        if (a < 10).mean() > 0.05:
-            o = im.convert("RGBA")
-            return o.crop(o.getbbox())
-    from rembg import new_session, remove
-    from scipy.ndimage import binary_fill_holes
-    rgb = im.convert("RGB")
-    pad = Image.new("RGB", (rgb.width + 80, rgb.height + 80), rgb.getpixel((2, 2)))
-    pad.paste(rgb, (40, 40))
-    out = np.array(remove(pad, session=new_session("isnet-general-use")))
-    al = out[..., 3].astype(int)
-    m = al >= 60
-    holes = binary_fill_holes(m) & ~m
-    src = np.array(pad)
-    out[..., :3] = np.where(holes[..., None], src, out[..., :3])
-    al = np.where(holes, 255, np.where(m, al, 0)).astype(np.uint8)
-    o = Image.fromarray(np.dstack([out[..., :3], al]))
-    return o.crop(o.getbbox())
+def panel() -> Image.Image:
+    a, b = (236, 230, 246), (248, 245, 250)
+    g = Image.new("RGB", (W - LW, H))
+    d = ImageDraw.Draw(g)
+    for y in range(H):
+        t = y / H
+        t = t * t * (3 - 2 * t)
+        d.line([(0, y), (W - LW, y)], fill=tuple(int(a[i] + (b[i] - a[i]) * t) for i in range(3)))
+    return g
 
 
-def stamp(im: Image.Image, face: str) -> None:
-    f0 = Image.open(f"{SH}face_{face}.png").convert("RGBA")
-    f0 = f0.crop(f0.getbbox())
-    D = 170
-    st = Image.new("RGBA", (D + 16, D + 16), (0, 0, 0, 0))
-    sd = ImageDraw.Draw(st)
-    sd.ellipse([8, 10, D + 8, D + 10], fill=(90, 80, 110, 50))
-    st = st.filter(ImageFilter.GaussianBlur(5))
-    sd = ImageDraw.Draw(st)
-    sd.ellipse([8, 6, D + 8, D + 6], fill=(255, 255, 255, 255), outline=(207, 198, 232, 255), width=4)
-    fw = int(D * 0.82)
-    f = f0.resize((fw, int(f0.height * fw / f0.width)), Image.LANCZOS)
-    st.alpha_composite(f, (8 + (D - fw) // 2, 6 + (D - f.height) // 2 + 4))
-    im.paste(st, (W - D - 60, DESK - D + 40), st)
+def fit(d: ImageDraw.ImageDraw, text: str, size: int, weight: str) -> ImageFont.FreeTypeFont:
+    while size > 20 and d.textlength(text, font=F(size, weight)) > TW:
+        size -= 2
+    return F(size, weight)
 
 
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--image", required=True)
     ap.add_argument("--out", required=True)
+    ap.add_argument("--maker", required=True)
+    ap.add_argument("--name", required=True)
+    ap.add_argument("--hook", required=True)
     ap.add_argument("--credit", required=True)
-    ap.add_argument("--face", default="wow")
-    ap.add_argument("--photo", action="store_true")
+    ap.add_argument("--zoom", type=float, default=1.0)
+    ap.add_argument("--fx", type=float, default=0.5)
+    ap.add_argument("--fy", type=float, default=0.5)
     a = ap.parse_args()
-    src = load(a.image)
-    im = base()
-    if a.photo:
-        ph = src.convert("RGB")
-        ph.thumbnail((860, 540), Image.LANCZOS)
-        mask = Image.new("L", ph.size, 0)
-        ImageDraw.Draw(mask).rounded_rectangle([0, 0, ph.width, ph.height], 28, fill=255)
-        x, y = (W - 230 - ph.width) // 2 + 20, (H - 60 - ph.height) // 2
-        sh = Image.new("RGBA", (W, H), (0, 0, 0, 0))
-        ImageDraw.Draw(sh).rounded_rectangle([x, y + 8, x + ph.width, y + ph.height + 8], 28, fill=(90, 80, 120, 50))
-        sh = sh.filter(ImageFilter.GaussianBlur(12))
-        im.paste(sh, (0, 0), sh)
-        im.paste(ph, (x, y), mask)
-    else:
-        obj = cutout(src)
-        # 横長の物(キーボード・タップ)は幅で、縦長の物は高さでそろえる
-        px = int(min(440, 820 * obj.height / obj.width))
-        place(im, obj, 540, px=px)
-    stamp(im, a.face)
-    credit(im, a.credit)
+
+    ph = load(a.image).convert("RGB")
+    bg = ph.getpixel((3, 3))
+    im = Image.new("RGBA", (W, H), (*bg, 255))
+    s = max(LW / ph.width, H / ph.height) * a.zoom
+    p = ph.resize((round(ph.width * s), round(ph.height * s)), Image.LANCZOS)
+    x = int((LW - p.width) * a.fx) if p.width > LW else (LW - p.width) // 2
+    y = int((H - p.height) * a.fy) if p.height > H else (H - p.height) // 2
+    left = Image.new("RGB", (LW, H), bg)
+    left.paste(p, (x, y))
+    im.paste(left, (0, 0))
+    im.paste(panel(), (LW, 0))
+
+    d = ImageDraw.Draw(im)
+    f = F(22)
+    tw = d.textlength("新作", font=f)
+    d.rounded_rectangle([TX, 60, TX + tw + 36, 102], 21, fill=(255, 255, 255), outline=(214, 206, 236), width=2)
+    d.text((TX + 18, 68), "新作", font=f, fill=ACC)
+    d.text((TX + tw + 56, 68), a.maker, font=F(22, "Medium"), fill=SUB)
+    y = 118
+    names = a.name.split("|")
+    for i, line in enumerate(names):
+        fnt = fit(d, line, 50 if i == 0 else 40, "Black")
+        d.text((TX, y), line, font=fnt, fill=INK)
+        y += fnt.size + 14
+    y += 16
+    d.line([(TX + 2, y), (TX + 42, y)], fill=(200, 190, 228), width=3)
+    y += 18
+    for line in a.hook.split("|")[:2]:
+        fnt = fit(d, line, 28, "Medium")
+        d.text((TX, y), line, font=fnt, fill=ACC)
+        y += 38
+
+    sh = Image.open(SHIRONE).convert("RGBA")  # 左(物の方)を向いている。左右反転しない
+    sh_h = min(290, H - y - 40)
+    sh = sh.resize((int(sh.width * sh_h / sh.height), sh_h), Image.LANCZOS)
+    im.alpha_composite(sh, (W - sh.width - 46, H - sh.height - 14))
+    d.text((24, H - 36), a.credit, font=F(18, "Medium"), fill=CREDIT)
+
     Path(a.out).parent.mkdir(parents=True, exist_ok=True)
-    im.save(a.out, quality=90)
+    im.convert("RGB").save(a.out, quality=90)
     print(a.out)
 
 
