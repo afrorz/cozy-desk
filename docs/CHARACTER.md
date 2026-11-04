@@ -1,43 +1,48 @@
-# サイトのキャラクター「こつぶ」(机に住む小人)
+# サイトの管理人キャラクター「シロネ」
 
-2026-11-03 本人が案A「机に住む小人」を選び、Gemini で設定画を作った。設定画は `docs/character/sheet.jpg`(正面・斜め・横・後ろ、表情4つ、マグとマウスとの大きさ比べ)。
+2026-11-03 本人が決定。Cozy Desk の管理人で、X(@cozy_desk)の投稿もシロネがする形にする。
+設定画は `docs/character/shirone-sheet.jpg`(正面・斜め・横・後ろ、表情4つ)。
 
-## 役目
+## どんな子か
 
-物の横に立って、大きさの目安になる。写真ではわかりにくい「思ったより大きい・小さい」を見せる。
-- 使った感想は言わせない(記事と同じく、公式で確かめた事実だけ)
-- 「女性向け」に見せる使い方をしない(男女を決めない設定)
+- 白いデスクに住む、背丈約10cmのフィギュアの女の子。猫耳ヘッドホンをつけている
+- 名前の意味: 白(シロ)＋猫・音(ネ)。カタカナで書き、漢字の「白音」は使わない(『ハイスクールD×D』の登場人物の昔の名前と同じ字になるため)
+- 小さすぎてガジェットを使えない。そのかわり、測って比べる係。物の横に立って大きさの目安になる
+
+## 守ること
+
+- **キャラクターだと明かす。** 実在の人のふりをしない(X のプロフィールに「Cozy Desk の管理人キャラクター」と書く)
+- **使った感想を言わない。** 記事と同じく、公式で確かめた事実だけ。経歴や体験も作らない。「小さくて使えないから測る」をこの子らしさにする
+- **紹介料つき・物を勧める投稿は広告と示す**(#PR など。2023年10月からのステマ規制)
+- サイトとして「女性向け」と名乗らない(キャラクターが女の子でも、読者を女性に決めつけない)
+- グッズなど物を売る前に、J-PlatPat で「シロネ」の商標を売る物の区分ごとに確かめる
 
 ## 見た目の決まり(絵を作るたびに必ず入れる)
 
-- 背丈は約10cm。ふつうのマグカップより、ベレー帽のぶんだけ少し高い
-- 頭が大きい(頭と体が 1:2.5 くらい)、丸い顔、点の目(焦げ茶・黒にしない)、ほおに淡いピンク
-- 明るいベージュの、あごの長さの丸いボブ
-- 淡いピンクのベレー帽(上に小さなつまみ)
-- 白い太編みのタートルネックのニット(袖を折り返す)
-- 明るいベージュのオーバーオール(胸ポケットと右の腰ポケット、すそを折り返す)
-- 木の定規を2本: 胸ポケットに1本、右の腰ポケットに1本
-- クリーム色の靴
-- 質感はつやのない粘土・ソフビの人形のような 3D、淡い光
+- 背丈は約10cm。ふつうのマグカップより少し高い(設定画の大きさ比べはずれているので使わない。合成するときに Claude が背丈を合わせる)
+- 頭が大きい(頭と体が 1:2.5 くらい)、丸い顔、大きな淡いグレーブルーの目、ほおに淡いピンク。ふだんは少し眠そうな顔
+- 銀に少しラベンダーが入った、あごの長さのボブ・ぱっつん前髪
+- 白い猫耳ヘッドホンを頭につけ、左の耳から白いマイクが口の方へ出ている
+- 大きめの淡い水色のジップパーカー(無地・袖が手に少しかかる)。ファスナーの先に白い小さなメジャー
+- 淡いグレーの短パン、白いスニーカー
+- 質感はつやのないソフビのフィギュアのような 3D、淡い光。黒は使わない
 
 ## Gemini に渡すときの文(キャラクターの部分)
 
 ```
-The same mascot character as in the attached character sheet: a tiny desk resident, about 10 cm tall (slightly taller than a standard coffee mug because of the beret). Gender-neutral, round soft face, small dark warm brown dot eyes, light blush on cheeks, chin-length rounded bob hair in light beige, soft blush-pink beret with a small stem on top, chunky off-white cable-knit turtleneck sweater with rolled cuffs, light beige overalls with a bib pocket and a right hip pocket and rolled hems, one small plain wooden ruler in the bib pocket and one in the hip pocket, cream shoes. Soft matte 3D clay / vinyl figure style, pastel, no black.
+The same character as in the attached character sheet: a tiny collectible desk figure girl, about 10 cm tall (slightly taller than a standard coffee mug). Big head (about 1:2.5), round soft face, large pale grey-blue eyes, light blush on the cheeks, a calm slightly sleepy expression. Chin-length pale silver bob with a faint lavender tint and blunt bangs. White cat-ear gaming headphones worn on the head, with a small white boom microphone from the left ear cup. Oversized plain pale ice-blue zip-up hoodie (no text, no logo) with sleeves partly covering the hands, a tiny white retractable tape measure hanging from the zipper, pale grey shorts, chunky white sneakers. Soft matte 3D vinyl figure style, pastel, no black.
 ```
 
-- 設定画(sheet.jpg)を一緒に Gemini に添付すると、形がそろいやすい
-- 届いた絵は、帽子・髪・ニット・オーバーオール・定規2本・背丈を Claude が確かめる
-
-## 名前
-
-**こつぶ**(2026-11-03 本人が決定)。机の上の小さな住人、という意味。
-- 決めたときに Web 検索で、同じ名前の知られたキャラクターや、キャラクターとしての商標が見当たらないことを確かめた
-- グッズなど物を売るときは、その前に J-PlatPat(特許庁の商標検索)で、売る物の区分を確かめる
-- 記事では「こつぶ2人分の高さ」のように、大きさの目安として使える
+- 設定画(shirone-sheet.jpg)を一緒に Gemini に添付すると、形がそろいやすい
+- 届いた絵は、猫耳ヘッドホン・マイク・髪・パーカー・メジャー・短パンを Claude が確かめる
 
 ## サイトの中での置き場所
 
-- 2026-11-03 公開: 全ページのヘッダーの右に正面の姿(`assets/kotsubu/front.png`)、一番下の線の上に後ろ姿(`assets/kotsubu/back.png`)。説明は書かず、マウスを乗せたときだけ「こつぶ」と出る
-- 切り抜きは設定画から rembg(isnet-general-use)で作った。横向きと「びっくり」の顔は一部が透けるので使わない
+- 全ページのヘッダーの右に正面の姿(`assets/shirone/front.png`)、一番下の線の上に後ろ姿(`assets/shirone/back.png`)。説明は書かず、マウスを乗せたときだけ「シロネ」と出る
+- 切り抜きは設定画から rembg(isnet-general-use)で作った。斜めの姿は目の所が透けるので使わない。後ろ姿の左足は、設定画で重なっていたので右足を反転して補った
 - まだ入れていない案(本人が頼んだら): 看板の机の上に本物の大きさで立たせる(看板ごとに位置を決める)・トップの絵の窓辺・物の写真の後ろから顔をのぞかせる
+
+## 前のキャラクター「こつぶ」(使わなくなった)
+
+11/3 に一度決めた、ベレー帽とニットの小人(`docs/character/kotsubu-sheet.jpg`、`assets/kotsubu/`)。
+本人が「サイトの読者(白や淡い色でゲームの机をそろえる人)の雰囲気と違う」と判断し、同じ日にシロネに替えた。

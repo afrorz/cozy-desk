@@ -344,14 +344,14 @@ def page(*, title: str, desc: str, path: str, body: str, current: str = "", imag
 <header class="top">
   <div class="wrap">
     <a class="logo" href="/"><b>cozy<i></i>desk</b><span>{e(SITE['tagline'])}</span></a>
-    <img class="kotsubu-head" src="/assets/kotsubu/front.png" alt="" title="こつぶ" width="27" height="52">
+    <img class="chara-head" src="/assets/shirone/front.png" alt="" title="シロネ" width="27" height="52">
     {nav(current)}
   </div>
 </header>
 {body}
 <footer>
   <div class="wrap">
-    <img class="kotsubu-foot" src="/assets/kotsubu/back.png" alt="" title="こつぶ" width="35" height="66" loading="lazy">
+    <img class="chara-foot" src="/assets/shirone/back.png" alt="" title="シロネ" width="35" height="66" loading="lazy">
     <span>© {years} {e(SITE['title'])} ・ <a href="/tools/desk-size/">机の横幅を図で確かめる</a> ・ <a href="/tools/my-desk/">デスクを組んでみる</a> ・ <a href="/about/">このサイトについて</a> ・ <a href="https://x.com/{e(SITE['x_account'])}">X @{e(SITE['x_account'])}</a></span>
     <span>{ad_note}</span>
   </div>
