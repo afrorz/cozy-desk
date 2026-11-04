@@ -3,3 +3,6 @@ __pycache__/
 .DS_Store
 # ビルド成果物。GitHub Actions が毎回作り直す
 public/
+
+# X の下書き(投稿前の文を公開リポジトリに出さない。送り先は x-poster の Cozy タブ)
+x/drafts/
