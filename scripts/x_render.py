@@ -5,15 +5,21 @@ from PIL import Image, ImageDraw, ImageFont, ImageFilter
 W,H,DESK=1200,675,500
 CM=360/13
 ACC=(122,107,170)
-F=lambda n: ImageFont.truetype("C:/Windows/Fonts/YuGothB.ttc", n)
+# 文字はサイトの見出しと同じ丸文字 Zen Maru Gothic(scripts/fonts、OFL)
+import os as _os
+FD=_os.path.join(_os.path.dirname(_os.path.abspath(__file__)),"fonts")
+F=lambda n,w="Bold": ImageFont.truetype(f"{FD}/ZenMaruGothic-{w}.ttf", n)
 SH=r"D:/MyDocument/ClaudeApp/media/CozyDesk/docs/character/shirone/"
 def base():
-    im=Image.new("RGB",(W,H))
-    d=ImageDraw.Draw(im)
-    top,bot=(236,230,244),(246,241,234)
-    for y in range(DESK):
-        t=y/DESK; d.line([(0,y),(W,y)],fill=tuple(int(top[i]+(bot[i]-top[i])*t) for i in range(3)))
-    d.rectangle([0,DESK,W,H],fill=(249,248,246)); d.line([(0,DESK),(W,DESK)],fill=(226,220,226),width=2)
+    # 継ぎ目のない撮影用の背景(壁と机の境目の線を作らない)。上の淡いラベンダーから下の白へ、なめらかに変える。
+    im=Image.new("RGB",(W,H)); d=ImageDraw.Draw(im)
+    top,mid,bot=(236,230,245),(244,240,240),(250,249,247)
+    for y in range(H):
+        t=y/H
+        if t<0.55: a,b,u=top,mid,t/0.55
+        else: a,b,u=mid,bot,(t-0.55)/0.45
+        u=u*u*(3-2*u)
+        d.line([(0,y),(W,y)],fill=tuple(int(a[i]+(b[i]-a[i])*u) for i in range(3)))
     return im
 def body(path,crop=None):
     im=Image.open(path).convert("RGBA")
@@ -24,7 +30,7 @@ def place(im,obj,cx,cm=None,px=None):
     o=obj.resize((w,h),Image.LANCZOS)
     sh=Image.new("RGBA",(W,H),(0,0,0,0)); sd=ImageDraw.Draw(sh)
     sd.ellipse([cx-w*0.55,DESK-10,cx+w*0.55,DESK+14],fill=(90,80,100,60))
-    sh=sh.filter(ImageFilter.GaussianBlur(8)); im.paste(sh,(0,0),sh)
+    sh=sh.filter(ImageFilter.GaussianBlur(10)); im.paste(sh,(0,0),sh)
     x=int(cx-w/2); im.paste(o,(x,DESK-h),o)
     return x,x+w,DESK-h
 def bar(im,x,top,cm,side):
