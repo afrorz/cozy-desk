@@ -7,6 +7,8 @@ python scripts/check_images.py --json   # 結果を JSON で出す(毎晩の見�
 それを毎晩見つけるために作った。写真の代わりにウェブページ(text/html)が返る・404 などを「開けない」とする。
 403 だけは、写真の置き場所がプログラムからの取得を断っているだけで、ブラウザでは開けることがある
 (例: エレコムの写真)。そのため「要ブラウザ確認」として分けて出す。
+ニトリ(nitori-net.jp)は 403 でなく、ロボットよけのウェブページ(text/html)を返して断る。ブラウザでは開ける
+(2026-11-05 に確認)ので、BROWSER_ONLY_HOSTS に入れて同じく「要ブラウザ確認」にする。
 """
 from __future__ import annotations
 
@@ -14,11 +16,14 @@ import json
 import re
 import sys
 import urllib.error
+import urllib.parse
 import urllib.request
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
+# プログラムには写真でなくロボットよけの画面を返すが、ブラウザでは開ける置き場所
+BROWSER_ONLY_HOSTS = {"www.nitori-net.jp"}
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36",
     "Accept": "image/avif,image/webp,image/apng,image/*,*/*;q=0.8",
@@ -51,6 +56,8 @@ def check(url: str) -> tuple[str, str]:
             head = r.read(512)
             if ctype.startswith("image/") or head[:4] in (b"\x89PNG", b"RIFF", b"GIF8") or head[:2] == b"\xff\xd8":
                 return "ok", ctype
+            if urllib.parse.urlsplit(url).hostname in BROWSER_ONLY_HOSTS:
+                return "browser", f"写真でなく {ctype} が返る(この置き場所はプログラムを断る。ブラウザでは開けることがある)"
             return "ng", f"写真でなく {ctype or '中身の分からないもの'} が返る(ロボットよけ画面やページ移動のことが多い)"
     except urllib.error.HTTPError as ex:
         if ex.code == 403:
