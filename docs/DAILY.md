@@ -66,7 +66,7 @@ git pull --rebase -q
 - 足す(gadget-shorts の Python で動かす):
 
 ```bash
-D:\MyDocument\ClaudeApp\shorts\gadget-shorts\.venv\Scripts\python.exe scriptsdd_clip.py <記事の名前> <カットの名前> <YouTube の URL> <始まりの秒> --caption "電卓モードで打っているところ"
+D:\MyDocument\ClaudeApp\shorts\gadget-shorts\.venv\Scripts\python.exe scripts\add_clip.py <記事の名前> <カットの名前> <YouTube の URL> <始まりの秒> --caption "電卓モードで打っているところ"
 ```
 
 - 置き場所: 本文に `{{clip:1}}` のように書いた所に出る。書かなければ一番上の写真のすぐ下。1カット目は上、2・3カット目は「ここがかわいい」「大きさと使い方」の中に置くと読みやすい(例: yunzii-c21)
