@@ -650,31 +650,20 @@ def decorate_guide(html_: str) -> str:
 TAPES = ["#F3C9D1", "#CFE0E8", "#E8DCC8", "#D9E5CF"]
 TILTS = [-5, 4, -3, 5, 4, -6, 7, -4, 3, -2, 6, -5]
 
-# {{wallsize}}: 六角形のパネル(幅23×高さ20cm)を、24インチのモニターと同じ縮尺で並べて見せる図。枚数のボタンで並べ方が変わる
-# (2026-11-05 本人「全部やろうよ」。記事の「紙を切って壁に当てる」の代わり)
+# {{wallsize}}: 六角形のパネル(幅23×高さ20cm)を、24インチのモニターと同じ縮尺の壁に自分で並べる図(動きは assets/wallsize.js)
+# (2026-11-05 本人「規定のパターンを選択するだけじゃなくて、自分でレイアウトを組めるようにしようよ」)
+# 点線の六角形を押すと1枚足す・パネルを押すと消す(「色をぬる」のときは色を変える)。枚数・広がる大きさ・Shapes ヘキサゴンで足りるセットの目安を出す
 WALLSIZE = """<figure class="wallsize" data-ws>
-<div class="ws-btns" role="group" aria-label="枚数と並べ方">
-<button type="button" data-l="5" aria-pressed="true">5枚・横に並べる</button><button type="button" data-l="7" aria-pressed="false">7枚・花の形</button><button type="button" data-l="9" aria-pressed="false">9枚・かたまり</button></div>
-<svg viewBox="0 0 130 132" role="img" aria-label="六角形のパネルと24インチのモニターの大きさ比べ"></svg>
-<figcaption><b class="ws-size"></b><span>1枚 幅23×高さ20cm(Nanoleaf 公式の値)で描いた並べ方の一例です。モニターは24インチ(画面の幅 約53cm)。</span></figcaption>
+<div class="ws-bar"><span class="ws-lab">ひな形</span><div class="ws-btns" role="group" aria-label="ひな形">
+<button type="button" data-l="5">5枚・横に</button><button type="button" data-l="7">7枚・花の形</button><button type="button" data-l="9">9枚・かたまり</button><button type="button" data-l="0">全部消す</button></div></div>
+<div class="ws-bar"><span class="ws-lab">押したとき</span><div class="ws-btns" role="group" aria-label="パネルを押したとき">
+<button type="button" data-m="edit" aria-pressed="true">足す・消す</button><button type="button" data-m="paint" aria-pressed="false">色をぬる</button></div>
+<div class="ws-sw" role="group" aria-label="パネルの色"></div></div>
+<svg viewBox="0 0 182 178" role="img" aria-label="六角形のパネルを24インチのモニターの上の壁に並べた図。点線の六角形を押すと1枚足せる"></svg>
+<div class="ws-out"><b class="ws-size"></b><p class="ws-kit"></p></div>
+<figcaption>点線の六角形を押すと1枚足せます。パネルを押すと消えます。1枚 幅23×高さ20cm(Nanoleaf 公式の値)、モニターは24インチ(画面の幅 約53cm)で描いています。値段は Nanoleaf 公式ストアの掲載時点の値段です。</figcaption>
 </figure>
-<script>(function(){var f=document.querySelector('[data-ws]');if(!f)return;var s=f.querySelector('svg'),z=f.querySelector('.ws-size'),N='http://www.w3.org/2000/svg';
-var L={5:[[0,0],[1,0],[2,0],[3,0],[4,0]],7:[[1,1],[1,0],[1,2],[0,1],[0,2],[2,1],[2,2]],9:[[0,0],[0,1],[1,0],[1,1],[2,0],[2,1],[3,0],[3,1],[4,0]]};
-var C=['#F3C9D2','#CBB9EA','#F6D9A8','#F7DCE6','#DCCFF2'],R=11.5,H=R*Math.sqrt(3);
-function el(n,a){var e=document.createElementNS(N,n);for(var k in a)e.setAttribute(k,a[k]);return e}
-function draw(k){s.innerHTML='';var P=L[k].map(function(c){return[c[0]*R*1.5,c[1]*H+(c[0]%2?H/2:0)]});
-var x0=Math.min.apply(0,P.map(function(p){return p[0]}))-R,x1=Math.max.apply(0,P.map(function(p){return p[0]}))+R,y0=Math.min.apply(0,P.map(function(p){return p[1]}))-H/2,y1=Math.max.apply(0,P.map(function(p){return p[1]}))+H/2;
-var w=x1-x0,h=y1-y0,mw=54,mh=32.5,my=132-8-mh-14,ox=65-w/2-x0,oy=my-12-h-y0;
-s.appendChild(el('rect',{x:0,y:124,width:130,height:8,fill:'#EAE2D8'}));
-s.appendChild(el('rect',{x:65-mw/2,y:my,width:mw,height:mh,rx:1.5,fill:'#FBF9F6',stroke:'#D8CFC6','stroke-width':.6}));
-s.appendChild(el('rect',{x:65-mw/2+1.2,y:my+1.2,width:mw-2.4,height:mh-4,rx:.6,fill:'#E9DDF3'}));
-s.appendChild(el('rect',{x:62,y:my+mh,width:6,height:124-my-mh,fill:'#E4DCD3'}));
-P.forEach(function(p,i){var cx=p[0]+ox,cy=p[1]+oy,pts=[];for(var a=0;a<6;a++){var t=Math.PI/3*a;pts.push((cx+R*Math.cos(t)).toFixed(2)+','+(cy+R*Math.sin(t)).toFixed(2))}
-s.appendChild(el('polygon',{points:pts.join(' '),fill:C[i%C.length],stroke:'#fff','stroke-width':.8}))});
-var t=el('text',{x:65,y:my+mh/2+2,'text-anchor':'middle','font-size':3.6,fill:'#8C8178'});t.textContent='24インチのモニター';s.appendChild(t);
-z.textContent='横 約'+Math.round(w)+'cm × 縦 約'+Math.round(h)+'cm';
-f.querySelectorAll('button').forEach(function(b){b.setAttribute('aria-pressed',b.dataset.l==k)})}
-f.addEventListener('click',function(e){var b=e.target.closest('button');if(b)draw(b.dataset.l)});draw(5)})();</script>"""
+<script src="/assets/wallsize.js" defer></script>"""
 
 # 看板の絵の光の色を、ボタンで変える(board_glow: {area: [左%, 上%, 幅%, 高さ%]})。2026-11-05 六角形ライト
 TONE_JS = """<script>(function(){document.querySelectorAll('[data-tone]').forEach(function(f){f.addEventListener('click',function(e){var b=e.target.closest('button[data-c]');if(!b)return;
