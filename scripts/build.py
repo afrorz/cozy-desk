@@ -273,6 +273,21 @@ def mini_thumbs(html_: str, p: dict) -> str:
         return (f'<a class="tb-item" href="{e(url)}"{attrs}><span class="tb-img">{thumb(it)}</span>'
                 f'<span><b>{e(it.get("short") or it["name"])}</b><em>{e(short)}で見る</em></span></a>')
 
+    def helper(m: re.Match) -> str:  # 一緒に使う物(本題の物ではない)の札。記事の helpers: の番号(2026-11-05 六角形ライトの賃貸の悩み)
+        hs = p.get("helpers") or []
+        n = int(m.group(1))
+        if not 1 <= n <= len(hs):
+            sys.exit(f"{p['slug']}: helpers の番号 {n} がありません")
+        h = hs[n - 1]
+        img = f'<img src="{e(sized(h["image"], 400))}" alt="{e(h["name"])}" loading="lazy" referrerpolicy="no-referrer">' if h.get("image") else ""
+        credit = f'<p class="it-credit">画像: {e(h["image_credit"])}</p>' if h.get("image_credit") else ""
+        return (f'<div class="helper"><div class="hp-img">{img}</div><div class="hp-body">'
+                f'<span class="hp-tag">{e(h.get("tag") or "あわせて使う")}</span><b>{e(h["name"])}</b>'
+                f'<span class="price">{e(h.get("price") or "")}</span><p>{e(h.get("note") or "")}</p>'
+                f'{store_buttons(h.get("q") or h["name"], p["slug"], h.get("stores"))}{credit}</div></div>')
+
+    html_ = re.sub(r"<p>\{\{helper:(\d+)\}\}</p>", helper, html_)
+    html_ = html_.replace("<p>{{wallsize}}</p>", WALLSIZE)
     html_ = re.sub(r"\{\{cell:(\d+)\}\}", cell, html_)
     html_ = re.sub(r"<p>\{\{matrix\s*(.*?)\}\}</p>", matrix, html_, flags=re.S)
     html_ = re.sub(r"<p>\{\{drops(?::(\w+))?\s*(.*?)\}\}</p>", drops, html_, flags=re.S)
@@ -634,6 +649,37 @@ def decorate_guide(html_: str) -> str:
 
 TAPES = ["#F3C9D1", "#CFE0E8", "#E8DCC8", "#D9E5CF"]
 TILTS = [-5, 4, -3, 5, 4, -6, 7, -4, 3, -2, 6, -5]
+
+# {{wallsize}}: 六角形のパネル(幅23×高さ20cm)を、24インチのモニターと同じ縮尺で並べて見せる図。枚数のボタンで並べ方が変わる
+# (2026-11-05 本人「全部やろうよ」。記事の「紙を切って壁に当てる」の代わり)
+WALLSIZE = """<figure class="wallsize" data-ws>
+<div class="ws-btns" role="group" aria-label="枚数と並べ方">
+<button type="button" data-l="5" aria-pressed="true">5枚・横に並べる</button><button type="button" data-l="7" aria-pressed="false">7枚・花の形</button><button type="button" data-l="9" aria-pressed="false">9枚・かたまり</button></div>
+<svg viewBox="0 0 130 132" role="img" aria-label="六角形のパネルと24インチのモニターの大きさ比べ"></svg>
+<figcaption><b class="ws-size"></b><span>1枚 幅23×高さ20cm(Nanoleaf 公式の値)で描いた並べ方の一例です。モニターは24インチ(画面の幅 約53cm)。</span></figcaption>
+</figure>
+<script>(function(){var f=document.querySelector('[data-ws]');if(!f)return;var s=f.querySelector('svg'),z=f.querySelector('.ws-size'),N='http://www.w3.org/2000/svg';
+var L={5:[[0,0],[1,0],[2,0],[3,0],[4,0]],7:[[1,1],[1,0],[1,2],[0,1],[0,2],[2,1],[2,2]],9:[[0,0],[0,1],[1,0],[1,1],[2,0],[2,1],[3,0],[3,1],[4,0]]};
+var C=['#F3C9D2','#CBB9EA','#F6D9A8','#F7DCE6','#DCCFF2'],R=11.5,H=R*Math.sqrt(3);
+function el(n,a){var e=document.createElementNS(N,n);for(var k in a)e.setAttribute(k,a[k]);return e}
+function draw(k){s.innerHTML='';var P=L[k].map(function(c){return[c[0]*R*1.5,c[1]*H+(c[0]%2?H/2:0)]});
+var x0=Math.min.apply(0,P.map(function(p){return p[0]}))-R,x1=Math.max.apply(0,P.map(function(p){return p[0]}))+R,y0=Math.min.apply(0,P.map(function(p){return p[1]}))-H/2,y1=Math.max.apply(0,P.map(function(p){return p[1]}))+H/2;
+var w=x1-x0,h=y1-y0,mw=54,mh=32.5,my=132-8-mh-14,ox=65-w/2-x0,oy=my-12-h-y0;
+s.appendChild(el('rect',{x:0,y:124,width:130,height:8,fill:'#EAE2D8'}));
+s.appendChild(el('rect',{x:65-mw/2,y:my,width:mw,height:mh,rx:1.5,fill:'#FBF9F6',stroke:'#D8CFC6','stroke-width':.6}));
+s.appendChild(el('rect',{x:65-mw/2+1.2,y:my+1.2,width:mw-2.4,height:mh-4,rx:.6,fill:'#E9DDF3'}));
+s.appendChild(el('rect',{x:62,y:my+mh,width:6,height:124-my-mh,fill:'#E4DCD3'}));
+P.forEach(function(p,i){var cx=p[0]+ox,cy=p[1]+oy,pts=[];for(var a=0;a<6;a++){var t=Math.PI/3*a;pts.push((cx+R*Math.cos(t)).toFixed(2)+','+(cy+R*Math.sin(t)).toFixed(2))}
+s.appendChild(el('polygon',{points:pts.join(' '),fill:C[i%C.length],stroke:'#fff','stroke-width':.8}))});
+var t=el('text',{x:65,y:my+mh/2+2,'text-anchor':'middle','font-size':3.6,fill:'#8C8178'});t.textContent='24インチのモニター';s.appendChild(t);
+z.textContent='横 約'+Math.round(w)+'cm × 縦 約'+Math.round(h)+'cm';
+f.querySelectorAll('button').forEach(function(b){b.setAttribute('aria-pressed',b.dataset.l==k)})}
+f.addEventListener('click',function(e){var b=e.target.closest('button');if(b)draw(b.dataset.l)});draw(5)})();</script>"""
+
+# 看板の絵の光の色を、ボタンで変える(board_glow: {area: [左%, 上%, 幅%, 高さ%]})。2026-11-05 六角形ライト
+TONE_JS = """<script>(function(){document.querySelectorAll('[data-tone]').forEach(function(f){f.addEventListener('click',function(e){var b=e.target.closest('button[data-c]');if(!b)return;
+e.preventDefault();f.querySelectorAll('.sb-glow').forEach(function(g){g.classList.toggle('on',g.dataset.k===b.dataset.c)});
+f.querySelectorAll('button[data-c]').forEach(function(x){x.setAttribute('aria-pressed',x===b)})})})})();</script>"""
 JIT_X = [0.0, 1.2, -0.8, 0.6, -1.0, 0.9, -0.5, 1.1, -1.2, 0.4, -0.7, 0.8]
 JIT_Y = [0.0, -1.5, 1.2, -0.6, 1.4, -1.0, 0.8, -1.3, 0.5, 1.1, -0.9, 0.3]
 
@@ -661,9 +707,20 @@ def scene_board(p: dict, shots: list) -> str:
         f'<img src="{e(sized(it["image"], 300))}" alt="{e(it["name"])}" referrerpolicy="no-referrer"></a>'
         for k, (i, it) in enumerate(shots))
     credits = "・".join(dict.fromkeys(it.get("image_credit") for _, it in shots if it.get("image_credit")))
-    return (f'<figure class="board scene" style="background-image:url({e(p["board_image"])})">'
-            f'<div class="sb-label"><small>{e(lead)}</small><b>{e(big)}</b></div>'
+    tone, attr = "", ""
+    if p.get("board_glow"):  # 絵の光の色をボタンで変える。色ごとに、六角形だけ色を変えた絵を重ねて切り替える(2026-11-05 六角形ライト)
+        cs = p["board_glow"]
+        btns = '<button type="button" data-c="" aria-pressed="true">そのまま</button>' + "".join(
+            f'<button type="button" data-c="{k}" aria-pressed="false"><i style="background:{e(c["hex"])}"></i>{e(c["name"])}</button>'
+            for k, c in enumerate(cs))
+        layers = "".join(f'<div class="sb-glow" data-k="{k}" style="background-image:url({e(c["image"])})" aria-hidden="true"></div>'
+                         for k, c in enumerate(cs))
+        tone = layers + f'<div class="sb-tone" role="group" aria-label="壁の光の色を変えてみる"><span>光の色</span>{btns}</div>'
+        attr = " data-tone"
+    return (f'<figure class="board scene" style="background-image:url({e(p["board_image"])})"{attr}>'
+            f'{tone}<div class="sb-label"><small>{e(lead)}</small><b>{e(big)}</b></div>'
             f'<div class="sb-cards" style="--top:{top}">{cards}</div></figure>'
+            + (TONE_JS if tone else "") +
             f'<p class="credit">画像: 部屋の絵は Cozy Desk 作成(イメージ)・{e(credits)}</p>')
 
 

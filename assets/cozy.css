@@ -698,3 +698,37 @@ footer .wrap { position: relative; }
 .clip figcaption { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 12px; margin-top: 8px; font-size: 13px; color: var(--mute); }
 .clip figcaption small { font-size: 11px; }
 .clip figcaption a { color: inherit; }
+
+/* 看板の光の色を変えるボタン(board_glow。2026-11-05 六角形ライト) */
+.sb-glow { position: absolute; inset: 0; background: center/cover no-repeat; opacity: 0; transition: opacity .6s ease; pointer-events: none; }
+.sb-glow.on { opacity: 1; }
+.sb-tone { position: absolute; left: 5%; bottom: 6%; display: flex; flex-wrap: wrap; align-items: center; gap: .8cqw;
+  background: rgba(255,255,255,.88); border-radius: 999px; padding: .7cqw 1cqw .7cqw 1.6cqw; box-shadow: 0 10px 20px -14px rgba(74,64,57,.5); }
+.sb-tone span { font: 700 max(10px, 1.4cqw)/1 var(--f-disp); color: var(--oak-d); margin-right: .4cqw; }
+.sb-tone button { display: inline-flex; align-items: center; gap: .5cqw; border: 1px solid var(--line); background: #fff; color: var(--cocoa);
+  border-radius: 999px; padding: .5cqw 1.2cqw; font: 600 max(10px, 1.35cqw)/1.2 var(--f-body); cursor: pointer; }
+.sb-tone button i { width: 1.4cqw; height: 1.4cqw; min-width: 9px; min-height: 9px; border-radius: 50%; }
+.sb-tone button[aria-pressed="true"] { background: var(--cocoa); color: #fff; border-color: var(--cocoa); }
+.sb-tone button:focus-visible { outline: 2px solid var(--oak-d); outline-offset: 2px; }
+@media (max-width: 560px) { .sb-tone { left: 3%; right: 3%; bottom: 3%; justify-content: center; } }
+@media (prefers-reduced-motion: reduce) { .sb-glow { transition: none; } }
+
+/* {{wallsize}}: 六角形のパネルとモニターの大きさ比べ(2026-11-05 六角形ライト) */
+.wallsize { margin: 22px 0; background: var(--milk); border-radius: var(--radius); padding: 18px; }
+.ws-btns { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
+.ws-btns button { border: 1px solid var(--line); background: #fff; color: var(--cocoa); border-radius: 999px; padding: 7px 14px; font: 600 13px/1.2 var(--f-body); cursor: pointer; }
+.ws-btns button[aria-pressed="true"] { background: var(--cocoa); color: #fff; border-color: var(--cocoa); }
+.ws-btns button:focus-visible { outline: 2px solid var(--oak-d); outline-offset: 2px; }
+.wallsize svg { display: block; width: 100%; max-width: 560px; margin: 0 auto; height: auto; }
+.wallsize figcaption { margin-top: 8px; font-size: 13px; color: var(--mute); }
+.wallsize figcaption b { display: block; font: 900 20px/1.4 var(--f-disp); color: var(--cocoa); }
+
+/* {{helper:N}}: 一緒に使う物の札(2026-11-05 六角形ライトの賃貸の悩み) */
+.helper { display: grid; grid-template-columns: 150px 1fr; gap: 18px; align-items: start; background: var(--milk); border: 1px dashed var(--oak);
+  border-radius: var(--radius); padding: 16px; margin: 18px 0; }
+.hp-img img { width: 100%; aspect-ratio: 1; object-fit: contain; background: #fff; border-radius: 14px; padding: 6px; box-sizing: border-box; }
+.hp-body b { display: block; font: 700 16px/1.5 var(--f-disp); }
+.hp-tag { display: inline-block; font: 700 11px/1 var(--f-disp); color: var(--oak-d); background: #fff; border-radius: 999px; padding: 5px 10px; margin-bottom: 6px; }
+.hp-body .price { display: block; font-size: 13px; color: var(--mute); margin: 2px 0 6px; }
+.hp-body p { margin: 0 0 10px; font-size: 14px; }
+@media (max-width: 560px) { .helper { grid-template-columns: 1fr; } .hp-img { max-width: 180px; } }
