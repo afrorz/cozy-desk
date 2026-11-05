@@ -655,7 +655,7 @@ def scene_board(p: dict, shots: list) -> str:
     (2026-11-03 本人「イラストを Gemini で作り、商品画像とタイトルを上に乗せる」)。押すとその物へ飛ぶ"""
     lead, big = board_words(p)
     n = len(shots)
-    top = (n + 1) // 2
+    top = n if n <= 4 else (n + 1) // 2  # 4つ以下は1段(2段にすると写真が大きくなり、下の段が看板からはみ出す。11/5 六角形ライト)
     cards = "".join(
         f'<a class="sb-card" href="#item-{i}" title="{e(it["name"])}" style="--r:{0 if k < top else 1};--c:{k if k < top else k - top}">'
         f'<img src="{e(sized(it["image"], 300))}" alt="{e(it["name"])}" referrerpolicy="no-referrer"></a>'

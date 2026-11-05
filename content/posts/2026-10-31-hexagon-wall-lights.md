@@ -4,6 +4,9 @@ date: 2026-10-31
 category: interior
 kind: buy
 card_items: [1, 2, 3, 4]   # 記事一覧のカードに並べる物の番号(4つ)
+board_style: scene         # 看板を、Gemini で作った部屋の絵＋題＋物の写真にする(11/5 本人)
+board_image: "/assets/boards/hexagon-wall-lights.jpg"
+board: {lead: "デスクまわりを、ふんわり淡く", title: "壁を照らすライト4選"}   # 題に「。」がないので札の2行を書く
 summary: "白デスクの写真でよく見る六角形のライトパネルなど、デスクの壁を間接照明にできる Nanoleaf の4セットを紹介します。ピンクやラベンダー、電球色など、淡い色にも変えられます。"
 thumbnail: "https://cdn.shopify.com/s/files/1/0712/9114/2378/files/Shapes_Hex_9x_Warm.png?v=1786646431&width=800"
 thumbnail_alt: "壁に六角形のパネルを9枚並べた Nanoleaf Shapes ヘキサゴン"
