@@ -288,6 +288,8 @@ def mini_thumbs(html_: str, p: dict) -> str:
 
     html_ = re.sub(r"<p>\{\{helper:(\d+)\}\}</p>", helper, html_)
     html_ = html_.replace("<p>{{wallsize}}</p>", WALLSIZE)
+    if "<p>{{monfit}}</p>" in html_:
+        html_ = html_.replace("<p>{{monfit}}</p>", monfit(p))
     html_ = re.sub(r"\{\{cell:(\d+)\}\}", cell, html_)
     html_ = re.sub(r"<p>\{\{matrix\s*(.*?)\}\}</p>", matrix, html_, flags=re.S)
     html_ = re.sub(r"<p>\{\{drops(?::(\w+))?\s*(.*?)\}\}</p>", drops, html_, flags=re.S)
@@ -649,6 +651,37 @@ def decorate_guide(html_: str) -> str:
 
 TAPES = ["#F3C9D1", "#CFE0E8", "#E8DCC8", "#D9E5CF"]
 TILTS = [-5, 4, -3, 5, 4, -6, 7, -4, 3, -2, 6, -5]
+
+# {{monfit}}: 載せたモニターを、選んだ横幅の机に正面から並べる図(2026-11-06 白いモニターの記事)。
+# products の mon: {w: 幅cm, h: 一番高い所cm, d: 台座の奥行cm} を使う。机の奥行60cmに対して台座がどれだけ場所をとるかも出す
+def monfit(p: dict) -> str:
+    mons = [(i, it) for i, it in enumerate(p.get("products") or [], 1) if it.get("mon")]
+    data = json.dumps([{"n": it.get("short") or it["name"], "w": it["mon"]["w"], "h": it["mon"]["h"], "d": it["mon"]["d"]} for _, it in mons], ensure_ascii=False)
+    pbtn = "".join(f'<button type="button" data-i="{k}" class="{"on" if k == 0 else ""}">{e(it.get("short") or it["name"])}</button>' for k, (_, it) in enumerate(mons))
+    wbtn = "".join(f'<button type="button" data-w="{w}" class="{"on" if w == 120 else ""}">{w}cm</button>' for w in (80, 100, 120, 140))
+    return f"""<figure class="monfit">
+<div class="mf-row"><span>モニター</span><div class="mf-seg" data-k="i">{pbtn}</div></div>
+<div class="mf-row"><span>机の横幅</span><div class="mf-seg" data-k="w">{wbtn}</div></div>
+<svg viewBox="0 0 160 86" role="img" aria-label="選んだモニターを、選んだ横幅の机に正面から置いた図"></svg>
+<p class="mf-out"></p>
+<figcaption>寸法はメーカー公式の値(スタンドを一番高くしたとき)。机の高さとキーボードは目安です。</figcaption>
+<script>(function(){{var M={data},S={{i:0,w:120}},f=document.currentScript.parentNode,svg=f.querySelector('svg'),out=f.querySelector('.mf-out');
+f.querySelectorAll('.mf-seg').forEach(function(g){{g.querySelectorAll('button').forEach(function(b){{b.onclick=function(){{g.querySelectorAll('button').forEach(function(x){{x.classList.toggle('on',x===b)}});S[g.dataset.k]=+(b.dataset.i!=null?b.dataset.i:b.dataset.w);draw();}}}})}});
+function draw(){{var m=M[S.i],W=S.w,X=10,top=12,deskY=top+60,s=140/140;var cx=X+70;
+var h='<rect x="'+(cx-W/2)+'" y="'+deskY+'" width="'+W+'" height="3" rx="1" class="mf-desk"/>'+
+'<rect x="'+(cx-W/2+3)+'" y="'+(deskY+3)+'" width="2" height="5" class="mf-leg"/><rect x="'+(cx+W/2-5)+'" y="'+(deskY+3)+'" width="2" height="5" class="mf-leg"/>';
+var mh=m.h,mw=m.w,ph=mw*0.6,sy=deskY-mh,over=mw>W;
+h+='<rect x="'+(cx-3)+'" y="'+(sy+ph-1)+'" width="6" height="'+(mh-ph+1)+'" class="mf-stand"/>';
+h+='<rect x="'+(cx-mw/2)+'" y="'+sy+'" width="'+mw+'" height="'+(ph)+'" rx="1.2" class="mf-mon'+(over?' over':'')+'"/>';
+h+='<rect x="'+(cx-mw/2+1.2)+'" y="'+(sy+1.2)+'" width="'+(mw-2.4)+'" height="'+(ph-3.4)+'" rx=".6" class="mf-scr"/>';
+h+='<rect x="'+(cx-18)+'" y="'+(deskY-1.6)+'" width="36" height="1.6" rx=".5" class="mf-kb"/>';
+h+='<text x="'+cx+'" y="'+(sy-2.5)+'" text-anchor="middle" class="mf-t">幅 '+mw+'cm</text>';
+h+='<text x="'+cx+'" y="'+(deskY+9)+'" text-anchor="middle" class="mf-t">机 '+W+'cm</text>';
+svg.innerHTML=h;var side=((W-mw)/2);
+out.textContent=over?('この机より '+(mw-W).toFixed(1)+'cm はみ出します。'):('左右に約'+side.toFixed(0)+'cmずつ空きます。台座の奥行は約'+m.d+'cm で、奥行60cmの机なら手前に約'+(60-m.d).toFixed(0)+'cm残ります。');}}
+draw();}})();</script>
+</figure>"""
+
 
 # {{wallsize}}: 六角形のパネル(幅23×高さ20cm)を、24インチのモニターと同じ縮尺の壁に自分で並べる図(動きは assets/wallsize.js)
 # (2026-11-05 本人「規定のパターンを選択するだけじゃなくて、自分でレイアウトを組めるようにしようよ」)

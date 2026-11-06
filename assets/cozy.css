@@ -766,3 +766,23 @@ footer .wrap { position: relative; }
 .cn-row em { font-style: normal; font-size: 13px; color: var(--cocoa); width: 48px; text-align: right; flex: none; }
 .cn-note { margin: 8px 0 0; font-size: 12px; color: var(--cocoa); opacity: .7; }
 @media (max-width: 520px) { .cn-row b { width: 76px; font-size: 12px; } .cn-coins i { width: 18px; height: 18px; } }
+
+/* モニターを選んだ横幅の机に正面から置く図({{monfit}}、2026-11-06 白いモニターの記事) */
+.monfit { background: #FBF8F3; border-radius: 22px; padding: 16px 18px; margin: 16px 0 20px; }
+.mf-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+.mf-row > span { font-size: 12px; color: var(--cocoa); width: 64px; flex: none; }
+.mf-seg { display: flex; flex-wrap: wrap; gap: 6px; }
+.mf-seg button { font: inherit; font-size: 12.5px; border: 1px solid #E3D8CA; background: #fff; color: var(--cocoa); border-radius: 999px; padding: 4px 12px; cursor: pointer; }
+.mf-seg button.on { background: var(--oak-d); border-color: var(--oak-d); color: #fff; }
+.mf-seg button:focus-visible { outline: 2px solid var(--oak-d); outline-offset: 2px; }
+.monfit svg { width: 100%; height: auto; display: block; margin: 6px 0 2px; }
+.mf-desk { fill: #F4EEE6; stroke: #D9CDBE; stroke-width: .3; }
+.mf-leg { fill: #E6DCCF; }
+.mf-stand { fill: #EDEBE7; stroke: #D8D4CE; stroke-width: .25; }
+.mf-mon { fill: #F7F6F3; stroke: #CFCAC2; stroke-width: .35; }
+.mf-mon.over { stroke: #D98C8C; stroke-width: .6; }
+.mf-scr { fill: url(#none); fill: #E9DDF0; }
+.mf-kb { fill: #FFFFFF; stroke: #D9CDBE; stroke-width: .25; }
+.mf-t { font-size: 3.6px; fill: #8A7B6E; }
+.mf-out { margin: 4px 0 6px; font-size: 14px; color: var(--cocoa); }
+.monfit figcaption { font-size: 11.5px; color: var(--cocoa); opacity: .7; }
