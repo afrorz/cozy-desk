@@ -36,7 +36,7 @@ sources:
   - {name: Amazon.co.jp の商品ページ(Amazon.co.jp 限定セット・国内正規品), url: "https://www.amazon.co.jp/dp/B0HJZ5TFR6"}
 ---
 
-## こんな毎日に
+## シロネの推しポイント
 
 机に向かうと、白い天板の端にラベンダー色のヘッドホンがひとつ。それだけで、いつもの机が少し自分らしく見えます。
 

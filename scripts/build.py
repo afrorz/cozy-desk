@@ -824,6 +824,9 @@ def build_post(p: dict, posts: list[dict]) -> str:
     # 本文に <!-- after-items --> があれば、そこから後ろ(選び方・比べ表など)を商品の下に出す。
     # 長い説明で商品が下に押しやられないように(2026-11-01 PCケースの記事で選び方を厚くしたとき)
     html_ = mini_thumbs(p["html"], p)
+    # 最初の見出し「シロネの推しポイント」に、管理人シロネの顔をつける(2026-11-06 本人「こんな毎日に」は押し付けがましい)
+    html_ = html_.replace("<h2>シロネの推しポイント</h2>",
+        '<h2 class="oshi"><img src="/assets/shirone/face.png" alt="" width="48" height="49">シロネの推しポイント</h2>')
     # 動く映像: 本文に {{clip:1}} と書いた所に置く。書いていない映像は一番上の写真のすぐ下に並べる
     clips = [clip_fig(c, p["title"]) for c in p.get("clips") or []]
     placed = set()

@@ -746,3 +746,8 @@ footer .wrap { position: relative; }
 .hp-body .price { display: block; font-size: 13px; color: var(--mute); margin: 2px 0 6px; }
 .hp-body p { margin: 0 0 10px; font-size: 14px; }
 @media (max-width: 560px) { .helper { grid-template-columns: 1fr; } .hp-img { max-width: 180px; } }
+
+/* 「シロネの推しポイント」の見出し: 管理人シロネの顔のアイコンつき(2026-11-06 本人) */
+.article h2.oshi { display: flex; align-items: center; gap: 10px; }
+.article h2.oshi::before { content: none; }
+.article h2.oshi img { width: 48px; height: auto; flex: none; background: #EFE7F5; border-radius: 50%; padding: 4px; }
