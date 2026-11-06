@@ -17,6 +17,7 @@ colors:
 products:
   - name: "Pixio PX249 Wave ホワイト(23.8型)"
     short: "PX249 Wave"
+    image_front: "https://cdn.shopify.com/s/files/1/0535/0873/5151/files/px249wavew.png?width=900"
     image: "https://cdn.shopify.com/s/files/1/0535/0873/5151/files/PX248WAVE_wh_back_b7735963-bd46-4268-93fb-dea750129f1a.png?width=900"
     image_credit: "Pixio 公式ストア"
     price: "2万9,980円(掲載時点・Pixio 公式ストア・税込)"
@@ -27,6 +28,7 @@ products:
     mon: {w: 54.2, h: 42.5, d: 18.0}
   - name: "アイ・オー・データ EX-C242SDW-F ホワイト(23.8型)"
     short: "EX-C242SDW-F"
+    image_front: "https://www.iodata.jp/product/lcd/wide/ex-c2sd-f/ex-c2sd-f_front_w_238_640.jpg"
     image: "https://www.iodata.jp/product/lcd/wide/ex-c2sd-f/ex-c2sd-f_back_w_238_640.jpg"
     image_credit: "アイ・オー・データ 公式サイト"
     price: "2万6,800円(掲載時点・Amazon.co.jp・税込)"
@@ -38,7 +40,8 @@ products:
     mon: {w: 54.0, h: 53.8, d: 22.7}
   - name: "BenQ GW2786TC ホワイト(27型)"
     short: "GW2786TC"
-    image: "https://image.benq.com/is/image/benqco/GW2786tc-right45?fmt=png-alpha"
+    image_front: "https://image.benq.com/is/image/benqco/GW2786tc-right45?fmt=png-alpha"
+    image: "https://image.benq.com/is/image/benqco/GW2786tc-back45?fmt=png-alpha"
     image_credit: "BenQ 公式サイト"
     price: "3万5,100円(掲載時点・Amazon.co.jp・税込)"
     colors: [{name: ホワイト, hex: "#F5F4F0"}]
@@ -49,6 +52,7 @@ products:
     mon: {w: 61.2, h: 53.5, d: 23.5}
   - name: "Pixio PX278 Wave White(27型)"
     short: "PX278 Wave"
+    image_front: "https://cdn.shopify.com/s/files/1/0535/0873/5151/files/px278wavew.png?width=900"
     image: "https://cdn.shopify.com/s/files/1/0535/0873/5151/files/PX278WAVEW_15001500_back.gif"
     image_credit: "Pixio 公式ストア"
     price: "3万9,980円(掲載時点・Pixio 公式ストア・税込)"
@@ -60,6 +64,7 @@ products:
     mon: {w: 61.5, h: 46.2, d: 21.1}
   - name: "LG 27US550-W(27型 4K)"
     short: "27US550-W"
+    image_front: "https://www.lg.com/content/dam/channel/wcms/jp/images/monitor/27us550/gallery/basic/27us550-basic-large.jpg"
     image: "https://www.lg.com/content/dam/channel/wcms/jp/images/monitor/27us550/gallery/gallery/2010/2010-03.jpg"
     image_credit: "LG 公式サイト"
     price: "3万9,800円(掲載時点・ビックカメラ楽天市場店・税込)"
@@ -71,6 +76,7 @@ products:
     mon: {w: 61.4, h: 53.9, d: 25.3}
   - name: "Pixio PX277 OLEDMAX V2 White(27型 有機EL)"
     short: "PX277 OLED"
+    image_front: "https://cdn.shopify.com/s/files/1/0535/0873/5151/files/px277oled2w_item_01.png?width=900"
     image: "https://cdn.shopify.com/s/files/1/0535/0873/5151/files/px277oled2w_item_02.png?width=900"
     image_credit: "Pixio 公式ストア"
     price: "8万5,000円(掲載時点・Pixio 公式ストア・税込)"
