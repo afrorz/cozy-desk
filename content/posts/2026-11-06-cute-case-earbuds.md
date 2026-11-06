@@ -3,6 +3,9 @@ title: "机の上に置いておきたくなる。ケースがかわいいイヤ
 date: 2026-11-06
 category: gear
 kind: buy
+board_style: scene         # 看板を Gemini の部屋の絵＋題＋物の写真にする(視点は机の高さからの寄り、docs/boards/cute-case-earbuds.txt)
+board_image: "/assets/boards/cute-case-earbuds.jpg"
+board: {lead: "机に置いておきたいイヤホン", title: "ケースがかわいい4選"}   # 札の題が長いと折り返すので短くした
 card_items: [1, 2, 3, 4]   # 記事一覧のカードに並べる物の番号(4つ)
 summary: "ag・Beats・AVIOT・Google から、クリーム・ラベンダー・ピンク・白の、ケースがかわいい完全ワイヤレスイヤホンを4つ選びました。7千円以下の小さく軽いものから、ノイズキャンセリングつきまで。ケースの形と色・ノイズキャンセリング・電池・軽さの見る所と、4つの比べ表をつけました。"
 thumbnail: "https://cdn.shopify.com/s/files/1/0516/3106/3190/files/250115_CTB_MK2-plus_SD_02_2.png?width=900"
