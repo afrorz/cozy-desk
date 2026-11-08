@@ -101,11 +101,39 @@ STORES = [
     ("yahoo", "Yahoo!ショッピングで見る", "https://shopping.yahoo.co.jp/search?p={q}"),
 ]
 AFF = CFG.get("affiliate") or {}
-HAS_AFF = any(AFF.get(k) for k, _, _ in STORES)
+# A8.net 経由のメーカー日本公式ストア(2026-11-08 本人「Cozy Desk にも A8 を」)。site.yaml の affiliate.a8.<名前>。
+# 記事では物に official: {store: <名前>, url: <その店の日本向け商品ページ>} と書く。テンプレートが空の店は出さない
+# (提携前に素のリンクを出すと、紹介料の付くもしもの店からクリックを奪うだけになるため)
+A8 = AFF.get("a8") or {}
+HAS_AFF = any(AFF.get(k) for k, _, _ in STORES) or any(str(v).strip() for v in A8.values())
+HAS_MOSHIMO = any(AFF.get(k) for k, _, _ in STORES)
+HAS_A8 = any(str(v).strip() for v in A8.values())
+# 広告の表示に出す店の並び(実際に紹介料が付いているものだけ)
+AFF_SHOPS = "・".join(([n for k, n in (("amazon", "Amazon"), ("rakuten", "楽天"), ("yahoo", "Yahoo!ショッピング")) if AFF.get(k)])
+                      + (["メーカー公式ストア"] if HAS_A8 else []))
 
 
-def store_buttons(q: str, where: str, only: list[str] | None = None) -> str:
+def official_link(o: dict | None) -> str:
+    """A8 の公式ストアへの紹介リンク。提携していない(テンプレートが空)なら空"""
+    if not o:
+        return ""
+    tmpl = str(A8.get(o.get("store") or "") or "").strip()
+    if not tmpl:
+        return ""
+    url = o.get("url") or ""
+    if "{url}" in tmpl:
+        if not url.startswith("https://"):
+            sys.exit(f"official.url が無い・https でない: {o}")
+        return tmpl.replace("{url}", quote(url, safe=""))
+    return tmpl  # 商品ページへのリンクが作れない店は、広告主が決めたトップ行き
+
+
+def store_buttons(q: str, where: str, only: list[str] | None = None, official: dict | None = None) -> str:
     out = []
+    oh = official_link(official)
+    if oh:  # 公式ストアは料率が高いことが多いので先頭に置く
+        out.append(f'<a class="btn buy" href="{e(oh)}" target="_blank" rel="sponsored noopener" '
+                   f'data-store="a8_{e(official["store"])}" data-where="{e(where)}">公式ストアで見る</a>')
     stores = [s for s in STORES if not only or s[0] in only]
     if only and not stores:
         sys.exit(f"stores の名前が違う: {only}(rakuten / amazon / yahoo)")
@@ -116,7 +144,7 @@ def store_buttons(q: str, where: str, only: list[str] | None = None) -> str:
         if tmpl:
             url = tmpl.replace("{url}", quote(url, safe=""))
             attrs = ' rel="sponsored noopener"'
-        out.append(f'<a class="btn{" buy" if i == 0 else ""}" href="{e(url)}" target="_blank"{attrs} '
+        out.append(f'<a class="btn{" buy" if i == 0 and not oh else ""}" href="{e(url)}" target="_blank"{attrs} '
                    f'data-store="{key}" data-where="{e(where)}">{label}</a>')
     return '<div class="btns">' + "".join(out) + "</div>"
 
@@ -137,7 +165,10 @@ def sized(url: str, w: int) -> str:
     return base + "?" + "&".join(parts + [f"{key}={w}"])
 
 def first_store(it: dict, where: str) -> tuple[str, str, str]:
-    """(URL, aタグの追加属性, 「楽天」などの短い店の名前)。その物を売っている最初の店"""
+    """(URL, aタグの追加属性, 「楽天」などの短い店の名前)。A8 の公式ストアがあればそこ、無ければ売っている最初の店"""
+    oh = official_link(it.get("official"))
+    if oh:
+        return (oh, f' target="_blank" rel="sponsored noopener" data-store="a8_{e(it["official"]["store"])}" data-where="{e(where)}"', "公式ストア")
     key, label, base = next(st for st in STORES if not it.get("stores") or st[0] in it["stores"])
     url = base.replace("{q}", quote(it.get("q") or it["name"], safe=""))
     attrs = f' target="_blank" data-store="{key}" data-where="{e(where)}"'
@@ -284,7 +315,7 @@ def mini_thumbs(html_: str, p: dict) -> str:
         return (f'<div class="helper"><div class="hp-img">{img}</div><div class="hp-body">'
                 f'<span class="hp-tag">{e(h.get("tag") or "あわせて使う")}</span><b>{e(h["name"])}</b>'
                 f'<span class="price">{e(h.get("price") or "")}</span><p>{e(h.get("note") or "")}</p>'
-                f'{store_buttons(h.get("q") or h["name"], p["slug"], h.get("stores"))}{credit}</div></div>')
+                f'{store_buttons(h.get("q") or h["name"], p["slug"], h.get("stores"), h.get("official"))}{credit}</div></div>')
 
     html_ = re.sub(r"<p>\{\{helper:(\d+)\}\}</p>", helper, html_)
     html_ = html_.replace("<p>{{wallsize}}</p>", WALLSIZE)
@@ -338,7 +369,7 @@ def page(*, title: str, desc: str, path: str, body: str, current: str = "", imag
         extra += '<script type="application/ld+json">' + json.dumps(block, ensure_ascii=False).replace("</", "<\\/") + "</script>\n"
     year = dt.date.today().year
     years = f"{SITE['copyright_from']}" + (f"–{year}" if year > SITE["copyright_from"] else "")
-    ad_note = "このサイトはアフィリエイト広告(Amazon・楽天・Yahoo!ショッピング)を含みます" if HAS_AFF else "Gadget Terminal の姉妹サイト"
+    ad_note = f"このサイトはアフィリエイト広告({AFF_SHOPS})を含みます" if HAS_AFF else "Gadget Terminal の姉妹サイト"
     return f"""<!doctype html>
 <html lang="ja">
 <head>
@@ -854,7 +885,7 @@ def build_post(p: dict, posts: list[dict]) -> str:
     <div class="meta"><span class="price">{e(it.get('price'))}</span>{colors}<span>{e(cname)}</span></div>
     <p>{e(it.get('note'))}</p>
     <p class="jpnote">{e(it.get('jp'))}</p>
-    {store_buttons(it.get('q') or it['name'], p['slug'], it.get('stores'))}
+    {store_buttons(it.get('q') or it['name'], p['slug'], it.get('stores'), it.get('official'))}
     {credit}
   </div>
 </section>
@@ -885,7 +916,7 @@ def build_post(p: dict, posts: list[dict]) -> str:
     buy = ""
     if p["kind"] == "new" and p.get("q"):  # 日本で売っている新作(origin: jp)は、その物を買うボタン(2026-11-04〜 毎日の新作)
         buy = (f'<div class="buybox"><h3>{e(p.get("product") or "この商品")}を買える店</h3>'
-               f'<p>値段・在庫・発売日は各ストアで確かめてください。</p>{store_buttons(p["q"], p["slug"], p.get("stores"))}</div>')
+               f'<p>値段・在庫・発売日は各ストアで確かめてください。</p>{store_buttons(p["q"], p["slug"], p.get("stores"), p.get("official"))}</div>')
     elif p.get("alt_q"):
         buy = (f'<div class="buybox"><h3>日本で今買える、近い色・形の{e(c["name"])}</h3>'
                f'<p>値段・在庫は各ストアで確かめてください。</p>{store_buttons(p["alt_q"], p["slug"])}</div>')
@@ -946,7 +977,9 @@ def build_post(p: dict, posts: list[dict]) -> str:
 
 
 def build_about() -> str:
-    aff = ("紹介しているストアへのリンクの一部はアフィリエイトリンク(もしもアフィリエイト経由の Amazon・楽天市場・Yahoo!ショッピング)です。"
+    via = "・".join((["もしもアフィリエイト経由の Amazon・楽天市場・Yahoo!ショッピング"] if HAS_MOSHIMO else [])
+                    + (["A8.net 経由のメーカー公式ストア"] if HAS_A8 else []))
+    aff = (f"紹介しているストアへのリンクの一部はアフィリエイトリンク({via})です。"
            "リンクから買い物をされると、運営者に紹介料が入ることがあります。紹介料の有無で、載せる物や書く内容は変えません。"
            if HAS_AFF else "いまはストアへのリンクに紹介料はついていません。")
     analytics = ("<h2>アクセス解析について</h2><p>サイトの利用状況を知るため、Google社のアクセス解析(Google アナリティクス)を使っています。"
@@ -999,7 +1032,7 @@ def catalog(posts: list[dict]) -> list[dict]:
             seen.add(it["name"])
             rows.append({"id": item_id(it["name"]), "cat": c["slug"], "name": it["name"], "img": sized(it.get("image") or "", 200),
                          "price": (it.get("price") or "").split("(")[0], "yen": price_yen(it.get("price")),
-                         "url": it["url"], "btns": store_buttons(it["q"], "my-desk", it.get("stores"))})
+                         "url": it["url"], "btns": store_buttons(it["q"], "my-desk", it.get("stores"), it.get("official"))})
     ids = [r["id"] for r in rows]
     if len(ids) != len(set(ids)):
         sys.exit("物の短い名前がかぶった(item_id)。桁を増やす")

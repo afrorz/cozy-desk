@@ -21,6 +21,13 @@ affiliate:
   rakuten: ""
   amazon: ""
   yahoo: ""
+  # A8.net のメーカー日本公式ストア(2026-11-08〜)。A8 で Cozy Desk をサイトとして登録し、そのサイトで提携した店だけ入れる
+  # (GT の a8mat をこのサイトに貼らない。サイトごとに別)。書き方は GT と同じ:
+  #   名前: "https://px.a8.net/svt/ejp?a8mat=<Cozy Desk 用>&a8ejpredirect={url}"   … 商品ページへ飛ばせる店
+  #   名前: "https://px.a8.net/svt/ejp?a8mat=<Cozy Desk 用>"                        … トップ行きだけの店
+  # 記事の物には official: {store: 名前, url: 日本向けの商品ページ} と書く。空の店はボタンを出さない。
+  # 公開後は A8 の「広告掲載URL管理」に記事の URL を出す決まり
+  a8: {}
 
 # 種類。並び順がそのままメニューの順になる
 categories:
