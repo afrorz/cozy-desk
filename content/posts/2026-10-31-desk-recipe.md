@@ -41,6 +41,7 @@ products:
     jp: "型番 CC-H61FW-01 ・ ATX / MicroATX / Mini-ITX 対応 ・ 日本で発売"
     q: "NZXT H6 Flow CC-H61FW-01 ホワイト"
   - name: "Pixio PX278 Wave ホワイト(2台分)"
+    official: {store: pixio, url: "https://pixiogaming.jp/products/px278wavew"}
     category: monitor
     image: "https://pixiogaming.jp/cdn/shop/files/px278wavew.png?v=1761780424"
     image_credit: "Pixio 公式ストア"
@@ -77,6 +78,7 @@ products:
     jp: "机にはさむクランプ式(天板15〜95mm) ・ アームの長さ 約68cm ・ コンセントで使う"
     q: "サンワダイレクト 800-LED060"
   - name: "EDIFIER MR3 ホワイト"
+    official: {store: edifier, url: "https://www.edifier.jp/products/mr3"}
     category: speaker
     image: "https://cdn.shopify.com/s/files/1/0747/3768/0702/files/MR3_2_1.jpg?v=1788508257"
     image_credit: "EDIFIER 日本公式ストア"

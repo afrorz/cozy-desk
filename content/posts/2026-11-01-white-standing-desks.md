@@ -13,6 +13,7 @@ colors:
   - {name: ホワイト, hex: "#F7F6F2"}
 products:
   - name: "FlexiSpot EF1 Pro ホワイト天板＋ホワイトフレーム(幅100×奥行60cm)"
+    official: {store: flexispot, url: "https://www.flexispot.jp/ef1-pro.html"}
     facets: {width: 100cm前後, shape: 昇降}
     image: "https://s3.springbeetle.eu/dev-de-s3-flexispot/commodity/item/1028_file_EF1-100-CD-WW.png"
     image_credit: "FlexiSpot 公式ストア"
@@ -52,6 +53,7 @@ products:
     q: "サンワダイレクト 100-ERD100W"
     stores: [rakuten, yahoo]
   - name: "Pixio 電動昇降ゲーミングデスク PXDS1200EWH ホワイト(幅120×奥行70cm)"
+    official: {store: pixio, url: "https://pixiogaming.jp/products/pxds1200ewh"}
     facets: {width: 120cm前後, shape: 昇降}
     image: "https://pixiogaming.jp/cdn/shop/files/pxds1200ewh_item.png?v=1762855786"
     image_credit: "Pixio 公式ストア"
@@ -61,6 +63,7 @@ products:
     jp: "高さ67〜127cm ・ 耐荷重105kg ・ 重さ55kg ・ 天板の厚さ2.5cm ・ 高さのメモリー4つ ・ 誤って動かさないロック ・ ぶつかると止まる機能 ・ 組み立てサービスは1万5,000円 ・ 3年保証"
     q: "Pixio PXDS1200E ホワイト"
   - name: "FlexiSpot E7 ホワイト脚部×ホワイト天板(幅140×奥行70cm)"
+    official: {store: flexispot, url: "https://www.flexispot.jp/e7-set.html"}
     facets: {width: [120cm前後, 140cm前後, 160cm以上], shape: 昇降}
     image: "https://tshop.r10s.jp/loctek/cabinet/flame-new/e7/kumi/e7-140ww.jpg"
     image_credit: "FlexiSpot 楽天市場店(公式)"
@@ -70,6 +73,7 @@ products:
     jp: "モーター2つ ・ 高さ58〜123cm ・ 耐荷重125kg ・ 脚だけで重さ32.3kg ・ 高さのメモリー ・ ロック ・ ぶつかると止まる機能 ・ 天板は120・140・160・180cm から ・ お客様組み立て(2人以上がおすすめ) ・ 5年保証"
     q: "FlexiSpot E7 ホワイト 天板 140"
   - name: "FlexiSpot E7H ホワイト脚部×ホワイト天板(幅140×奥行70cm)"
+    official: {store: flexispot, url: "https://www.flexispot.jp/e7h.html"}
     facets: {width: 140cm前後, shape: 昇降}
     image: "https://tshop.r10s.jp/loctek/cabinet/flame-new/e7h/kumi/sku-e7hww-140.jpg"
     image_credit: "FlexiSpot 楽天市場店(公式)"

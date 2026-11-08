@@ -56,6 +56,7 @@ products:
     q: "CIO Mate Tap002 ナチュラルホワイト"
     stores: [rakuten, amazon]
   - name: "Pixio AC&USB TAP COMPACT ホワイト PXAUTCW"
+    official: {store: pixio, url: "https://pixiogaming.jp/products/pxautcw"}
     short: "Pixio TAP COMPACT"
     image: "https://cdn.shopify.com/s/files/1/0535/0873/5151/files/PXAUTCW-item01.jpg"
     image_credit: "Pixio 公式ストア"

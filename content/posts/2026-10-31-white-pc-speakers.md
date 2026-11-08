@@ -21,6 +21,7 @@ products:
     jp: "音は3.5mm のケーブル(パソコンのイヤホン端子へ)、電源は USB ・ Bluetooth なし ・ 1台 約12cm 角・約300〜345g ・ 出力 合計4.4W ・ ケーブルは約1.2m で外せない"
     q: "Creative Pebble ホワイト スピーカー"
   - name: "EDIFIER QR30 ホワイト"
+    official: {store: edifier, url: "https://www.edifier.jp/products/qr30"}
     image: "https://cdn.shopify.com/s/files/1/0747/3768/0702/files/QR30_a28d4baf-4659-4333-a3c6-95c9f5329240.jpg?v=1788492712"
     image_credit: "EDIFIER 日本公式ストア"
     price: "1万6,980円(掲載時点・EDIFIER 日本公式ストアの表示)"
@@ -29,6 +30,7 @@ products:
     jp: "Bluetooth でも USB(USB-A)でもつなげる ・ 日本の公式ストアで販売 ・ 1台 幅12.8×奥行14.2×高さ19.3cm(ライトのつく側) ・ 約3.09kg ・ 出力 合計30W ・ Bluetooth は2台に同時につなげる"
     q: "EDIFIER QR30 ホワイト"
   - name: "EDIFIER M60 ホワイト"
+    official: {store: edifier, url: "https://www.edifier.jp/products/m60"}
     image: "https://cdn.shopify.com/s/files/1/0747/3768/0702/files/M60_2.jpg?v=1788492790"
     image_credit: "EDIFIER 日本公式ストア"
     price: "2万3,980円(掲載時点・EDIFIER 日本公式ストアの表示)"
@@ -37,6 +39,7 @@ products:
     jp: "Bluetooth でも USB-C でもつなげる ・ 日本の公式ストアで販売 ・ 1台 幅10×奥行14.7×高さ16.8cm ・ 約3.07kg ・ 出力 合計66W"
     q: "EDIFIER M60 ホワイト"
   - name: "EDIFIER MR3 ホワイト"
+    official: {store: edifier, url: "https://www.edifier.jp/products/mr3"}
     image: "https://cdn.shopify.com/s/files/1/0747/3768/0702/files/MR3_2_1.jpg?v=1788508257"
     image_credit: "EDIFIER 日本公式ストア"
     price: "1万4,980円(掲載時点・EDIFIER 日本公式ストアの表示)"
@@ -45,6 +48,7 @@ products:
     jp: "Bluetooth でもケーブルでもつなげる(USB の差し込み口はなし) ・ 日本の公式ストアで販売 ・ 1台 幅12.6×奥行18.5×高さ22cm ・ 約3.85kg ・ 出力 合計36W ・ Bluetooth は2台に同時につなげる"
     q: "EDIFIER MR3 ホワイト"
   - name: "EDIFIER MR4 MKII ホワイト"
+    official: {store: edifier, url: "https://www.edifier.jp/products/mr4-mkii"}
     image: "https://cdn.shopify.com/s/files/1/0747/3768/0702/files/MR4MKII_2.jpg?v=1788491713"
     image_credit: "EDIFIER 日本公式ストア"
     price: "2万9,980円(掲載時点・EDIFIER 日本公式ストアの表示)"
@@ -69,6 +73,7 @@ products:
     jp: "USB-C でも Bluetooth でも、ケーブルでもつなげる ・ 電源は USB ・ 1台 約12cm 角・約365〜415g ・ 出力 合計10W(30W を出せる USB-C の充電器を別につなぐと合計30W) ・ ヘッドホン端子あり"
     q: "Creative Pebble Pro ホワイト スピーカー"
   - name: "EDIFIER R20BT ホワイト"
+    official: {store: edifier, url: "https://www.edifier.jp/products/r20bt"}
     image: "https://cdn.shopify.com/s/files/1/0747/3768/0702/files/R20BT_2.jpg?v=1788491795"
     image_credit: "EDIFIER 日本公式ストア"
     price: "7,980円(掲載時点・EDIFIER 日本公式ストアの表示)"

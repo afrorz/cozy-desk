@@ -5,6 +5,7 @@ site:
   base_url: https://cozydesk.gadgetterminal.com
   author: Star Platinum LLC
   contact_email: info@gadgetterminal.com
+  press_email: press@gadgetterminal.com  # メーカー・広報の方へ(/media/)の連絡先。GT と同じ受け口
   x_account: "cozy_desk"
   copyright_from: 2026
   # Cloudflare Web Analytics のトークン。空なら出さない
@@ -28,7 +29,12 @@ affiliate:
   #   名前: "https://px.a8.net/svt/ejp?a8mat=<Cozy Desk 用>"                        … トップ行きだけの店
   # 記事の物には official: {store: 名前, url: 日本向けの商品ページ} と書く。空の店はボタンを出さない。
   # 公開後は A8 の「広告掲載URL管理」に記事の URL を出す決まり
-  a8: {}
+  a8:
+    # 2026-11-08 Cozy Desk(A8 の副サイト)で提携。飛び先は各店の日本向けページの中だけ
+    edifier: "https://px.a8.net/svt/ejp?a8mat=4BGGBE+6G73H6+5BV8+BW8O2&a8ejpredirect={url}"     # 10%・www.edifier.jp
+    pixio: "https://px.a8.net/svt/ejp?a8mat=4BGGBE+6HDYOQ+XTI+1BM8YQ&a8ejpredirect={url}"      # 5%・pixiogaming.jp(Hamee)
+    flexispot: "https://px.a8.net/svt/ejp?a8mat=4BGGBE+6M5FIY+3TA8+BW8O2&a8ejpredirect={url}"  # 2.5%・flexispot.jp
+    # 審査中: Wpc.(s00000026600001)。Razer は GT から申請中
 
 # 種類。並び順がそのままメニューの順になる
 categories:

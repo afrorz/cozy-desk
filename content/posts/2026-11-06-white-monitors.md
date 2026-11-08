@@ -16,6 +16,7 @@ colors:
   - {name: ミントグリーン, hex: "#D3EBDF"}
 products:
   - name: "Pixio PX249 Wave ホワイト(23.8型)"
+    official: {store: pixio, url: "https://pixiogaming.jp/products/px249wavew"}
     short: "PX249 Wave"
     image_front: "https://cdn.shopify.com/s/files/1/0535/0873/5151/files/px249wavew.png?width=900"
     image: "https://cdn.shopify.com/s/files/1/0535/0873/5151/files/PX248WAVE_wh_back_b7735963-bd46-4268-93fb-dea750129f1a.png?width=900"
@@ -51,6 +52,7 @@ products:
     stores: [amazon, rakuten]
     mon: {w: 61.2, h: 53.5, d: 23.5}
   - name: "Pixio PX278 Wave White(27型)"
+    official: {store: pixio, url: "https://pixiogaming.jp/products/px278wavew"}
     short: "PX278 Wave"
     image_front: "https://cdn.shopify.com/s/files/1/0535/0873/5151/files/px278wavew.png?width=900"
     image: "https://cdn.shopify.com/s/files/1/0535/0873/5151/files/PX278WAVEW_15001500_back.gif"
@@ -75,6 +77,7 @@ products:
     stores: [rakuten]
     mon: {w: 61.4, h: 53.9, d: 25.3}
   - name: "Pixio PX277 OLEDMAX V2 White(27型 有機EL)"
+    official: {store: pixio, url: "https://pixiogaming.jp/products/px277oledmaxv2w"}
     short: "PX277 OLED"
     image_front: "https://cdn.shopify.com/s/files/1/0535/0873/5151/files/px277oled2w_item_01.png?width=900"
     image: "https://cdn.shopify.com/s/files/1/0535/0873/5151/files/px277oled2w_item_02.png?width=900"

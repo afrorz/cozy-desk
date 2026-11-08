@@ -404,7 +404,7 @@ def page(*, title: str, desc: str, path: str, body: str, current: str = "", imag
 <footer>
   <div class="wrap">
     <img class="chara-foot" src="/assets/shirone/back.png" alt="" title="シロネ" width="35" height="66" loading="lazy">
-    <span>© {years} {e(SITE['title'])} ・ <a href="/tools/desk-size/">机の横幅を図で確かめる</a> ・ <a href="/tools/my-desk/">デスクを組んでみる</a> ・ <a href="/about/">このサイトについて</a> ・ <a href="https://x.com/{e(SITE['x_account'])}">X @{e(SITE['x_account'])}</a></span>
+    <span>© {years} {e(SITE['title'])} ・ <a href="/tools/desk-size/">机の横幅を図で確かめる</a> ・ <a href="/tools/my-desk/">デスクを組んでみる</a> ・ <a href="/about/">このサイトについて</a> ・ <a href="/media/">メーカー・広報の方へ</a> ・ <a href="https://x.com/{e(SITE['x_account'])}">X @{e(SITE['x_account'])}</a></span>
     <span>{ad_note}</span>
   </div>
 </footer>
@@ -976,6 +976,92 @@ def build_post(p: dict, posts: list[dict]) -> str:
     return page(title=p["title"], desc=p["summary"], path=p["url"], body=body, current=p["category"], image=img, ld=ld)
 
 
+def build_media(posts: list[dict]) -> str:
+    """メーカー・広報の方へ(2026-11-08 本人「GT で出したような、メーカー向けの案件募集を」)。
+    GT の media.html にならう。数字は記事のデータから数える(手で書かない)。できないことを盛らない:
+    閲覧数は載せない(小さいため、聞かれたら答える)。使った感想は書かない決まり(docs/WRITING.md)なので、
+    実機レビューは約束しない。提供・貸し出しは「相談を受ける」だけにして、どう扱うかは本人が決める"""
+    n = len(posts)
+    news = sum(1 for p in posts if p["kind"] == "new")
+    since = min(p["date"] for p in posts).strftime("%Y.%m.%d") if posts else ""
+    press = e(SITE.get("press_email") or SITE["contact_email"])
+    contact = e(SITE["contact_email"])
+    xa = e(SITE["x_account"])
+    cats = "・".join(c["name"] for c in CATS)
+    body = f"""<main class="article"><div class="wrap">
+<p class="eyebrow">FOR BRANDS</p>
+<h1>メーカー・広報の方へ</h1>
+<div class="prose">
+<p>Cozy Desk は、白デスク・淡色デスクに合う、白と淡い色のデスク周りのガジェットを紹介するサイトです。
+新しく発表された白・淡い色の製品を毎日1つずつ紹介し、種類ごとのまとめ記事で、日本で今買える物を並べています。
+海外ガジェットの媒体 <a href="https://gadgetterminal.com/">Gadget Terminal</a> の姉妹サイトです。</p>
+
+<h2>Cozy Desk で紹介すること</h2>
+<ul>
+<li><strong>色の名前で選ぶ人に届けます。</strong> 「ホワイト」「ラベンダー」「ミントグリーン」など、色の名前と色見本をつけて紹介します。白い所が前だけか、背中やケーブルまで白いかも書きます</li>
+<li><strong>机の上に置いた姿まで見せます。</strong> 大きさは公式の寸法で書き、自分の机の横幅に置いてみる図や、ほかの物と組み合わせるデスクの例を用意しています</li>
+<li><strong>新作は発表されてすぐに日本語で紹介します。</strong> 海外の発表も、日本で届くか・安心して使えるかを確かめられた範囲で書きます</li>
+<li><strong>X でも紹介します。</strong> 管理人のシロネが <a href="https://x.com/{xa}">@{xa}</a> で新作を1つずつ紹介しています</li>
+</ul>
+
+<h2>これまでの数字</h2>
+<ul>
+<li>公開記事: <strong>{n}本</strong>({since} 〜)。うち新作の紹介 {news}本</li>
+<li>扱う種類: {e(cats)}</li>
+</ul>
+<p>数字はこのページを作り直すたびに記事のデータから数えています。閲覧数などはお問い合わせいただければお答えします。</p>
+
+<h2>取り上げやすくなる情報</h2>
+<p>次のものがそろっていると、記事にしやすくなります。英語の資料でも構いません。</p>
+<ul>
+<li>白・淡い色の展開(色の名前・色ごとの発売日・値段)</li>
+<li>寸法・重さなどの仕様と、公式ページ・プレスキットの URL</li>
+<li>記事に使ってよい公式の画像・動画(白い背景の製品写真があると助かります)</li>
+<li>日本での発売の予定と、売っている店(公式ストア・楽天・Amazon・Yahoo!ショッピング)</li>
+</ul>
+
+<h2>掲載基準</h2>
+<ul>
+<li>白、または淡い色の展開があること(机の上の色合わせが記事の主題のため)</li>
+<li>色・値段・大きさなどを、公式の情報で確かめられること</li>
+<li>日本で買える物は、楽天・Amazon・Yahoo!ショッピング・公式ストアのどこかで正規に売っていること</li>
+</ul>
+<p>掲載するかどうかは、上の基準に沿って編集部が判断します。</p>
+
+<h2>実機について</h2>
+<p>いまの記事は、公式の情報をもとに編集部がまとめたもので、使ってみた感想は書いていません。
+実機の提供・貸し出しのご相談は受け付けています。記事にする場合は、提供(貸し出し)を受けた物であることを明記します。</p>
+
+<h2>広告・PRの表記について</h2>
+<p>報酬を受けて掲載する場合は、本文中に<strong>【PR】</strong>と明記します(景品表示法の指定告示に従います)。
+紹介しているストアへのリンクの一部はアフィリエイトリンクで、その旨をサイト内に表示しています。
+紹介料や報酬の有無で、色・値段・大きさの書き方は変えません。</p>
+
+<h2>ご連絡方法</h2>
+<ul>
+<li>製品情報・プレスリリース・取材: <a href="mailto:{press}">{press}</a>(件名に「Cozy Desk」と入れてください)</li>
+<li>その他のお問い合わせ: <a href="mailto:{contact}">{contact}</a></li>
+<li>X: <a href="https://x.com/{xa}">@{xa}</a></li>
+</ul>
+
+<h2 lang="en">For brands</h2>
+<div lang="en">
+<p>Cozy Desk is a Japanese site about white and pastel desk gadgets. We cover new white and pastel releases one at a time,
+with color names, official dimensions and where to buy in Japan, and round up items you can buy in Japan by category.</p>
+<ul>
+<li>{n} articles since {since}, including {news} new-release articles.</li>
+<li>Send us your press kit, official images (white-background product shots help), color variants, pricing and plans for Japan. English is fine.</li>
+<li>Coverage is decided by our editors. Paid content, if any, is always labeled [PR].</li>
+<li>Contact: <a href="mailto:{press}">{press}</a> (please put "Cozy Desk" in the subject)</li>
+</ul>
+</div>
+
+<p><a href="/about/">載せ方の決まり・運営者</a></p>
+</div></div></main>"""
+    return page(title="メーカー・広報の方へ", desc="白と淡い色のデスク周りのガジェットを紹介する Cozy Desk の掲載基準・PR表記・ご連絡先",
+                path="/media/", body=body)
+
+
 def build_about() -> str:
     via = "・".join((["もしもアフィリエイト経由の Amazon・楽天市場・Yahoo!ショッピング"] if HAS_MOSHIMO else [])
                     + (["A8.net 経由のメーカー公式ストア"] if HAS_A8 else []))
@@ -1339,11 +1425,12 @@ def main() -> None:
     write("tools/desk-size/index.html", build_desk_size(posts))
     write("tools/my-desk/index.html", build_my_desk(posts))
     write("about/index.html", build_about())
+    write("media/index.html", build_media(posts))
     write("404.html", page(title="ページが見つかりません", desc="", path="/404.html",
                            body='<main class="article"><div class="wrap"><h1>ページが見つかりません</h1>'
                                 '<p><a href="/">トップへ戻る</a></p></div></main>'))
     base = SITE["base_url"].rstrip("/")
-    urls = ["/", "/about/", "/tools/desk-size/", "/tools/my-desk/"] + [f"/c/{c['slug']}/" for c in CATS] + [p["url"] for p in posts]
+    urls = ["/", "/about/", "/media/", "/tools/desk-size/", "/tools/my-desk/"] + [f"/c/{c['slug']}/" for c in CATS] + [p["url"] for p in posts]
     write("sitemap.xml", '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
           + "".join(f"<url><loc>{base}{u}</loc></url>\n" for u in urls) + "</urlset>\n")
     write("robots.txt", f"User-agent: *\nAllow: /\nSitemap: {base}/sitemap.xml\n")
