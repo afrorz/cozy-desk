@@ -8,7 +8,8 @@ site:
   x_account: "cozy_desk"
   copyright_from: 2026
   # Cloudflare Web Analytics のトークン。空なら出さない
-  cf_analytics_token: ""
+  # 11/8 GT と同じトークン(司令塔はアドレスで分けて数える)
+  cf_analytics_token: "a114276e3ee147cc9bcdc2edf684b9fc"
   # GA4(2026-11-01)。空ならタグも「アクセス解析について」も出ない
   analytics_id: "G-PR6B79GV7B"
   search_console_verification: ""
