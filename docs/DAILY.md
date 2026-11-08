@@ -114,7 +114,8 @@ git add content assets/x assets/clips && git -c commit.gpgsign=false commit -m "
   "title": "<記事のタイトル>",
   "articleUrl": "https://cozydesk.gadgetterminal.com/p/<名前>/",
   "text": "<シロネの一言>\n#PR",
-  "reply": "https://cozydesk.gadgetterminal.com/p/<名前>/",
+  "reply": "<記事で見られる物を1つ＋値段とお店、シロネの口調で1行>
+https://cozydesk.gadgetterminal.com/p/<名前>/",
   "images": ["https://cozydesk.gadgetterminal.com/assets/x/<今日の日付>-<名前>.jpg"],
   "memo": "<確かめた所: 公式の発表日・値段・色の出どころ>"
 }]
@@ -124,6 +125,7 @@ git add content assets/x assets/clips && git -c commit.gpgsign=false commit -m "
 - 本文はシロネの口調(少し眠そう・短い・はしゃがない)。物の感想・使った話は書かない
 - **「日本で買えるか」「日本未発売」は書かない**(本人)。日本で買えるかは記事の中で書く
 - `#PR` を本文に入れる。リンクは返信(`reply`)に置く
+- **返信は URL だけにしない**(11/9 本人「URLだけ？！」)。1行目に、記事を開くと見られる物(ほかの色の写真・動画・大きさ)と「値段と、予約できるお店(買えるお店)もここに」をシロネの口調で書き、2行目に URL。例: 「梅染と漆黒の写真も並べておいたよ。値段と、予約できるお店もここに…」。お店が無い物は値段・写真だけにする
 - 送る:
 
 ```bash
