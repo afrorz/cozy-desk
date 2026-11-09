@@ -114,10 +114,8 @@ git add content assets/x assets/clips && git -c commit.gpgsign=false commit -m "
   "planned": "<今日の日付>",
   "title": "<記事のタイトル>",
   "articleUrl": "https://cozydesk.gadgetterminal.com/p/<名前>/",
-  "text": "<1〜2行の一言>
-#PR #<メーカー> #<型番> #desksetup",
-  "reply": "<記事で見られる物＋「値段・お店はこちら」の短い1行>
-https://cozydesk.gadgetterminal.com/p/<名前>/",
+  "text": "<1〜2行の一言>\n#PR #<メーカー> #<型番> #desksetup",
+  "reply": "<記事で見られる物＋「値段・お店はこちら」の短い1行>\nhttps://cozydesk.gadgetterminal.com/p/<名前>/",
   "images": ["https://cozydesk.gadgetterminal.com/assets/x/<今日の日付>-<名前>.jpg"],
   "memo": "<確かめた所: 公式の発表日・値段・色の出どころ>"
 }]
