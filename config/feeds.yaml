@@ -1,5 +1,5 @@
 # 新作の候補を集める所(scripts/collect.py)。2026-11-04 本人「新発売のガジェットを1日1件」「国内と海外は半々」
-# region: jp = 日本の発表(買うボタンが置ける)/ world = 海外の発表
+# region: jp = 日本の発表(買うボタンが置ける)/ world = 海外の発表(英語)/ cn = 中国の発表(中国語。記事では origin: world)
 # PR TIMES の一覧は直近1時間半ぶんしか載らないので、collect.yml が30分おきに回す
 feeds:
   - {name: PR TIMES, region: jp, url: "https://prtimes.jp/index.rdf"}
@@ -14,6 +14,19 @@ feeds:
   - {name: TechPowerUp, region: world, url: "https://www.techpowerup.com/rss/news"}
   - {name: Gizmochina, region: world, url: "https://www.gizmochina.com/feed/"}
   - {name: Tom's Hardware, region: world, url: "https://www.tomshardware.com/feeds/all"}
+  # 11/9 足した(本人「海外、主に米国と中国のシロモノを」)。上の総合ニュースは CPU・スマホが中心で、11/5 以降の海外の候補がほぼ0件だったため
+  - {name: The Verge, region: world, url: "https://www.theverge.com/rss/index.xml"}
+  - {name: Engadget, region: world, url: "https://www.engadget.com/rss.xml"}
+  - {name: Dezeen テクノロジー, region: world, url: "https://www.dezeen.com/technology/feed/"}
+  - {name: Design Milk テクノロジー, region: world, url: "https://design-milk.com/category/technology/feed/"}
+  - {name: Keychron ブログ, region: world, url: "https://www.keychron.com/blogs/news.atom"}
+  - {name: YUNZII ブログ, region: world, url: "https://yunzii.com/blogs/news.atom"}
+  - {name: Satechi ブログ, region: world, url: "https://satechi.net/blogs/news.atom"}
+  - {name: IT之家, region: cn, url: "https://www.ithome.com/rss/"}
+  - {name: 少数派, region: cn, url: "https://sspai.com/feed"}
+  - {name: cnBeta, region: cn, url: "https://www.cnbeta.com.tw/backend.php"}
+  # 試して入れなかった所(11/9): Shopify の新着一覧(collections/all.atom・products.json)はどのブランドも 429 で断られる。
+  # Lofree・MelGeek・UGREEN のブログは何か月も更新なし、NuPhy は 429、Akko・AULA・Baseus は RSS なし、Kickstarter は 406
 
 # 色の言葉と物の言葉が両方入っている話題だけを候補にする(どちらも題と説明から探す)
 words:
@@ -23,3 +36,6 @@ words:
   world:
     color: [white, pink, pastel, cute, kawaii, cream, beige, lavender, mint, milky, ivory, "new color", colorway, sakura]
     thing: [keyboard, mouse, speaker, monitor, desk, headphone, headset, earbuds, charger, power strip, lamp, light, pc case, hub, stand, webcam, microphone, chair, keycap, mini pc, mousepad, desk mat, numpad, macropad, gadget]
+  cn:
+    color: [白色, 纯白, 奶白, 米白, 月光白, 白配色, 粉色, 樱花粉, 少女粉, 马卡龙, 奶油, 薰衣草, 香芋紫, 淡紫, 薄荷, 浅色, 新配色, 新色, 可爱, 萌, 雾蓝, 浅蓝]
+    thing: [键盘, 鼠标, 音箱, 显示器, 耳机, 头戴, 充电器, 插座, 排插, 台灯, 灯, 机箱, 扩展坞, 支架, 摄像头, 麦克风, 椅, 键帽, 迷你主机, 桌, 鼠标垫, 桌垫, 充电宝, 移动电源, 加湿器, 风扇, 数字键盘]

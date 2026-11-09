@@ -79,6 +79,7 @@ def main() -> None:
     path = OUT / f"{today}.json"
     found: list = json.loads(path.read_text(encoding="utf-8")) if path.exists() else []
     added = 0
+    old = (datetime.now(JST) - timedelta(days=14)).strftime("%Y-%m-%d")  # ブランドのブログは古い記事も並ぶので、2週間より前は飛ばす(11/9)
     for feed in CONF["feeds"]:
         try:
             req = urllib.request.Request(feed["url"], headers={"User-Agent": UA})
@@ -93,6 +94,8 @@ def main() -> None:
             if not it["url"] or it["url"] in seen:
                 continue
             seen[it["url"]] = today
+            if re.match(r"\d{4}-\d{2}-\d{2}", it["date"]) and it["date"][:10] < old:
+                continue
             s = f'{it["title"]} {it["summary"]}'
             c, t = match(w["color"], s, feed["region"]), match(w["thing"], s, feed["region"])
             if c and t:
