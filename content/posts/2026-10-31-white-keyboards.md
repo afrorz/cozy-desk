@@ -1,5 +1,5 @@
 ---
-title: "打つたびに気分が上がる、あなたの相棒キーボード"
+title: "打つたびに気分が上がる、白いキーボード8選"
 date: 2026-10-31
 category: keyboard
 kind: buy
