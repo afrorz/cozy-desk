@@ -658,7 +658,7 @@ def build_category(c: dict, posts: list[dict]) -> str:
     <div class="cat-hero">
       {icon(c['slug'])}
       <div>
-        <span class="eyebrow">٭ {e(c['name'])}</span>
+        <span class="eyebrow">٭ {e(c.get('eyebrow') or c['name'])}</span>
         <h1>白・淡い色の{e(c['name'])}</h1>
         <p>{e(c['lead'])}色の名前と値段、日本で使えるかを確かめて載せています。</p>
       </div>

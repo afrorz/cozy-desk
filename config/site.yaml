@@ -41,19 +41,20 @@ categories:
   - slug: desk
     name: デスク
     sub: 天板・昇降デスク
-    lead: 白い天板・白い脚のデスクと、昇降デスク。
+    eyebrow: 白デスクの土台に   # 種類ページの題の上の小さい見出し(11/11 本人。「ガジェット女子」とは名乗らず、置き場所で語る)
+    lead: 部屋の印象がいちばん変わる、白い天板と白い脚のデスク。高さを変えられる昇降デスクも。
     # 机は色より横幅と形で選ぶので、種類ページの軸を色から変える(物の側は products の facets: に書く)
     facets:
       - {key: width, name: 横幅, values: [100cm前後, 120cm前後, 140cm前後, 160cm以上]}
       - {key: shape, name: 形,   values: [平机, 昇降, L字, 折りたたみ]}
-  - {slug: chair,    name: 椅子,       sub: 白いメッシュ・ゲーミング,  lead: 白いメッシュの椅子と、白・淡い色のゲーミングチェア。}
-  - {slug: pc,       name: PC,         sub: 白いケース・光るファン,    lead: 白いPCケースと、淡い色に光るファン。白デスクの主役。}
-  - {slug: monitor,  name: モニター,   sub: 白い本体・モニターアーム,  lead: 白い本体のモニターと、白いモニターアーム。}
-  - {slug: mouse,    name: マウス,     sub: 白・ベージュ・くすみ色,    lead: 白・ベージュ・くすみ色のマウスとマウスパッド。}
-  - {slug: keyboard, name: キーボード, sub: 白・ピンク・テンキー,      lead: 白・ピンク・ベージュのキーボードとテンキー。}
-  - {slug: speaker,  name: スピーカー, sub: 白い PC スピーカー,        lead: 白い本体の PC スピーカー。}
-  - {slug: gear,     name: 周辺機器,   sub: ヘッドホン・マイク・カメラ, lead: 白いヘッドホン・マイク・Web カメラ・充電器など。}
-  - {slug: interior, name: インテリア, sub: 照明・棚・配線かくし,      lead: 間接照明・デスクライト・棚・配線かくし・植物。}
+  - {slug: chair,    name: 椅子,       sub: 白いメッシュ・ゲーミング,  eyebrow: 白デスクの前に置きたい椅子, lead: 後ろ姿まで白くそろう、白いメッシュの椅子と、白・淡い色のゲーミングチェア。}
+  - {slug: pc,       name: PC,         sub: 白いケース・光るファン,    eyebrow: 机の上の主役に, lead: ガラス越しに中まで白く見せられる PC ケースと、淡い色に光るファン。}
+  - {slug: monitor,  name: モニター,   sub: 白い本体・モニターアーム,  eyebrow: 白デスクに置きたいモニター, lead: 背中や足まで白いモニターと、白いモニターアーム。}
+  - {slug: mouse,    name: マウス,     sub: 白・ベージュ・くすみ色,    eyebrow: 手元をやさしい色に, lead: 白・ベージュ・くすみ色のマウスと、色を合わせられるマウスパッド。}
+  - {slug: keyboard, name: キーボード, sub: 白・ピンク・テンキー,      eyebrow: 机でいちばん目に入る所に, lead: 白・ピンク・ベージュのキーボードとテンキー。}
+  - {slug: speaker,  name: スピーカー, sub: 白い PC スピーカー,        eyebrow: 出しっぱなしでも絵になる, lead: 机の上に置いても浮かない、白い本体の PC スピーカー。}
+  - {slug: gear,     name: 周辺機器,   sub: ヘッドホン・マイク・カメラ, eyebrow: 白デスクに置きたい周辺機器, lead: 机の上に出しておきたくなる、白と淡い色のヘッドホン・マイク・Web カメラ・充電器など。}
+  - {slug: interior, name: インテリア, sub: 照明・棚・配線かくし,      eyebrow: 白デスクの空気をつくる, lead: 間接照明・デスクライト・棚・配線かくし・植物。}
 
 # トップの絵の押せる点。x, y は絵の左上からの %。left: true は名前を左に出す
 scene:
