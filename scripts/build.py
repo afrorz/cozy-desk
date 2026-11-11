@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import datetime as dt
 import hashlib
+import random
 import html
 import json
 import re
@@ -521,13 +522,35 @@ def prodcard(it: dict, facets: list[dict]) -> str:
             f'<span class="jpnote">{e(it["from"])}</span></div></a>')
 
 
+def roundup_card(p: dict) -> str:
+    # まとめは、物の写真を机に置いたように少しずつ傾けて重ねる横長カード(2026-11-11 本人と見本を見て B2 に決定)。
+    # 角度は記事ごとに決まった乱数(開くたびに変わらない)。一覧では値段を出さない(本人「値段を見て諦める人が多そう」)
+    rnd = random.Random(p["slug"])
+    items = [it for it in p.get("products") or [] if it.get("image")]
+    n = len(p.get("products") or [])
+    show = items[:4] if n > 5 else items[:5]
+    tiles = ""
+    for it in show:
+        r, y, x = rnd.choice([-1, 1]) * rnd.uniform(2, 7), rnd.uniform(-8, 8), rnd.uniform(-6, 6)
+        tiles += (f'<li style="--r:{r:.1f}deg;--y:{y:.0f}px;--x:{x:.0f}px"><img src="{e(sized(it["image"], 300))}" alt="{e(it["name"])}" '
+                  'loading="lazy" referrerpolicy="no-referrer"></li>')
+    if n > len(show):
+        tiles += f'<li class="more">ほか<br><b>{n - len(show)}</b>点</li>'
+    return (f'<a class="pcard roundup" href="{p["url"]}" data-f-kind="{p["kind"]}">'
+            f'<div class="mat"><ul>{tiles}</ul></div>'
+            f'<div class="body"><span class="badge">{kind_label(p)}</span><h3>{e(p["title"])}</h3>'
+            f'<div class="meta"><b class="count">{n}点から選べる</b></div><span class="jpnote">{e(p["summary"])}</span></div></a>')
+
+
 def pcard(p: dict) -> str:
+    if p["kind"] == "buy" and p.get("products"):
+        return roundup_card(p)
     badge = f'<span class="badge">{kind_label(p)}</span>'
-    price = f'<span class="price">{e(p["price"])}</span>' if p.get("price") else ""
+    tag = ""  # 一覧では値段を出さない(11/11 本人「値段を見て諦める人が多そう」。値段は記事の中で)
     colors = "".join(f'<i style="background:{e(c["hex"])}" title="{e(c["name"])}"></i>' for c in p.get("colors") or [])
-    return (f'<a class="pcard" href="{p["url"]}" data-f-kind="{p["kind"]}">'
-            f'<div class="img{" fit" if p.get("thumb_fit") else ""}{"" if p.get("thumbnail") else " noimg"}">{badge}{img_tag(p)}</div>'
-            f'<div class="body"><h3>{e(p["title"])}</h3><div class="meta">{price}{colors}</div>'
+    return (f'<a class="pcard single" href="{p["url"]}" data-f-kind="{p["kind"]}">'
+            f'<div class="img{" fit" if p.get("thumb_fit") else ""}{"" if p.get("thumbnail") else " noimg"}">{badge}{img_tag(p)}{tag}</div>'
+            f'<div class="body"><h3>{e(p["title"])}</h3><div class="meta">{colors}</div>'
             f'<span class="jpnote">{e(p["summary"])}</span></div></a>')
 
 
@@ -596,6 +619,7 @@ def build_index(posts: list[dict]) -> str:
 
 def build_category(c: dict, posts: list[dict]) -> str:
     mine = [p for p in posts if p["category"] == c["slug"]]
+    mine.sort(key=lambda p: p["kind"] != "buy")  # まとめを上に、そのあと単品(どちらも新しい順のまま。11/11 本人「まずはまとめ記事を上に」)
     items = products_in(c["slug"], posts)
     if mine or items:
         grid = ""
