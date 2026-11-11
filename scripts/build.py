@@ -546,7 +546,7 @@ def build_index(posts: list[dict]) -> str:
         f'<small>{e(c["sub"])}</small></span></a>' for c in CATS)
     small_cats = "".join(f'<a href="/c/{c["slug"]}/">{e(c["name"])}</a>' for c in CATS)
     sizes = ["big", "", "", "wide", "", ""]
-    latest = "\n".join(post_card(p, sizes[i] if i < len(sizes) else "") for i, p in enumerate(posts[:6]))
+    latest = "\n".join(post_card(p, sizes[i] if i < len(sizes) else "") for i, p in enumerate(posts[:12]))  # 新着は12件(11/11 本人)。big＋wide＋10枚で4列×4段がちょうど埋まる
     body = f"""<main>
   <section class="scene-sec">
     <div class="wrap">
