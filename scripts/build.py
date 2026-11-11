@@ -539,7 +539,7 @@ def roundup_card(p: dict) -> str:
     return (f'<a class="pcard roundup" href="{p["url"]}" data-f-kind="{p["kind"]}">'
             f'<div class="mat"><ul>{tiles}</ul></div>'
             f'<div class="body"><span class="badge">{kind_label(p)}</span><h3>{e(p["title"])}</h3>'
-            f'<div class="meta"><b class="count">{n}点から選べる</b></div><span class="jpnote">{e(p["summary"])}</span></div></a>')
+            f'<span class="jpnote">{e(p["summary"])}</span></div></a>')
 
 
 def pcard(p: dict) -> str:
