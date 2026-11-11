@@ -821,3 +821,10 @@ footer .wrap { position: relative; }
   .pcard.roundup .body { padding: 16px 20px 20px; }
   .pcard.roundup h3 { font-size: 17px; }
 }
+
+/* 種類ページの見出しの箱: アイコンが上に回り込んで余白が大きくなっていたので、横並びのまま詰める(2026-11-11 本人「スペースがもったいない」) */
+.cat-hero { flex-wrap: nowrap; gap: 18px; padding: 16px 24px; margin: 6px 0 20px; }
+.cat-hero > div { flex: 1; min-width: 0; }
+.cat-hero svg { width: 60px; height: 60px; flex: none; }
+.cat-hero .eyebrow { margin-bottom: 2px; }
+@media (max-width: 540px) { .cat-hero { padding: 14px 16px; gap: 12px; } .cat-hero svg { width: 44px; height: 44px; } }
