@@ -13,7 +13,7 @@ colors:
   - {name: ホワイト, hex: "#F4F4F2"}
 products:
   - name: "NZXT H6 Flow ホワイト"
-    image: "https://nzxt.com/cdn/shop/files/h6-flow_white_12_in-build.png?v=1789302072&width=800"
+    image: "https://nzxt.com/images/width=800,format=auto/7fe8d09fb8b1db6b515738d05bf03a2f2c22bf7a70dddfd1632a7e069c9133fd"
     image_credit: "NZXT 公式サイト"
     price: "1万7,600円(発売時の希望小売価格・税込・2023年11月発表。現在の価格はストアで確認)"
     colors: [{name: ホワイト, hex: "#F4F4F2"}]
