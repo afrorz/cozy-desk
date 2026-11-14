@@ -35,6 +35,7 @@ The same character as in the attached character sheet: a tiny collectible desk f
 
 - 設定画(shirone-sheet.jpg)を一緒に Gemini に添付すると、形がそろいやすい
 - 届いた絵は、猫耳ヘッドホン・マイク・髪・パーカー・メジャー・短パンを Claude が確かめる
+- いろいろな姿(手を振る・指さす・測る・のぞく など16種)の文は `docs/character/POSES.md`(11/14〜)
 
 ## サイトの中での置き場所
 
