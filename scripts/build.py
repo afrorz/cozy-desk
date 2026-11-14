@@ -396,7 +396,7 @@ def page(*, title: str, desc: str, path: str, body: str, current: str = "", imag
 <body>
 <header class="top">
   <div class="wrap">
-    <a class="logo" href="/"><b>cozy<i></i>desk</b><span>{e(SITE['tagline'])}</span></a>
+    <a class="logo" href="/"><b>cozy<i></i>desk</b><span>{e(SITE.get('header_sub') or SITE['tagline'])}</span></a>
     <img class="chara-head" src="/assets/shirone/front.png" alt="" title="シロネ" width="27" height="52">
     {nav(current)}
   </div>

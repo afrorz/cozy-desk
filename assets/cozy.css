@@ -316,7 +316,8 @@ footer a { color: inherit; }
   .cat-hero svg { width: 64px; height: 64px; }
 }
 .logo b { white-space: nowrap; }
-@media (max-width: 540px) { .logo span { display: none; } }
+/* スマホはロゴの下にサブタイトル(検索向けの言葉。2026-11-14 本人) */
+@media (max-width: 540px) { .logo { flex-direction: column; align-items: flex-start; gap: 2px; } .logo span { font-size: 10.5px; letter-spacing: .08em; } }
 
 /* 種類のページ: 色で選ぶ・記事 */
 .cat-sec { margin-top: 34px; }
