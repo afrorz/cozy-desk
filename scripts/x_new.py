@@ -149,7 +149,10 @@ def card(src: str, first: bool, name: str, credit: str, fill: float) -> Image.Im
         tag(im, name)
     logo(im, pill=raw)
     d = ImageDraw.Draw(im)
-    d.text((40, H - 30), credit, font=F(20, "Medium"), fill=(255, 255, 255) if raw else CREDIT, anchor="ls")
+    fc = F(20, "Medium")
+    if raw:  # 写真の上では読めないので、ロゴと同じ白い札にのせる
+        d.rounded_rectangle([24, H - 58, 56 + d.textlength(credit, font=fc), H - 20], radius=19, fill=(251, 249, 246))
+    d.text((40, H - 32), credit, font=fc, fill=CREDIT, anchor="ls")
     return im
 
 
