@@ -175,7 +175,7 @@ def trimmed(url: str, w: int = 600) -> str:
     """一覧のカード用に、公式写真のまわりの白い余白を切って物に寄せた写真(2026-11-14 本人「ガジェットを大きく見せたい。
     GT みたいに画像に寄った大きめの画像に」)。assets/thumbs/ に1回だけ作って git に入れる(公開の時は作り直さない)。
     背景のある写真(部屋に置いた写真など)は切る所がないので、そのまま。取れなければ元の URL を返す"""
-    if not url:
+    if not url or url.startswith("/"):  # 手元に置いた写真(assets/thumbs など)はそのまま
         return url
     out = THUMBS / (hashlib.sha1(url.encode()).hexdigest()[:14] + ".jpg")
     if not out.exists():
@@ -489,6 +489,11 @@ def img_tag(p: dict) -> str:
         return ('<span class="collage">' + "".join(
             f'<img src="{e(trimmed(it["image"], 300))}" alt="{e(it["name"])}" loading="lazy" referrerpolicy="no-referrer">'
             for it in picks) + "</span>")
+    if p.get("thumbnails"):  # 色違いなどを横に並べて見せる(2026-11-14 本人「ピンクと水色の2色、2つ見せられない？」)
+        ts = p["thumbnails"][:4]
+        return (f'<span class="collage row" style="--n:{len(ts)}">' + "".join(
+            f'<img src="{e(trimmed(t))}" alt="{e(p.get("thumbnail_alt") or p["title"])}" loading="lazy" referrerpolicy="no-referrer">'
+            for t in ts) + "</span>")
     if not p.get("thumbnail"):
         return icon(p["category"])
     src = trimmed(p["thumbnail"]) if p.get("thumb_fit") else sized(p["thumbnail"], 600)  # 白い背景の写真だけ寄せる
@@ -500,11 +505,48 @@ def thumb(p: dict) -> str:
     return f'<div class="{cls}">{img_tag(p)}</div>'
 
 
+_SCENE: dict[str, bool] = {}
+
+
+def is_scene(src: str) -> bool:
+    """寄せた写真の四隅が白くなければ、部屋に置いた写真など背景のある写真(枠いっぱいに敷く)"""
+    if src not in _SCENE:
+        _SCENE[src] = False
+        if src.startswith("/assets/thumbs/"):
+            try:
+                from PIL import Image
+                im = Image.open(ROOT / src.lstrip("/")).convert("RGB")
+                W, H = im.size
+                cs = [im.getpixel(xy) for xy in ((1, 1), (W - 2, 1), (1, H - 2), (W - 2, H - 2))]
+                _SCENE[src] = sum(1 for c in cs if min(c) > 235) < 3
+            except Exception:
+                pass
+    return _SCENE[src]
+
+
+def multi_thumb(p: dict) -> str:
+    """新着の大きいカード(PC)用: 写真を2〜3枚横に並べる(2026-11-14 本人「でかい表示のものは画像複数見せられないか」)。
+    thumbnails: があればそれ、なければ一覧の写真＋記事の中の公式写真"""
+    srcs = list(p.get("thumbnails") or [])
+    if not srcs:
+        srcs = [p["thumbnail"]] if p.get("thumbnail") else []
+        srcs += [u for u in re.findall(r'<img[^>]+src="([^"]+)"', p.get("html", "")) if u.startswith("http") and u not in srcs]
+    srcs = srcs[:3]
+    if len(srcs) < 2 or p.get("card_items"):
+        return ""
+    tiles = ""
+    for u in srcs:
+        t = trimmed(u)
+        tiles += f'<img class="{"scene" if is_scene(t) else ""}" src="{e(t)}" alt="" loading="lazy" referrerpolicy="no-referrer">'
+    return f'<div class="img multi"><span class="collage row" style="--n:{len(srcs)}">{tiles}</span></div>'
+
+
 def post_card(p: dict, cls: str = "") -> str:
     meta = f'{CAT[p["category"]]["name"]} ・ {kind_label(p)}'
     if p.get("price"):
         meta += f' ・ {e(p["price"])}'
-    return (f'<a class="post {cls}" href="{p["url"]}">{dots(p.get("colors"))}{thumb(p)}'
+    multi = multi_thumb(p) if "top2" in cls else ""
+    return (f'<a class="post {cls}{" has-multi" if multi else ""}" href="{p["url"]}">{dots(p.get("colors"))}{thumb(p)}{multi}'
             f'<div class="body"><span class="kind">{meta}</span><h3>{e(p["title"])}</h3>'
             + (f'<p class="sum">{e(p["summary"])}</p>' if p.get("summary") else "") + '</div></a>')
 

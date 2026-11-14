@@ -10,6 +10,10 @@ thumbnail: "https://dlcdnwebimgs.asus.com/gain/a111739d-da9c-43bd-85d7-7c50690aa
 thumbnail_alt: "白い TUF Gaming VG27AQL5F-W を正面から見たところ。白い枠と、白いスタンドと台座"
 thumbnail_credit: "ASUS 中国 公式サイト"
 thumb_fit: true
+thumbnails:   # 新着の大きいカードに並べる(ASUS 中国 公式サイトの写真。正面ななめ・背中・横)
+  - "/assets/thumbs/asus-vg27aql5f-w-1.jpg"
+  - "/assets/thumbs/asus-vg27aql5f-w-2.jpg"
+  - "/assets/thumbs/asus-vg27aql5f-w-3.jpg"
 colors:
   - {name: ホワイト, hex: "#F5F4F0"}
 alt_q: "Pixio PX278 Wave White"

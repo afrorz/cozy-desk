@@ -10,6 +10,9 @@ thumbnail: "https://cdn.shopify.com/s/files/1/0535/0873/5151/files/pxautcpk_item
 thumbnail_alt: "ピンクの本体に白い天面の卓上充電タップ。手前に白いスタンドの板、白いコードとプラグ"
 thumbnail_credit: "Pixio 公式ストア"
 thumb_fit: true
+thumbnails:   # 一覧のカードに2色を並べる
+  - "https://cdn.shopify.com/s/files/1/0535/0873/5151/files/pxautcpk_item_01.png?v=1793922360"
+  - "https://cdn.shopify.com/s/files/1/0535/0873/5151/files/pxautcbl_item_01.png?v=1793922360"
 price: "5,980円(掲載時点・Pixio 公式ストア)"
 q: "Pixio 電源タップ"
 stores: [rakuten, yahoo]

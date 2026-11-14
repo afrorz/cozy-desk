@@ -892,3 +892,34 @@ footer .wrap { position: relative; }
 @media (max-width: 540px) { .cat-hero { padding: 14px 16px; gap: 12px; } .cat-hero svg { width: 44px; height: 44px; } }
 /* PC では種類のボタンが右端のシロネの下にもぐらないよう、右をあける(2026-11-14 本人「シロネに文字が被ってる」) */
 @media (min-width: 561px) { .top nav.cats { margin-right: 52px; } }
+
+/* 一覧の写真を並べる枠(まとめの4つ・色違い)は、角丸を外側の角だけにする(2026-11-14 本人「角丸、左右の端っこだけに」) */
+.post .img .collage { --cr: calc(var(--radius) - 5px); }
+.pcard .img .collage { --cr: 17px; }
+.collage.row { grid-template-columns: repeat(var(--n), 1fr) !important; grid-template-rows: 1fr !important; }
+:is(.post, .pcard) .img .collage img { border-radius: 0 !important; }
+:is(.post, .pcard) .img .collage img:nth-child(1) { border-radius: var(--cr) 0 0 0 !important; }
+:is(.post, .pcard) .img .collage img:nth-child(2) { border-radius: 0 var(--cr) 0 0 !important; }
+:is(.post, .pcard) .img .collage img:nth-child(3) { border-radius: 0 0 0 var(--cr) !important; }
+:is(.post, .pcard) .img .collage img:nth-child(4) { border-radius: 0 0 var(--cr) 0 !important; }
+/* 横1列のとき(PC の新着・スマホの横いっぱいのカード・色違い) */
+.bento .post .img .collage img:nth-child(n) { border-radius: 0 !important; }
+.bento .post .img .collage img:first-child { border-radius: var(--cr) 0 0 var(--cr) !important; }
+.bento .post .img .collage img:last-child { border-radius: 0 var(--cr) var(--cr) 0 !important; }
+@media (max-width: 540px) {
+  .bento .post:not(.wide) .img .collage:not(.row) img:nth-child(1) { border-radius: var(--cr) 0 0 0 !important; }
+  .bento .post:not(.wide) .img .collage:not(.row) img:nth-child(2) { border-radius: 0 var(--cr) 0 0 !important; }
+  .bento .post:not(.wide) .img .collage:not(.row) img:nth-child(3) { border-radius: 0 0 0 var(--cr) !important; }
+  .bento .post:not(.wide) .img .collage:not(.row) img:nth-child(4) { border-radius: 0 0 var(--cr) 0 !important; }
+}
+.img .collage.row img:only-child { border-radius: var(--cr) !important; }
+
+/* 新着の大きい2つ(PC)は写真を2〜3枚並べる。スマホは1枚のまま(2026-11-14 本人) */
+.post .img.multi { display: none; }
+.bento .post.has-multi .img.multi { display: block; }
+.bento .post.has-multi .img:not(.multi) { display: none; }
+.img .collage img.scene { object-fit: cover !important; padding: 0 !important; }
+@media (max-width: 540px) {
+  .bento .post.has-multi .img.multi { display: none; }
+  .bento .post.has-multi .img:not(.multi) { display: block; }
+}
