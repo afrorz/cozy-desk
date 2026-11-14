@@ -351,7 +351,7 @@ def nav(current: str = "") -> str:
 
 
 def page(*, title: str, desc: str, path: str, body: str, current: str = "", image: str = "", pr: bool = False, ld: list | None = None) -> str:
-    full = f"{title}｜{SITE['title']}" if title else f"{SITE['title']}｜{SITE['tagline']}"
+    full = f"{title}｜{SITE['title']}" if title else f"{SITE['title']}｜{SITE.get('header_sub') or SITE['tagline']}"
     url = SITE["base_url"].rstrip("/") + path
     og = image or SITE["base_url"].rstrip("/") + "/assets/scene.jpg"
     extra = ""
