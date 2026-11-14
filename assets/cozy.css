@@ -923,3 +923,8 @@ footer .wrap { position: relative; }
   .bento .post.has-multi .img.multi { display: none; }
   .bento .post.has-multi .img:not(.multi) { display: block; }
 }
+
+/* スマホの「種類で探す」は、アイコンと文字を真ん中にそろえる(2026-11-14 本人) */
+@media (max-width: 540px) {
+  .cat8 { align-items: center; text-align: center; padding: 14px 8px; }
+}
