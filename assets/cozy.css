@@ -829,3 +829,5 @@ footer .wrap { position: relative; }
 .cat-hero svg { width: 60px; height: 60px; flex: none; }
 .cat-hero .eyebrow { margin-bottom: 2px; }
 @media (max-width: 540px) { .cat-hero { padding: 14px 16px; gap: 12px; } .cat-hero svg { width: 44px; height: 44px; } }
+/* PC では種類のボタンが右端のシロネの下にもぐらないよう、右をあける(2026-11-14 本人「シロネに文字が被ってる」) */
+@media (min-width: 561px) { .top nav.cats { margin-right: 52px; } }
