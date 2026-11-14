@@ -1,25 +1,21 @@
-r"""X の「新作」の画像(1200x675)を作る。
+r"""X の「新作」の画像を作る(公式写真を1〜4枚、物を大きく。右下に Cozy Desk のロゴ)。
 
-2026-11-07 本人と壁打ちして型を変えた(それまでは 11/4 の「左に公式写真・右に札とシロネ」)。
-左右に分けた型は、型番が主役で物が単体で置かれ、シロネが飾りになるので、男性向けのガジェット発表カードに見えた。
-「大きさ比べ」の投稿(コンセントハウス・タワー型)のほうが、シロネの10cmの世界に見えて、かわいかった。そこで:
+2026-11-14 本人と型を変えた(それまでは 11/7 の「物とシロネを同じ床に並べる」1枚)。
+  - シロネとの大きさ比べはしない。シロネも入れない(本人「やっぱりいらない」)。かわりに右下にサイトのロゴ
+  - 物をなるべく大きく、しっかり見せる。写真は複数枚を別々の画像にして、X に並べて載せる
+    (手本: 机の写真の人がよくやる、写真を2〜4枚そのまま添付する形。X では同じ高さで横に並ぶ)
+  - 1枚目の左上にだけ「新作」の札と物の名前を小さく。ワクワクする一言は画像に入れず、本文に書く
+  - 写真は公式写真。白い背景は自動で抜く(rembg。JapanHasThat-shorts の .venv の Python を使う)。
+    部屋に置いた写真など、背景ごと見せたい写真は先頭に「raw:」を付けると、抜かずに枠いっぱいに敷く
 
-  - ワクワクする一言をいちばん大きく(左上)。物の名前は「新作」の札の横に小さく
-  - 物とシロネを同じ淡い床に、ほぼ本当の大きさの比率で並べる(シロネは背丈10cm)。シロネは物の方を向く
-  - 右下に、物の大きさとシロネの背丈を小さく書く
-  - 写真は公式写真。白い背景は自動で抜く(rembg。JapanHasThat-shorts の .venv の Python を使う)
+    python scripts/x_new.py --out assets/x/<id>.jpg --name "ASUS TUF Gaming VG27AQL5F-W" ^
+        --image <正面の写真> --image <背中の写真> --image <横の写真> --credit "画像: ASUS 公式サイト"
 
-    python scripts/x_new.py --image <公式写真のURLかファイル> --out assets/x/<id>.jpg ^
-        --maker AULA --name "NEOS75 Venus" --hook "机の上に、|小さな美術館" ^
-        --cm 37.3 --by w --credit "画像: AULA 公式ストア・Cozy Desk(シロネ)"
+  → assets/x/<id>-1.jpg, <id>-2.jpg ... ができる(下書きの images にこの順で並べる)
 
---cm   : 物の大きさ(公式の寸法、cm)。写真の横幅(--by w)か高さ(--by h)が、この長さだと見なしてシロネの大きさを決める
---by   : w=横幅(キーボード・マウス・机に横長に置く物)、h=高さ(ヘッドホン・ライト・縦長の物)
---size : 右下の文字。省くと「横幅 37.3cm ・ シロネ 10cm」のように自動
---hook : ワクワクする一言(docs/X_POSTING.md「いちばん大事なこと」)。「|」で2行まで
---name : 物の名前。「|」は空白に置きかえて1行にする
---zoom : 物の大きさ(1.0 で置ける枠いっぱい)。シロネも同じ割合で変わる
-文字は丸文字 Zen Maru Gothic(scripts/fonts)。背景と床は x_render.py と同じ。
+画像の形: 高さ 1200px。横幅は物の形に合わせて 800〜1600px(縦長の物は縦長、横長の物は横長の画像)。
+1枚目は札が入るよう 1200px 以上にする。--fill で物の大きさ(枠に対する割合、ふつう 0.86)。
+文字とロゴは丸文字 Zen Maru Gothic(scripts/fonts)。背景は淡いラベンダーから白への、継ぎ目のない色。
 """
 from __future__ import annotations
 
@@ -31,20 +27,15 @@ import tempfile
 import urllib.request
 from pathlib import Path
 
-from PIL import Image, ImageDraw, ImageFilter, ImageFont
-
-sys.path.insert(0, str(Path(__file__).resolve().parent))
-from x_render import base  # noqa: E402  淡いラベンダーから白への、継ぎ目のない背景
+from PIL import Image, ImageDraw, ImageFilter, ImageFont, ImageOps
 
 ROOT = Path(__file__).resolve().parent.parent
 FD = ROOT / "scripts" / "fonts"
-SHIRONE = ROOT / "docs" / "character" / "shirone" / "diag.png"  # 左(物の方)を向いている。左右反転しない
 REMBG_PY = ROOT.parent.parent / "shorts" / "JapanHasThat-shorts" / ".venv" / "Scripts" / "python.exe"
 UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130 Safari/537.36"
-W, H = 1200, 675
-INK, ACC, SUB, CREDIT = (74, 64, 92), (122, 107, 170), (130, 120, 148), (150, 142, 165)
-TX, TW = 64, 1200 - 64 * 2
-SH_MIN, SH_MAX = 120, 360  # シロネの高さ(px)。小さすぎると見えず、大きすぎると物が豆つぶになる
+H = 1200
+INK, ACC, CREDIT = (74, 64, 92), (122, 107, 170), (150, 142, 165)
+COCOA, OAK = (74, 64, 57), (212, 184, 150)  # サイトの --cocoa と --oak(ヘッダーのロゴと同じ色)
 
 
 def F(n: int, w: str = "Bold") -> ImageFont.FreeTypeFont:
@@ -60,7 +51,7 @@ def load(src: str) -> Image.Image:
 
 def cutout(ph: Image.Image) -> Image.Image:
     """背景を抜いた物だけの絵。もとから透明な PNG ならそのまま使う"""
-    if ph.mode in ("RGBA", "LA") and ph.getchannel("A").getextrema()[0] < 200:
+    if ph.mode in ("RGBA", "LA", "P") and ph.convert("RGBA").getchannel("A").getextrema()[0] < 200:
         im = ph.convert("RGBA")
     else:
         if not REMBG_PY.exists():
@@ -77,89 +68,108 @@ def cutout(ph: Image.Image) -> Image.Image:
     return im.crop(a.getbbox())
 
 
-def fit(d: ImageDraw.ImageDraw, text: str, size: int, weight: str, width: int = TW) -> ImageFont.FreeTypeFont:
-    while size > 20 and d.textlength(text, font=F(size, weight)) > width:
+def background(w: int, h: int) -> Image.Image:
+    """継ぎ目のない撮影用の背景(上の淡いラベンダーから下の白へ)。壁と机の境目の線は作らない"""
+    im = Image.new("RGB", (w, h))
+    d = ImageDraw.Draw(im)
+    top, mid, bot = (236, 230, 245), (244, 240, 240), (250, 249, 247)
+    for y in range(h):
+        t = y / h
+        a, b, u = (top, mid, t / 0.55) if t < 0.55 else (mid, bot, (t - 0.55) / 0.45)
+        u = u * u * (3 - 2 * u)
+        d.line([(0, y), (w, y)], fill=tuple(int(a[i] + (b[i] - a[i]) * u) for i in range(3)))
+    return im.convert("RGBA")
+
+
+def logo(im: Image.Image, size: int = 40, pill: bool = False) -> None:
+    """右下にサイトのヘッダーと同じロゴ: cozy●desk(Black・ココア色・字間 .06em・間にオークの点)"""
+    W, Hh = im.size
+    d = ImageDraw.Draw(im)
+    f = F(size, "Black")
+    sp, dot, gap = size * 0.06, size * 0.38, size * 0.1
+
+    def tw(t: str) -> float:
+        return sum(d.textlength(c, font=f) for c in t) + sp * (len(t) - 1)
+
+    total = tw("cozy") + gap * 2 + dot + tw("desk")
+    x, y = W - 40 - total, Hh - 34
+    if pill:  # 写真を敷いた画像では、読めるように白い札にのせる
+        d.rounded_rectangle([x - 20, y - size - 4, W - 20, y + 16], radius=(size + 20) // 2, fill=(251, 249, 246))
+    for part in ("cozy", None, "desk"):
+        if part is None:
+            cy = y - size * 0.17
+            d.ellipse([x + gap, cy - dot / 2, x + gap + dot, cy + dot / 2], fill=OAK)
+            x += gap * 2 + dot
+            continue
+        for c in part:
+            d.text((x, y), c, font=f, fill=COCOA, anchor="ls")
+            x += d.textlength(c, font=f) + sp
+
+
+def tag(im: Image.Image, name: str) -> None:
+    """1枚目の左上: 「新作」の札と物の名前"""
+    d = ImageDraw.Draw(im)
+    f1 = F(30, "Black")
+    tw = d.textlength("新作", font=f1)
+    room = im.width - 40 - (40 + tw + 54) - 30
+    size = 30
+    while size > 18 and d.textlength(name, font=F(size)) > room:
         size -= 2
-    return F(size, weight)
+    d.rounded_rectangle([40, 40, 40 + tw + 36, 92], 26, fill=ACC)
+    d.text((58, 66), "新作", font=f1, fill="white", anchor="lm")
+    d.text((40 + tw + 54, 66), name, font=F(size), fill=INK, anchor="lm")
 
 
-def shadow(im: Image.Image, x0: float, x1: float, y: int, k: float) -> None:
-    sh = Image.new("RGBA", (W, H), (0, 0, 0, 0))
-    ImageDraw.Draw(sh).ellipse([x0, y - 12, x1, y + 14], fill=(90, 80, 100, int(70 * k)))
-    im.alpha_composite(sh.filter(ImageFilter.GaussianBlur(12)))
+def card(src: str, first: bool, name: str, credit: str, fill: float) -> Image.Image:
+    raw = src.startswith("raw:")
+    ph = load(src[4:] if raw else src)
+    if raw:  # 背景ごと見せる写真: そのまま枠いっぱいに(4:3〜2:3 に収める)
+        ph = ph.convert("RGB")
+        r = min(max(ph.width / ph.height, 2 / 3), 4 / 3)
+        w = max(int(H * r), 1200 if first else 800)
+        im = ImageOps.fit(ph, (w, H), Image.LANCZOS).convert("RGBA")
+    else:
+        obj = cutout(ph)
+        r = obj.width / obj.height
+        w = int(min(max(H * r * 1.08, 800), 1600))  # 物の形に合わせた枠。縦長の物は縦長の画像に
+        if first:
+            w = max(w, 1200)
+        im = background(w, H)
+        top, bottom = (120 if first else 60), 90  # 札・ロゴと重ならない範囲で、物をいちばん大きく
+        s = min(w * fill / obj.width, (H - top - bottom) / obj.height)
+        obj = obj.resize((max(1, round(obj.width * s)), max(1, round(obj.height * s))), Image.LANCZOS)
+        x = (w - obj.width) // 2
+        y = top + (H - top - bottom - obj.height) // 2
+        floor = y + obj.height
+        sh = Image.new("RGBA", (w, H), (0, 0, 0, 0))
+        ImageDraw.Draw(sh).ellipse([x + obj.width * 0.1, floor - 14, x + obj.width * 0.9, floor + 16], fill=(90, 80, 100, 60))
+        im.alpha_composite(sh.filter(ImageFilter.GaussianBlur(16)))
+        im.alpha_composite(obj, (x, y))
+    if first:
+        tag(im, name)
+    logo(im, pill=raw)
+    d = ImageDraw.Draw(im)
+    d.text((40, H - 30), credit, font=F(20, "Medium"), fill=(255, 255, 255) if raw else CREDIT, anchor="ls")
+    return im
 
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--image", required=True)
-    ap.add_argument("--out", required=True)
-    ap.add_argument("--maker", required=True)
-    ap.add_argument("--name", required=True)
-    ap.add_argument("--hook", required=True)
-    ap.add_argument("--credit", required=True)
-    ap.add_argument("--cm", type=float, required=True)
-    ap.add_argument("--by", choices=["w", "h"], default="w")
-    ap.add_argument("--size", default="")
-    ap.add_argument("--zoom", type=float, default=1.0)
-    ap.add_argument("--floor", type=int, default=625)
+    ap.add_argument("--image", action="append", required=True, help="公式写真の URL かファイル。1〜4回。背景ごと見せるなら raw: を前に")
+    ap.add_argument("--out", required=True, help="assets/x/<id>.jpg → <id>-1.jpg, -2.jpg ... ができる")
+    ap.add_argument("--name", required=True, help="1枚目の札の横に出す物の名前(メーカー名から)")
+    ap.add_argument("--credit", required=True, help="左下の出典。例: 画像: ASUS 公式サイト")
+    ap.add_argument("--fill", type=float, default=0.86)
     a = ap.parse_args()
-
-    im = base().convert("RGBA")
-    d = ImageDraw.Draw(im)
-
-    # 一言(主役)
-    y = 46
-    for line in a.hook.split("|")[:2]:
-        fnt = fit(d, line, 54, "Bold")
-        d.text((TX, y), line, font=fnt, fill=INK)
-        y += fnt.size + 18
-    # 小さな札: 新作・メーカー・名前
-    y += 4
-    f = F(22)
-    cw = d.textlength("新作", font=f)
-    d.rounded_rectangle([TX, y, TX + cw + 28, y + 36], radius=18, fill=(255, 255, 255), outline=(200, 190, 222), width=2)
-    d.text((TX + 14, y + 4), "新作", font=f, fill=ACC)
-    name = f"{a.maker}  {a.name.replace('|', ' ')}"
-    d.text((TX + cw + 44, y + 4), name, font=fit(d, name, 24, "Medium", TW - cw - 44), fill=SUB)
-    top = y + 36 + 22  # ここより下に物を置く
-
-    # 物とシロネの大きさ。物を置ける枠いっぱいにし、シロネを同じ縮尺の10cmにする
-    p = cutout(load(a.image))
-    sh = Image.open(SHIRONE).convert("RGBA")
-    sh = sh.crop(sh.getbbox())
-    box_h = a.floor - top
-    box_w = 820
-    s = min(box_w / p.width, box_h / p.height) * a.zoom
-    ppcm = (p.width * s if a.by == "w" else p.height * s) / a.cm
-    sh_h = 10 * ppcm
-    if sh_h > SH_MAX or sh_h > box_h:  # 小さな物: シロネを上限にして、物を同じ割合で小さく
-        k = min(SH_MAX, box_h) / sh_h
-        s, sh_h = s * k, sh_h * k
-    pw, ph_ = round(p.width * s), round(p.height * s)
-    sh_h = round(sh_h)
-    if sh_h < SH_MIN:
-        print(f"注意: シロネが {sh_h}px と小さい(物が大きい)。--zoom を下げると見やすくなる", file=sys.stderr)
-    p = p.resize((pw, ph_), Image.LANCZOS)
-    sh = sh.resize((max(1, round(sh.width * sh_h / sh.height)), sh_h), Image.LANCZOS)
-
-    gap = 26
-    total = pw + gap + sh.width
-    x0 = max(40, min((W - total) // 2 + 40, W - total - 60))  # まとまりを真ん中より少し右に
-    xs = x0 + pw + gap
-    shadow(im, x0 + pw * 0.08, x0 + pw * 0.92, a.floor, 0.5)
-    shadow(im, xs + sh.width * 0.1, xs + sh.width * 0.9, a.floor, 0.7)
-    im.alpha_composite(p, (x0, a.floor - ph_))
-    im.alpha_composite(sh, (xs, a.floor - sh_h))
-
-    d = ImageDraw.Draw(im)
-    size = a.size or f"{'横幅' if a.by == 'w' else '高さ'} {a.cm:g}cm ・ シロネ 10cm"
-    f = F(22, "Medium")
-    d.text((W - 40 - d.textlength(size, font=f), H - 44), size, font=f, fill=SUB)
-    d.text((24, H - 40), a.credit, font=F(18, "Medium"), fill=CREDIT)
-
-    Path(a.out).parent.mkdir(parents=True, exist_ok=True)
-    im.convert("RGB").save(a.out, quality=90)
-    print(a.out)
+    if len(a.image) > 4:
+        sys.exit("X に載せられる画像は4枚まで")
+    out = Path(a.out)
+    out.parent.mkdir(parents=True, exist_ok=True)
+    for i, src in enumerate(a.image, 1):
+        im = card(src, i == 1, a.name.replace("|", " "), a.credit, a.fill)
+        p = out.with_name(f"{out.stem}-{i}.jpg")
+        im.convert("RGB").save(p, quality=90)
+        print(p, im.size)
 
 
 if __name__ == "__main__":
