@@ -96,7 +96,7 @@ python scripts/x_new.py --out assets/x/<今日の日付>-<名前>.jpg --name "<�
 ```bash
 python scripts/build.py
 python scripts/check_images.py
-git add content assets/x assets/clips && git -c commit.gpgsign=false commit -m "新作: <物の名前>" && git push
+git add content assets/x assets/clips assets/thumbs && git -c commit.gpgsign=false commit -m "新作: <物の名前>" && git push
 ```
 
 - build.py が通り、記事の数が1本増えていること

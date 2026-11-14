@@ -168,6 +168,45 @@ def sized(url: str, w: int) -> str:
     parts = [q for q in query.split("&") if q and not q.startswith(key + "=")]
     return base + "?" + "&".join(parts + [f"{key}={w}"])
 
+THUMBS = ROOT / "assets" / "thumbs"
+
+
+def trimmed(url: str, w: int = 600) -> str:
+    """一覧のカード用に、公式写真のまわりの白い余白を切って物に寄せた写真(2026-11-14 本人「ガジェットを大きく見せたい。
+    GT みたいに画像に寄った大きめの画像に」)。assets/thumbs/ に1回だけ作って git に入れる(公開の時は作り直さない)。
+    背景のある写真(部屋に置いた写真など)は切る所がないので、そのまま。取れなければ元の URL を返す"""
+    if not url:
+        return url
+    out = THUMBS / (hashlib.sha1(url.encode()).hexdigest()[:14] + ".jpg")
+    if not out.exists():
+        try:
+            import io
+            import urllib.request
+            from PIL import Image
+            req = urllib.request.Request(sized(url, 1200), headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/130 Safari/537.36"})
+            im = Image.open(io.BytesIO(urllib.request.urlopen(req, timeout=30).read()))
+            im = im.convert("RGBA")
+            bg = Image.new("RGBA", im.size, (255, 255, 255, 255))
+            bg.alpha_composite(im)
+            im = bg.convert("RGB")
+            W, H = im.size
+            corners = [im.getpixel(xy) for xy in ((2, 2), (W - 3, 2), (2, H - 3), (W - 3, H - 3))]
+            base = tuple(sorted(c[i] for c in corners)[1] for i in range(3))
+            diff = Image.eval(Image.merge("RGB", [ch.point(lambda v, b=base[i]: 255 if abs(v - b) > 18 else 0) for i, ch in enumerate(im.split())]), lambda v: v).convert("L")
+            box = diff.point(lambda v: 255 if v else 0).getbbox()
+            if box:
+                pad = int(max(box[2] - box[0], box[3] - box[1]) * 0.04)
+                box = (max(0, box[0] - pad), max(0, box[1] - pad), min(W, box[2] + pad), min(H, box[3] + pad))
+                im = im.crop(box)
+            im.thumbnail((900, 900))
+            THUMBS.mkdir(parents=True, exist_ok=True)
+            im.save(out, quality=86, optimize=True)
+        except Exception as ex:  # 取れない写真は、元の写真をそのまま出す
+            print(f"  寄せた写真を作れなかった: {url[:80]} ({ex})", file=sys.stderr)
+            return sized(url, w)
+    return "/assets/thumbs/" + out.name
+
+
 def first_store(it: dict, where: str) -> tuple[str, str, str]:
     """(URL, aタグの追加属性, 「楽天」などの短い店の名前)。A8 の公式ストアがあればそこ、無ければ売っている最初の店"""
     oh = official_link(it.get("official"))
@@ -448,11 +487,12 @@ def img_tag(p: dict) -> str:
         items = p.get("products") or []
         picks = [items[n - 1] for n in p["card_items"] if 0 < n <= len(items) and items[n - 1].get("image")][:4]
         return ('<span class="collage">' + "".join(
-            f'<img src="{e(sized(it["image"], 300))}" alt="{e(it["name"])}" loading="lazy" referrerpolicy="no-referrer">'
+            f'<img src="{e(trimmed(it["image"], 300))}" alt="{e(it["name"])}" loading="lazy" referrerpolicy="no-referrer">'
             for it in picks) + "</span>")
     if not p.get("thumbnail"):
         return icon(p["category"])
-    return f'<img src="{e(sized(p["thumbnail"], 600))}" alt="{e(p.get("thumbnail_alt") or p["title"])}" loading="lazy" referrerpolicy="no-referrer">'
+    src = trimmed(p["thumbnail"]) if p.get("thumb_fit") else sized(p["thumbnail"], 600)  # 白い背景の写真だけ寄せる
+    return f'<img src="{e(src)}" alt="{e(p.get("thumbnail_alt") or p["title"])}" loading="lazy" referrerpolicy="no-referrer">'
 
 
 def thumb(p: dict) -> str:
@@ -560,7 +600,7 @@ def roundup_card(p: dict) -> str:
     for k, it in enumerate(show):
         # 傾きは右肩上がり→右肩下がり→上がり→下がりと交互に(2026-11-14 本人。乱数だと全部同じ向きになることがあった)
         r, y, x = (-1 if k % 2 == 0 else 1) * rnd.uniform(3, 7), rnd.uniform(-8, 8), rnd.uniform(-6, 6)
-        tiles += (f'<li style="--r:{r:.1f}deg;--y:{y:.0f}px;--x:{x:.0f}px"><img src="{e(sized(it["image"], 300))}" alt="{e(it["name"])}" '
+        tiles += (f'<li style="--r:{r:.1f}deg;--y:{y:.0f}px;--x:{x:.0f}px"><img src="{e(trimmed(it["image"], 300))}" alt="{e(it["name"])}" '
                   'loading="lazy" referrerpolicy="no-referrer"></li>')
     if n > len(show):
         tiles += f'<li class="more">ほか<br><b>{n - len(show)}</b>点</li>'
