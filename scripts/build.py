@@ -397,10 +397,24 @@ def page(*, title: str, desc: str, path: str, body: str, current: str = "", imag
 <header class="top">
   <div class="wrap">
     <a class="logo" href="/"><b>cozy<i></i>desk</b><span>{e(SITE.get('header_sub') or SITE['tagline'])}</span></a>
-    <picture><source media="(max-width: 560px)" srcset="/assets/shirone/peek-head.png" width="150" height="119"><img class="chara-head" src="/assets/shirone/front.png" alt="" title="シロネ" width="27" height="52"></picture>
-    {nav(current)}
+    <img class="chara-head" src="/assets/shirone/front.png" alt="" title="シロネ" width="27" height="52">
+    <button class="menu-btn" type="button" aria-controls="site-menu" aria-expanded="false" aria-label="メニューを開く"><i></i><i></i><i></i></button>
+    <div class="menu" id="site-menu">
+      {nav(current)}
+      <p class="menu-sub"><a href="/tools/desk-size/">机の横幅を図で確かめる</a><a href="/tools/my-desk/">デスクを組んでみる</a><a href="/about/">このサイトについて</a></p>
+    </div>
   </div>
 </header>
+<script>
+(() => {{  // スマホのハンバーガーメニュー(2026-11-14 本人)
+  const b = document.querySelector('.menu-btn'), t = document.querySelector('header.top');
+  b.addEventListener('click', () => {{
+    const open = t.classList.toggle('open');
+    b.setAttribute('aria-expanded', open);
+    b.setAttribute('aria-label', open ? 'メニューを閉じる' : 'メニューを開く');
+  }});
+}})();
+</script>
 {body}
 <footer>
   <div class="wrap">

@@ -39,7 +39,7 @@ The same character as in the attached character sheet: a tiny collectible desk f
 
 ## サイトの中での置き場所
 
-- 全ページのヘッダーの右に正面の姿(`assets/shirone/front.png`)、一番下の線の上に後ろ姿(`assets/shirone/back.png`)。説明は書かず、マウスを乗せたときだけ「シロネ」と出る
+- 全ページのヘッダーの右に正面の姿(`assets/shirone/front.png`。PC だけ。スマホはハンバーガーメニューにして出さない、11/14 本人)、一番下の線の上に後ろ姿(`assets/shirone/back.png`)。説明は書かず、マウスを乗せたときだけ「シロネ」と出る
 - 切り抜きは設定画から rembg(isnet-general-use)で作った。斜めの姿は目の所が透けるので使わない。後ろ姿の左足は、設定画で重なっていたので右足を反転して補った
 - まだ入れていない案(本人が頼んだら): 看板の机の上に本物の大きさで立たせる(看板ごとに位置を決める)・トップの絵の窓辺・物の写真の後ろから顔をのぞかせる
 
