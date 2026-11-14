@@ -35,7 +35,7 @@ products:
   - name: "オーディオテクニカ ATH-M20xBT WH ホワイト"
     image: "https://www.audio-technica.co.jp/upload/contents/product/ATH-M20xBT/branch_3343_image_0.jpg"
     image_credit: "オーディオテクニカ 公式サイト"
-    price: "1万2,100円(掲載時点・オーディオテクニカ公式オンラインストア・税込)"
+    price: "12,100円(掲載時点・オーディオテクニカ公式オンラインストア・税込)"
     colors: [{name: ホワイト, hex: "#F7F7F5"}]
     note: "オーディオテクニカのモニターヘッドホン(音を確かめるための物)の形を、真っ白にした1台です。耳当てまで白で、角ばった形がすっきりした白デスクに合います。"
     jp: "日本の正規品 ・ 耳を覆う形 ・ Bluetooth でも付属のケーブル(1.2m)でもつなげる(ケーブルにマイクはなし) ・ 約216g ・ 約60時間 ・ 10分の充電で約3時間 ・ マイクつき ・ 2台に同時につなげる"
@@ -43,15 +43,15 @@ products:
   - name: "Anker Soundcore Space 2 オフホワイト"
     image: "https://cdn.shopify.com/s/files/1/0508/4381/2001/files/D1402N21.jpg?v=1776307273"
     image_credit: "Anker Japan 公式ストア"
-    price: "1万6,990円(掲載時点・Anker Japan 公式ストア・税込)"
+    price: "16,990円(掲載時点・Anker Japan 公式ストア・税込)"
     colors: [{name: オフホワイト, hex: "#F1ECE3"}]
-    note: "丸みのある形に、ほんのりあたたかいオフホワイト。Anker の新しい上位のノイズキャンセリングがつき、1万円台で選べる白い1台です。"
+    note: "丸みのある形に、ほんのりあたたかいオフホワイト。Anker の新しい上位のノイズキャンセリングがつき、10,000円台で選べる白い1台です。"
     jp: "日本の正規品 ・ 耳を覆う形 ・ Bluetooth でも付属のケーブルでもつなげる(ケーブルのときもノイズキャンセリングは使えるが、マイクは使えない) ・ 約260g ・ ノイズキャンセリング中で最大50時間(切ると70時間) ・ 5分の充電で最大4時間 ・ 2台に同時につなげる"
     q: "Anker Soundcore Space 2 オフホワイト D1402N21"
   - name: "ソニー WH-CH730N ベージュ"
     image: "https://sony.scene7.com/is/image/sonyglobalsolutions/WH-CH730N_C_01?$productIntroPlateImageMobile$"
     image_credit: "ソニー 公式サイト"
-    price: "2万2,000円(掲載時点・ソニーストア・税込)"
+    price: "22,000円(掲載時点・ソニーストア・税込)"
     colors: [{name: ベージュ, hex: "#E3D6C6"}]
     note: "落ち着いたベージュの、ノイズキャンセリングつきヘッドホンです。約207g と、耳を包む形の中では軽めです。色はベージュのほかに、ホワイトとピンクがあります。"
     jp: "日本の正規品 ・ Bluetooth でも付属のケーブル(約1.2m)でもつなげる ・ 約207g ・ ノイズキャンセリング中で最大50時間(切ると75時間) ・ 折りたためる ・ 2台に同時につなげる"
@@ -59,7 +59,7 @@ products:
   - name: "JBL LIVE 770NC サンドストーン"
     image: "https://jp.jbl.com/dw/image/v2/BFND_PRD/on/demandware.static/-/Sites-masterCatalog_Harman/default/dw09fd5339/01.JBL_Live_770NC_Product%20Image_Hero_Sand.png"
     image_credit: "JBL 公式サイト"
-    price: "2万2,000円(掲載時点・JBL 公式サイトの価格・税込)"
+    price: "22,000円(掲載時点・JBL 公式サイトの価格・税込)"
     colors: [{name: サンドストーン, hex: "#E6D2BC"}]
     note: "砂のようなサンドストーン色に、金色に近いロゴが入ります。頭にあたる部分が布で、ベージュの中でもやわらかい見た目です。同じ型にホワイトもあります。"
     jp: "日本の正規品 ・ 耳を覆う形 ・ Bluetooth でも付属のケーブルでもつなげる ・ 約256g ・ ノイズキャンセリング中で最大50時間(切ると65時間)"
@@ -67,7 +67,7 @@ products:
   - name: "ソニー WH-1000XM6 プラチナシルバー"
     image: "https://www.sony.jp/products/picture/WH-1000XM6_S_01.jpg"
     image_credit: "ソニー 公式サイト"
-    price: "5万9,400円(掲載時点・ソニーストア・税込)"
+    price: "59,400円(掲載時点・ソニーストア・税込)"
     colors: [{name: プラチナシルバー, hex: "#DCDDDC"}]
     note: "ソニーのノイズキャンセリングの一番上の機種です。プラチナシルバーは白に近い淡い銀色で、白いデスクになじみます。ほかに、サンドピンクとサンドストーンの淡い色もあります。"
     jp: "日本の正規品 ・ Bluetooth でも付属のケーブル(約1.2m)でもつなげる ・ 約254g ・ ノイズキャンセリング中で最大30時間(切ると40時間) ・ 折りたためる ・ マイクつき ・ 2台に同時につなげる"
@@ -76,7 +76,7 @@ products:
   - name: "Apple AirPods Max 2 スターライト"
     image: "https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/airpods-max-select-202409-starlight_FV1?wid=940&hei=1112&fmt=jpeg&qlt=90"
     image_credit: "Apple 公式サイト"
-    price: "8万9,800円(掲載時点・Apple Store・税込)"
+    price: "89,800円(掲載時点・Apple Store・税込)"
     colors: [{name: スターライト, hex: "#EFE6D6"}]
     note: "金属の耳当てに、ほんのり金色がかったスターライト。頭の上は網の形で、置いておくだけで机の上の飾りになる1台です。iPhone や Mac と使う人の候補です。"
     jp: "日本の正規品 ・ 耳を覆う形 ・ Bluetooth でも USB-C のケーブルでもつなげる(3.5mm のケーブルの記載なし) ・ 386.2g と重め ・ ノイズキャンセリング中で最大20時間 ・ 5分の充電で約1.5時間 ・ Apple の機器の間で自動で切り替わる"

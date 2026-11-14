@@ -24,7 +24,7 @@ products:
     official: {store: edifier, url: "https://www.edifier.jp/products/qr30"}
     image: "https://cdn.shopify.com/s/files/1/0747/3768/0702/files/QR30_a28d4baf-4659-4333-a3c6-95c9f5329240.jpg?v=1788492712"
     image_credit: "EDIFIER 日本公式ストア"
-    price: "1万6,980円(掲載時点・EDIFIER 日本公式ストアの表示)"
+    price: "16,980円(掲載時点・EDIFIER 日本公式ストアの表示)"
     colors: [{name: ホワイト, hex: "#F4F3EF"}]
     note: "白い本体の中でライトが光る作りです。専用アプリで光り方を変えられます。"
     jp: "Bluetooth でも USB(USB-A)でもつなげる ・ 日本の公式ストアで販売 ・ 1台 幅12.8×奥行14.2×高さ19.3cm(ライトのつく側) ・ 約3.09kg ・ 出力 合計30W ・ Bluetooth は2台に同時につなげる"
@@ -33,7 +33,7 @@ products:
     official: {store: edifier, url: "https://www.edifier.jp/products/m60"}
     image: "https://cdn.shopify.com/s/files/1/0747/3768/0702/files/M60_2.jpg?v=1788492790"
     image_credit: "EDIFIER 日本公式ストア"
-    price: "2万3,980円(掲載時点・EDIFIER 日本公式ストアの表示)"
+    price: "23,980円(掲載時点・EDIFIER 日本公式ストアの表示)"
     colors: [{name: ホワイト, hex: "#F4F3EF"}]
     note: "つやのあるまっ白な箱型で、幅は約10cmとほっそりしています。モニターの左右に置いても場所をとりません。"
     jp: "Bluetooth でも USB-C でもつなげる ・ 日本の公式ストアで販売 ・ 1台 幅10×奥行14.7×高さ16.8cm ・ 約3.07kg ・ 出力 合計66W"
@@ -42,7 +42,7 @@ products:
     official: {store: edifier, url: "https://www.edifier.jp/products/mr3"}
     image: "https://cdn.shopify.com/s/files/1/0747/3768/0702/files/MR3_2_1.jpg?v=1788508257"
     image_credit: "EDIFIER 日本公式ストア"
-    price: "1万4,980円(掲載時点・EDIFIER 日本公式ストアの表示)"
+    price: "14,980円(掲載時点・EDIFIER 日本公式ストアの表示)"
     colors: [{name: ホワイト, hex: "#F7F6F2"}]
     note: "白い箱型に、銅色のコーンが目を引きます。ヘッドホンをつなぐ端子があります。"
     jp: "Bluetooth でもケーブルでもつなげる(USB の差し込み口はなし) ・ 日本の公式ストアで販売 ・ 1台 幅12.6×奥行18.5×高さ22cm ・ 約3.85kg ・ 出力 合計36W ・ Bluetooth は2台に同時につなげる"
@@ -51,7 +51,7 @@ products:
     official: {store: edifier, url: "https://www.edifier.jp/products/mr4-mkii"}
     image: "https://cdn.shopify.com/s/files/1/0747/3768/0702/files/MR4MKII_2.jpg?v=1788491713"
     image_credit: "EDIFIER 日本公式ストア"
-    price: "2万9,980円(掲載時点・EDIFIER 日本公式ストアの表示)"
+    price: "29,980円(掲載時点・EDIFIER 日本公式ストアの表示)"
     colors: [{name: ホワイト, hex: "#EFEDE6"}]
     note: "ややクリーム寄りの白い箱型です。ここで紹介する中では一番大きく、広いデスクに置く人向けです。"
     jp: "Bluetooth でもケーブルでもつなげる(USB の差し込み口はなし) ・ 日本の公式ストアで販売 ・ 1台 幅14×奥行24.4×高さ22.9cm(つまみのある側) ・ 約6.63kg ・ 出力 合計80W ・ Bluetooth は2台に同時につなげる"

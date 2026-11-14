@@ -32,7 +32,7 @@ products:
     short: "Solo Buds"
     image: "https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/MUVX3?wid=1000&fmt=jpeg"
     image_credit: "Apple 公式サイト"
-    price: "1万3,800円(掲載時点・Apple Store・税込)"
+    price: "13,800円(掲載時点・Apple Store・税込)"
     colors: [{name: アークティックパープル, hex: "#C9C0E8"}]
     note: "淡いラベンダー色の、丸くて小さなケース。Beats が「これまでで最小」と書くケースで、重さは22g です。ケースとイヤホンが同じ色にそろいます。"
     jp: "日本の正規品 ・ ケース 6.6×3.5×2.4cm・22g ・ イヤホン片側 5.7g ・ イヤホンだけで最大18時間 ・ ノイズキャンセリングなし"
@@ -42,7 +42,7 @@ products:
     short: "TE-Q3R"
     image: "https://aviot.jp/cmn/img/prd/te-q3r/gallery-img07.avif"
     image_credit: "AVIOT 公式サイト"
-    price: "1万1,990円(掲載時点・AVIOT 公式サイトの価格・税込)"
+    price: "11,990円(掲載時点・AVIOT 公式サイトの価格・税込)"
     colors: [{name: ピンククオーツ, hex: "#F3CFCF"}]
     note: "淡いピンクの四角いケースに、細い金色のラインが1本。前の型と比べて約28%小さくなったケースです。同じ型に、パールホワイトとラベンダージェイドの淡い色もあります。"
     jp: "日本の正規品 ・ イヤホンだけで最大約11.5時間、ケース込みで最大約42時間 ・ 10分の充電で最大約90分 ・ ノイズキャンセリングあり ・ 汗や水しぶきに強い作り(IPX4相当・イヤホンのみ) ・ 2台に同時につなげる"
@@ -52,7 +52,7 @@ products:
     short: "Pixel Buds 2a"
     image: "https://lh3.googleusercontent.com/nIrEoESvEjA15UeVPlB9c35o5gST36Muv7iZk8sPu0ye6RXpPp9iz5bwoLRhADMpj2WKePXMLZ2_Z2Q7DOOD2zhT1etqAx_AkQ=w1000"
     image_credit: "Google ストア"
-    price: "2万3,800円(掲載時点・Google ストア・税込)"
+    price: "23,800円(掲載時点・Google ストア・税込)"
     colors: [{name: Iris, hex: "#C7C3EC"}]
     note: "外は白くて丸い、小石のようなケース。ふたを開けると、中とイヤホンがやさしいラベンダー色(Iris)です。白い机に出しておくと真っ白、開けたときだけ色が見えます。ほかに Fog・Berry・Hazel があります。"
     jp: "日本の正規品 ・ ケース 50.0×24.5×57.2mm・イヤホン込みで47.6g ・ イヤホン片側 4.7g ・ ノイズキャンセリングを切るとイヤホンだけで10時間・ケース込みで27時間(使うと7時間・20時間) ・ ノイズキャンセリングあり ・ イヤホンは汗やほこりに強い作り(IP54)"
@@ -122,6 +122,6 @@ sources:
 | イヤホン | 値段(掲載時点) | ノイズキャンセリング | 電池(イヤホンだけ / ケース込み) | 片側の重さ |
 |---|---|---|---|---|
 | {{cell:1}} | 6,980円 | なし | 5時間 / 20時間 | 約3.5g |
-| {{cell:2}} | 1万3,800円 | なし | 18時間 / 記載なし | 5.7g |
-| {{cell:3}} | 1万1,990円 | あり | 約11.5時間 / 約42時間 | 記載なし |
-| {{cell:4}} | 2万3,800円 | あり | 10時間 / 27時間(使うと7時間 / 20時間) | 4.7g |
+| {{cell:2}} | 13,800円 | なし | 18時間 / 記載なし | 5.7g |
+| {{cell:3}} | 11,990円 | あり | 約11.5時間 / 約42時間 | 記載なし |
+| {{cell:4}} | 23,800円 | あり | 10時間 / 27時間(使うと7時間 / 20時間) | 4.7g |

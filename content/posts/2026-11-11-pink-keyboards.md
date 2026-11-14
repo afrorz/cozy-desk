@@ -18,7 +18,7 @@ products:
     short: "Flow Lite 84"
     image: "https://cdn.shopify.com/s/files/1/0692/4786/0967/files/Flow_Lite_84_Flamingo.png"
     image_credit: "Lofree Japan 公式ストア"
-    price: "1万7,600円(掲載時点・Lofree Japan 公式ストア・税込)"
+    price: "17,600円(掲載時点・Lofree Japan 公式ストア・税込)"
     colors: [{name: ピンク, hex: "#F2D3CF"}]
     note: "本体もキーも、同じ淡いピンクでそろえた薄いキーボードです。角が丸く、右上に金色の小さなつまみがひとつだけ入ります。白いデスクにのせると、ピンクがやわらかく浮かびます。"
     jp: "日本の正規品(Lofree 日本の公式ストア・Amazon は LOFREE の直販) ・ 英語配列 ・ キー84個(75%サイズ) ・ Bluetooth でも受信機でも USB でもつなげる ・ 3台まで切り替え ・ 31.7×13.8×2.4cm(幅×奥行×高さ) ・ 550g ・ 充電1回で約80時間(光を消したとき) ・ iPad・iPhone・Mac でも使える ・ はじめは Mac 用の設定(Windows では Fn+N で切り替え)"
@@ -28,7 +28,7 @@ products:
     short: "MX Keys Mini"
     image: "https://resource.logitech.com/content/dam/logitech/en/products/keyboards/mx-keys-mini/gallery/jp/mx-keys-mini-3q-tilted-rose-jp.png"
     image_credit: "ロジクール 公式サイト"
-    price: "1万8,370円(掲載時点・ロジクール公式ストア・税込)"
+    price: "18,370円(掲載時点・ロジクール公式ストア・税込)"
     colors: [{name: ローズ, hex: "#EBC9C6"}]
     note: "本体もキーも、くすみのあるローズ色の小さなキーボードです。キーに日本語のかなも入った日本語配列で、手を近づけるとキーが光ります。"
     jp: "日本の正規品 ・ 日本語配列 ・ テンキーなし ・ Bluetooth でつなぐ(ロジクールの受信機 Logi Bolt は別売) ・ 3台まで切り替え ・ 29.6×13.2×2.1cm(幅×奥行×高さ) ・ 506g ・ 充電式(光らせて最長10日、光を消して最長5か月) ・ iPad・iPhone・Mac でも使える ・ 型番 KX700RO"
@@ -38,7 +38,7 @@ products:
     short: "Halo75 V2"
     image: "https://cdn.shopify.com/s/files/1/0322/6488/0265/files/Main17v5_1800x1800_121b81ea-1d12-4994-a13d-cf957c4a8ad7.webp"
     image_credit: "NuPhy 日本代理店 DIGIART"
-    price: "3万3,000円(掲載時点・NuPhy 日本代理店 DIGIART・税込)"
+    price: "33,000円(掲載時点・NuPhy 日本代理店 DIGIART・税込)"
     colors: [{name: サクラ, hex: "#F4C6CE"}]
     note: "ピンクの本体に、クリーム色とピンクのキーを組み合わせた「サクラ」です。上の面はアルミで、7つの中ではいちばん重い、どっしりしたキーボードです。"
     jp: "日本の正規品(日本代理店 DIGIART) ・ 英語配列 ・ キー83個(75%サイズ) ・ Bluetooth でも付属の受信機でも USB でもつなげる ・ 32.0×13.5×3.3cm(幅×奥行×後ろの高さ。手前は2.1cm) ・ 1,020g ・ 充電1回で最大307時間(光を消したとき) ・ ミント軸は37g の軽い力で押せるなめらかなスイッチ ・ スイッチの差し替えができる ・ Mac・iPhone でも使える"
@@ -48,7 +48,7 @@ products:
     short: "Ray68"
     image: "https://cdn.shopify.com/s/files/1/0851/0485/3248/files/543887.png"
     image_credit: "Akko 日本公式ストア"
-    price: "1万6,980円(掲載時点・Akko 日本公式ストア・税込。ケーブルだけの型は1万2,980円)"
+    price: "16,980円(掲載時点・Akko 日本公式ストア・税込。ケーブルだけの型は12,980円)"
     colors: [{name: Pink & White, hex: "#F3C9CB"}]
     note: "少し透けるピンクのキーに、白いキーを混ぜた小さなキーボードです。キーの下が光り、写真のように淡い色がにじみます。"
     jp: "日本の正規品 ・ 英語配列 ・ キー68個(65%サイズ) ・ Bluetooth でも付属の受信機でも USB でもつなげる(ケーブルだけの安い型もある) ・ 31.7×11.6×4.1cm(幅×奥行×高さ) ・ 969g(無線の型) ・ 磁石のスイッチ(なめらか・35g) ・ スイッチの差し替えができる"
@@ -78,7 +78,7 @@ products:
     short: "Flow Lite 100"
     image: "https://cdn.shopify.com/s/files/1/0692/4786/0967/files/Flow_Lite_100_Flamingo.png"
     image_credit: "Lofree Japan 公式ストア"
-    price: "2万900円(掲載時点・Lofree Japan 公式ストア・税込)"
+    price: "20,900円(掲載時点・Lofree Japan 公式ストア・税込)"
     colors: [{name: ピンク, hex: "#F2D3CF"}]
     note: "1番の Flow Lite 84 に、右側の数字のキー(テンキー)を足した横長の型です。同じ淡いピンクで、数字をよく打つ人でもピンクでそろえられます。"
     jp: "日本の正規品(Lofree 日本の公式ストア・Amazon は LOFREE の直販) ・ 英語配列 ・ キー100個(テンキーつき) ・ Bluetooth でも受信機でも USB でもつなげる ・ 37.5×13.8×2.4cm(幅×奥行×高さ) ・ 665g ・ 充電1回で約100時間(光を消したとき) ・ iPhone・Mac でも使える ・ 公式ストアは掲載時点で入荷待ち(予約できる)"
@@ -182,13 +182,13 @@ Bluetooth だけ|パソコンやタブレットに元からある無線でつな
 
 | キーボード | 値段(掲載時点) | 電池 | 光る |
 |---|---|---|---|
-| {{cell:1}} | 1万7,600円 | 充電式・約80時間 | 白く光る |
-| {{cell:2}} | 1万8,370円 | 充電式・最長5か月(光を消したとき) | 手を近づけると光る |
-| {{cell:3}} | 3万3,000円 | 充電式・最大307時間 | いろいろな色 |
-| {{cell:4}} | 1万6,980円 | 充電式 | いろいろな色 |
+| {{cell:1}} | 17,600円 | 充電式・約80時間 | 白く光る |
+| {{cell:2}} | 18,370円 | 充電式・最長5か月(光を消したとき) | 手を近づけると光る |
+| {{cell:3}} | 33,000円 | 充電式・最大307時間 | いろいろな色 |
+| {{cell:4}} | 16,980円 | 充電式 | いろいろな色 |
 | {{cell:5}} | 6,490円 | なし(ケーブル) | いろいろな色 |
 | {{cell:6}} | 5,280円 | 単四電池2本・約36か月 | 光らない |
-| {{cell:7}} | 2万900円 | 充電式・約100時間 | 白く光る |
+| {{cell:7}} | 20,900円 | 充電式・約100時間 | 白く光る |
 
 - 電池の時間は、どれもメーカーの値です。Flow Lite と Halo75 V2 は光を消したときの値です
 - Halo75 V2 は、日本代理店のストアで在庫がないときも注文でき、入荷しだい発送です

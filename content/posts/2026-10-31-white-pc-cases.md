@@ -15,7 +15,7 @@ products:
   - name: "NZXT H6 Flow ホワイト"
     image: "https://nzxt.com/images/width=800,format=auto/7fe8d09fb8b1db6b515738d05bf03a2f2c22bf7a70dddfd1632a7e069c9133fd"
     image_credit: "NZXT 公式サイト"
-    price: "1万7,600円(発売時の希望小売価格・税込・2023年11月発表。現在の価格はストアで確認)"
+    price: "17,600円(発売時の希望小売価格・税込・2023年11月発表。現在の価格はストアで確認)"
     colors: [{name: ホワイト, hex: "#F4F4F2"}]
     note: "前面と横がつながったガラスで、白い中身が外から見えます。ファンは白いタイプ。光らせたい人には、LED ファンつきの「H6 Flow RGB」もあります。"
     jp: "型番 CC-H61FW-01 ・ ATX まで ・ 幅28.6×奥行42.8×高さ43.5cm・約9.4kg ・ CPU クーラー16.3cm まで ・ 水冷は上面に360mm まで ・ ファン3基つき ・ 前面に USB-C"
@@ -23,7 +23,7 @@ products:
   - name: "Fractal Design North Chalk White TG Clear"
     image: "https://assets.fractal-design.com/images/uxzbxy2o/production/773740fe83428d98790375f8d542810a68bae1e5-2560x2560.jpg?w=1000"
     image_credit: "Fractal Design 公式サイト"
-    price: "約2万6,400円(発売時の想定実売価格・税込・2022年アスク発表。現在の価格はストアで確認)"
+    price: "約26,400円(発売時の想定実売価格・税込・2022年アスク発表。現在の価格はストアで確認)"
     colors: [{name: Chalk White(チョークホワイト), hex: "#F1F0EC"}]
     note: "白い本体に、木の前面パネルがやさしいアクセント。左側は透明のガラスで、デスクの上でも部屋になじむ見た目です。"
     jp: "国内はアスクが取り扱い ・ ATX まで ・ 幅21.5×奥行44.7×高さ46.9cm・約7.7kg ・ CPU クーラー14.5cm まで(大きな空冷は入らないことがある) ・ 水冷は前面に360mm まで ・ ファン2基つき ・ 前面に USB-C"
@@ -31,7 +31,7 @@ products:
   - name: "Lian Li O11D EVO RGB ホワイト"
     image: "https://dirac.co.jp/wp-content/uploads/2024/01/O11D-EVO-RBG_20.jpg"
     image_credit: "Lian Li 日本代理店 ディラック"
-    price: "3万980円(発売時の市場想定売価・税込・2024年1月ディラック発表。現在の価格はストアで確認)"
+    price: "30,980円(発売時の市場想定売価・税込・2024年1月ディラック発表。現在の価格はストアで確認)"
     colors: [{name: ホワイト, hex: "#F6F6F4"}]
     note: "前面と左側面の2面がガラス。公式の製品画像では、ふちが水色にうっすら光り、白い本体が引き立っています。前面の支柱を外すと、柱のない一枚ガラスの見た目にもできます。"
     jp: "国内はディラックが取り扱い ・ E-ATX(幅28cm以下)まで ・ 幅29.0×奥行47.8×高さ47.1cm・約14.8kg ・ CPU クーラー16.7cm まで ・ 水冷は上面・側面・底面に360mm まで ・ 付属ファンの記載なし ・ 前面に USB-C"
@@ -39,7 +39,7 @@ products:
   - name: "CORSAIR 3500X LX-R RGB iCUE LINK ホワイト"
     image: "https://assets.corsair.com/image/upload/c_pad,q_auto,h_1024,w_1024,f_auto/products/Cases/3500x/gallery/CC-9011325-WW/CC-9011325-WW_01.webp"
     image_credit: "CORSAIR 公式サイト"
-    price: "2万8,480円(掲載時点・コルセア公式ストア)"
+    price: "28,480円(掲載時点・コルセア公式ストア)"
     colors: [{name: ホワイト, hex: "#F5F5F5"}]
     note: "前面と側面がガラスで包まれ、光る LX120-R ファンが3基ついています。公式の製品画像では、ファンがピンクや水色に光って見えます。"
     jp: "コルセア公式ストアで販売 ・ E-ATX まで ・ 幅24×奥行46×高さ50.6cm・約10kg ・ CPU クーラー17cm まで ・ 水冷は上面・側面に360mm まで ・ 光るファン3基つき ・ 裏配線のマザーボードに対応 ・ 前面に USB-C"
@@ -47,7 +47,7 @@ products:
   - name: "CORSAIR 2500X ホワイト(MicroATX)"
     image: "https://assets.corsair.com/image/upload/c_pad,q_auto,h_1024,w_1024,f_auto/products/Cases/2500D/CC-9011266-WW/Gallery/2500X_WHITE_HERO_01_AA.webp"
     image_credit: "CORSAIR 公式サイト"
-    price: "2万4,700円(掲載時点・コルセア公式ストア)"
+    price: "24,700円(掲載時点・コルセア公式ストア)"
     colors: [{name: ホワイト, hex: "#F5F5F5"}]
     note: "本体が小さめの MicroATX 向けケース。机の上に置いても場所を取りすぎません。公式の製品画像では、ガラス越しにファンが淡い色で光っています。"
     jp: "型番 CC-9011266-WW ・ MicroATX まで(ATX は入らない) ・ 幅30.4×奥行46.9×高さ37.6cm・約13kg ・ CPU クーラー18cm まで ・ 水冷は上面・底面に360mm まで ・ 付属ファンの記載なし ・ 裏配線のマザーボードに対応 ・ 公式ストアは掲載時点で在庫なし表示"
@@ -55,7 +55,7 @@ products:
   - name: "Lian Li O11 Vision Compact ホワイト"
     image: "https://dirac.co.jp/wp-content/uploads/2024/10/O11VP_003-1.jpg"
     image_credit: "Lian Li 日本代理店 ディラック"
-    price: "1万9,980円(発売時の市場想定売価・税込・2024年10月ディラック発表。現在の価格はストアで確認)"
+    price: "19,980円(発売時の市場想定売価・税込・2024年10月ディラック発表。現在の価格はストアで確認)"
     colors: [{name: ホワイト, hex: "#F6F6F4"}]
     note: "前面・上面・左側面の3面がガラスで、中身を一望できます。白い本体と白い内側で、白いデスクにそのままなじみます。付属のメッシュのパネルに替えると、上面をメッシュにもできます。"
     jp: "型番 O11VPW ・ 国内はディラックが取り扱い ・ E-ATX(幅28cm以下)まで ・ 幅28.8×奥行44.8×高さ44.6cm・約12kg ・ CPU クーラー16.4cm まで ・ 水冷は上面・側面・底面に360mm まで ・ 付属ファンの記載なし ・ 裏配線のマザーボードに対応"
@@ -63,7 +63,7 @@ products:
   - name: "Fractal Design Pop 2 Air White TG RGB"
     image: "https://assets.fractal-design.com/images/uxzbxy2o/production/a847d5972df15e36ff89d7701c977a6e6213601e-2560x2560.jpg"
     image_credit: "Fractal Design 公式サイト"
-    price: "約1万8,580円(発売時の予想市場価格・税込・2026年1月アスク発表。現在の価格はストアで確認)"
+    price: "約18,580円(発売時の予想市場価格・税込・2026年1月アスク発表。現在の価格はストアで確認)"
     colors: [{name: ホワイト, hex: "#F1F0EC"}]
     note: "ハニカム模様のメッシュの前面に、光る3基のファンが並びます。左側はクリアな強化ガラスで、白い内側ごとやわらかく光って見えます。"
     jp: "型番 FD-C-POA2A-04 ・ 国内はアスクが取り扱い ・ ATX まで ・ 幅21.5×奥行48.1×高さ46.2cm・約7kg ・ CPU クーラー17cm まで ・ 水冷は上面に360mm まで ・ 光るファン3基つき ・ 前面に USB-C"

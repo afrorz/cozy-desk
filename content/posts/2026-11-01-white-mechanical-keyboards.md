@@ -24,7 +24,7 @@ products:
   - name: "Lofree Flow Lite JIS ホワイト"
     image: "https://cdn.shopify.com/s/files/1/0692/4786/0967/files/17.png?v=1754458298"
     image_credit: "Lofree Japan 公式ストア"
-    price: "1万9,800円(掲載時点・Lofree Japan 公式ストア・税込)"
+    price: "19,800円(掲載時点・Lofree Japan 公式ストア・税込)"
     colors: [{name: ホワイト, hex: "#F4F3F0"}]
     note: "角の丸い薄い本体に、丸みのあるキーが並びます。白でもまぶしくない、少しやわらかい白です。打つ音をおさえた静かなスイッチが入っています。"
     jp: "日本の正規品 ・ 日本語配列 ・ Bluetooth でも付属の受信機でも USB でもつなげる ・ 薄型 ・ キー89個 ・ 幅31.68×奥行13.8×高さ2.35cm ・ 604g ・ 音をおさえたなめらかなスイッチ ・ スイッチの差し替えができる ・ 充電1回で最大約80時間(光を消したとき) ・ はじめは Mac 用の設定(Windows では Fn+N で切り替え)"
@@ -33,7 +33,7 @@ products:
   - name: "Keychron K6 Ultra 1K ZMK Special Edition ホワイト"
     image: "https://cdn.shopify.com/s/files/1/0551/9992/4395/files/K6U-RED-JIS-W.jpg?v=1789557158"
     image_credit: "Keychron Japan 公式ストア"
-    price: "2万790円(掲載時点・Keychron Japan 公式ストアの通常価格・税込)"
+    price: "20,790円(掲載時点・Keychron Japan 公式ストアの通常価格・税込)"
     colors: [{name: ホワイト, hex: "#F4F3EF"}]
     note: "白いキーを、木とアルミの枠で囲んだ小さなキーボードです。両側の木の茶色が、白いデスクの木の天板や小物となじみます。写真の左上はスイッチの見本です。"
     jp: "日本の正規品 ・ 日本語配列と英語配列から選べる ・ Bluetooth でも付属の受信機でも USB でもつなげる ・ 65%サイズ ・ 幅31.92×奥行10.76cm・高さ3.2〜3.8cm(キー込み) ・ スイッチは赤軸・茶軸・バナナ軸から選べる ・ スイッチの差し替えができる ・ 充電1回で最大600時間(光を消したとき)"
@@ -42,7 +42,7 @@ products:
   - name: "ロジクール G515 LIGHTSPEED TKL ホワイト"
     image: "https://resource.logitech.com/c_fill,q_auto,f_auto,dpr_1.0/d_transparent.gif/content/dam/gaming/en/products/g515-lightspeed-tkl/gallery/g515-keyboard-white-gallery-1-jp.png"
     image_credit: "ロジクール 公式サイト"
-    price: "2万1,890円(掲載時点・ロジクール公式ストア・税込)"
+    price: "21,890円(掲載時点・ロジクール公式ストア・税込)"
     colors: [{name: ホワイト, hex: "#F2F2F2"}]
     note: "白くて薄いゲーム用のキーボードです。薄いので手首を大きく曲げずに打てます。キーの下が光り、写真のように淡い色がのります。"
     jp: "日本の正規品 ・ 日本語配列 ・ 付属の受信機でも Bluetooth でも USB でもつなげる ・ テンキーなし ・ 幅36.8×奥行15.0×高さ2.2cm ・ 880g ・ スイッチは途中で手ごたえのある物(45g)と、なめらかな物(43g)から選べる(型番の TCWH が手ごたえのある方) ・ 電池は最大36時間"
@@ -51,7 +51,7 @@ products:
   - name: "NuPhy Air75 V3 Nova White(日本語配列)"
     image: "https://cdn.shopify.com/s/files/1/0322/6488/0265/files/newmain2_bd56f441-a955-4315-993e-69a0761f1203.webp?v=1792029963"
     image_credit: "NuPhy 日本代理店 DIGIART"
-    price: "2万8,600円(掲載時点・NuPhy 日本代理店 DIGIART・税込)"
+    price: "28,600円(掲載時点・NuPhy 日本代理店 DIGIART・税込)"
     colors: [{name: ホワイト, hex: "#F3F3F1"}]
     note: "白いキーの中に、赤・黄・緑のキーが少しだけ入った薄いキーボードです。上の面はアルミで、白いデスクにのせると軽やかに見えます。"
     jp: "日本の正規品 ・ 日本語配列と英語配列から選べる ・ 付属の受信機でも Bluetooth でも USB でもつなげる ・ 薄型(ケースの厚さ1.32cm) ・ 75%サイズ(日本語配列はキー88個) ・ 幅31.89×奥行12.89cm ・ 724g ・ スイッチは Red・Brown・Blush の3つから選べる ・ スイッチの差し替えができる"
@@ -60,7 +60,7 @@ products:
   - name: "Razer BlackWidow V4 75% 白(日本語配列)"
     image: "https://medias-p1.phoenix.razer.com/sys-master-phoenix-images-container/h24/h57/9640099250206/blackwidow-v4-75-white-2-500x500.png"
     image_credit: "Razer 公式サイト"
-    price: "3万1,880円(掲載時点・Razer 公式ストア・税込)"
+    price: "31,880円(掲載時点・Razer 公式ストア・税込)"
     colors: [{name: 白, hex: "#F5F5F5"}]
     note: "本体もキーも白で、白い手首置きがつきます。キーの下が光り、写真のように虹色に色づきます。キーは差し替えられます。"
     jp: "日本の正規品 ・ 日本語配列 ・ 取り外せる USB ケーブルでつなぐ(無線なし) ・ 75%サイズ(F1〜F12 の列と矢印キーあり) ・ 途中で手ごたえがあり、音をおさえたスイッチ ・ スイッチの差し替えができる ・ 手首置きつき(磁石でつく)"
@@ -68,7 +68,7 @@ products:
   - name: "HHKB Professional HYBRID Type-S 日本語配列/雪"
     image: "https://makeshop-multi-images.akamaized.net/pfudirect/itemimages/000000001154_XqmgkPt.jpg"
     image_credit: "PFUダイレクト(PFU 公式ストア)"
-    price: "3万6,850円(掲載時点・PFUダイレクト・税込)"
+    price: "36,850円(掲載時点・PFUダイレクト・税込)"
     colors: [{name: 雪, hex: "#F7F7F5"}]
     note: "長く愛されているキーボードの、キーまで真っ白な「雪」です(「白」は本体が白でキーが灰色)。Type-S は打つ音が静かで、なめらかな押し心地のキーボードです。"
     jp: "日本の正規品 ・ 日本語配列69キー ・ Bluetooth でも USB でもつなげる ・ 幅29.4×奥行12.0×高さ4.0cm ・ 550g(電池を除く) ・ 押す力45g ・ 単3電池2本か USB から電気をとる ・ USB ケーブルは付いていない ・ 12/25まで無刻印の白いキーのセットがつく(公式ストア)"
@@ -76,7 +76,7 @@ products:
   - name: "REALFORCE RC1 スーパーホワイト(日本語配列・45g)"
     image: "https://www.realforce.co.jp/products/C1HJ21/images/thumb_photo_1.png"
     image_credit: "REALFORCE 公式サイト"
-    price: "3万8,280円(掲載時点・メーカー希望小売価格・税込)"
+    price: "38,280円(掲載時点・メーカー希望小売価格・税込)"
     colors: [{name: スーパーホワイト, hex: "#F6F6F4"}]
     note: "日本の東プレが作る高級キーボードの、小さめで白い1台です。なめらかで軽い押し心地が売りで、白い本体に白いキーがそろいます。"
     jp: "日本の正規品 ・ 日本語配列82キー ・ F1〜F12 と矢印キーあり ・ Bluetooth でも USB でもつなげる ・ 幅29.5×奥行13.0×高さ3.9cm ・ 約0.6kg ・ 軽い力(45g)で押せる静かなスイッチ ・ 充電1回で約1か月"

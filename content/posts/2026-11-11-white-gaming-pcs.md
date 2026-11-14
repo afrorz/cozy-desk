@@ -16,7 +16,7 @@ products:
     short: "GALLERIA XGR7M"
     image: "https://www.dospara.co.jp/on/demandware.static/-/Sites-dospara-catalog-ms/default/dwe28cba4b/img/large/pc/2025/case_gem-wl_main.png"
     image_credit: "ドスパラ 公式通販"
-    price: "19万8,880円(掲載時点・ドスパラ公式通販の基本構成・税込。送料3,300円)"
+    price: "198,880円(掲載時点・ドスパラ公式通販の基本構成・税込。送料3,300円)"
     colors: [{name: ホワイト x ライトグレイ, hex: "#F2F2F0"}]
     note: "6つの中でいちばん手に取りやすい値段の、白いミニタワーです。角を丸めた白い本体に、前面のふちに沿って細い光のラインが入ります。上の手前にななめのパネルがあり、USB をさっと差せます。"
     jp: "日本のドスパラが組み立て・販売 ・ CPU は Ryzen 7 5700X ・ グラフィックボードは GeForce RTX 5060(8GB) ・ メモリ16GB ・ 保存容量500GB ・ 電源650W ・ 22×44.2×44.3cm(幅×奥行×高さ)・約13kg ・ 上面に USB-C ・ 無線でネットにつなぐ部品はなし(LAN ケーブルでつなぐ) ・ 翌日出荷 ・ 保証1年"
@@ -26,7 +26,7 @@ products:
     short: "G-GEAR GP7A"
     image: "https://cdn.tsukumo.co.jp/image/item/0409092913012_1.jpg"
     image_credit: "ツクモ 公式通販"
-    price: "23万4,980円(掲載時点・ツクモ公式通販・税込)"
+    price: "234,980円(掲載時点・ツクモ公式通販・税込)"
     colors: [{name: ホワイト, hex: "#F6F6F4"}]
     note: "前と横の角に柱がない、ガラス張りの白いケースです。中の水冷クーラーとグラフィックボードも白で、光るファン5基の色はボタンで変えられます。ケースは、白いPCケースの記事でも紹介した Thermaltake の View 170 を、ツクモが手直しした物です。"
     jp: "日本のツクモが組み立て・販売 ・ CPU は Ryzen 7 5700X ・ グラフィックボードは白い ZOTAC の GeForce RTX 5060 Ti(8GB) ・ メモリ16GB ・ 保存容量1TB ・ 電源650W ・ 21.2×37.7×43.8cm(幅×奥行×高さ)・約12kg ・ 光るファン5基(ボタンの長押しで消せる) ・ 無線でネットにつなぐ部品はなし ・ 24時間以内に出荷 ・ 保証1年"
@@ -36,7 +36,7 @@ products:
     short: "GALLERIA EPR7I"
     image: "https://www.dospara.co.jp/on/demandware.static/-/Sites-dospara-catalog-ms/default/dw4ecf007e/img/large/pc/2026/case_cx-w_main.png"
     image_credit: "ドスパラ 公式通販"
-    price: "29万4,980円(掲載時点・ドスパラ公式通販の基本構成・税込。送料3,300円)"
+    price: "294,980円(掲載時点・ドスパラ公式通販の基本構成・税込。送料3,300円)"
     colors: [{name: ホワイト, hex: "#F6F6F4"}]
     note: "高さ29cm の、小さな箱のような白いPCです。細いすき間が縦に並ぶ前面で、モニターの横に置いても家電のようにすっきり見えます。ガラスや光る飾りのない、静かな見た目が好きな人に。"
     jp: "日本のドスパラが組み立て・販売 ・ CPU は Ryzen 7 7700 ・ グラフィックボードは GeForce RTX 5060(8GB) ・ メモリ16GB ・ 保存容量1TB ・ 電源1000W ・ 17.3×38.2×29cm(幅×奥行×高さ)・約9.2kg ・ ファン6基 ・ 上面に USB-C ・ Wi-Fi と Bluetooth つき ・ 翌日出荷 ・ 保証1年"
@@ -46,7 +46,7 @@ products:
     short: "G TUNE DG"
     image: "https://www.mouse-jp.co.jp/img/item/gtune/minitower/f3_w/2509_gallery02_g_tune_dg_w.jpg"
     image_credit: "マウスコンピューター 公式通販"
-    price: "29万9,800円(掲載時点・マウスコンピューター公式通販・税込・送料無料)"
+    price: "299,800円(掲載時点・マウスコンピューター公式通販・税込・送料無料)"
     colors: [{name: ホワイト, hex: "#F6F6F4"}]
     note: "白い本体の前面に、赤い「G TUNE」のロゴ。公式の写真では、前面のふちがほんのり赤く光ります。左の側面は強化ガラスです。白に赤を少しだけ差したい人に。"
     jp: "日本のマウスコンピューターが国内で組み立て・販売 ・ CPU は Ryzen 7 5700X ・ グラフィックボードは GeForce RTX 5060(8GB) ・ メモリ16GB ・ 保存容量1TB ・ 電源750W ・ 21.5×47.4×38.4cm(幅×奥行×高さ、出っぱりを含む奥行は49cm)・約10.5kg ・ 上面に USB-C ・ Wi-Fi と Bluetooth つき ・ 決済から約4営業日で出荷 ・ 保証3年 ・ 楽天のマウス公式店では、保存容量500GB などの構成で黒と白から選ぶ形"
@@ -56,7 +56,7 @@ products:
     short: "G-GEAR GL7A"
     image: "https://cdn.tsukumo.co.jp/static/img/original/gcs_kkm99_w/01.jpg"
     image_credit: "ツクモ 公式通販"
-    price: "37万9,980円(掲載時点・ツクモ公式通販・税込)"
+    price: "379,980円(掲載時点・ツクモ公式通販・税込)"
     colors: [{name: ホワイト, hex: "#F6F6F4"}]
     note: "光る6基のファンが前のガラス越しに見える、白いミニタワーです。前面は、つや消しの白い板に付け替えることもでき、2枚とも付いてきます。CPU の上の白い水冷クーラーには小さな画面があり、動画や表示を変えられます。"
     jp: "日本のツクモが組み立て・販売 ・ CPU は Ryzen 7 7800X3D ・ グラフィックボードは白い GeForce RTX 5070(12GB) ・ メモリ32GB ・ 保存容量1TB ・ 電源850W ・ 21.5×42.3×42.5cm(幅×奥行×高さ)・約13kg ・ 光るファン6基(ボタンで色を変える・長押しで消せる) ・ Wi-Fi と Bluetooth つき ・ 24時間以内に出荷 ・ 保証1年"
@@ -66,7 +66,7 @@ products:
     short: "GALLERIA FPC7M"
     image: "https://www.dospara.co.jp/on/demandware.static/-/Sites-dospara-catalog-ms/default/dw45e31a3c/img/large/pc/2025/case_sfm-w_main.png"
     image_credit: "ドスパラ 公式通販"
-    price: "38万4,980円(掲載時点・ドスパラ公式通販の基本構成・税込。送料3,300円)"
+    price: "384,980円(掲載時点・ドスパラ公式通販の基本構成・税込。送料3,300円)"
     colors: [{name: ホワイト, hex: "#F6F6F4"}]
     note: "前と横の角に柱がない、水槽のような白いケース。光るファンの色は、ケースのボタンで白を含む11色から選べます。CPU の上には、GALLERIA のロゴが入った白い水冷クーラーがのります。"
     jp: "日本のドスパラが組み立て・販売 ・ CPU は Core Ultra 7 265F ・ グラフィックボードは GeForce RTX 5070(12GB) ・ メモリ16GB ・ 保存容量1TB ・ 電源750W ・ 21×38.6×42.2cm(幅×奥行×高さ)・約12kg ・ 光るファン5基 ・ 上面に USB-C ・ 無線でネットにつなぐ部品はなし ・ 翌日出荷 ・ 保証1年"
@@ -164,12 +164,12 @@ RTX 5060|この中では入り口の段。値段を抑えたい人に|1:CPU は 
 
 | PC | 幅×奥行×高さ | 重さ | 値段(掲載時点) |
 |---|---|---|---|
-| {{cell:1}} | 22×44.2×44.3cm | 約13kg | 19万8,880円 |
-| {{cell:2}} | 21.2×37.7×43.8cm | 約12kg | 23万4,980円 |
-| {{cell:3}} | 17.3×38.2×29cm | 約9.2kg | 29万4,980円 |
-| {{cell:4}} | 21.5×47.4×38.4cm | 約10.5kg | 29万9,800円 |
-| {{cell:5}} | 21.5×42.3×42.5cm | 約13kg | 37万9,980円 |
-| {{cell:6}} | 21×38.6×42.2cm | 約12kg | 38万4,980円 |
+| {{cell:1}} | 22×44.2×44.3cm | 約13kg | 198,880円 |
+| {{cell:2}} | 21.2×37.7×43.8cm | 約12kg | 234,980円 |
+| {{cell:3}} | 17.3×38.2×29cm | 約9.2kg | 294,980円 |
+| {{cell:4}} | 21.5×47.4×38.4cm | 約10.5kg | 299,800円 |
+| {{cell:5}} | 21.5×42.3×42.5cm | 約13kg | 379,980円 |
+| {{cell:6}} | 21×38.6×42.2cm | 約12kg | 384,980円 |
 
 中の部品(基本の組み合わせ):
 

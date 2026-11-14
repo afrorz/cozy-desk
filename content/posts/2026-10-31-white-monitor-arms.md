@@ -20,7 +20,7 @@ products:
     short: "サンワ CR-LAC2403W"
     image: "https://cdn.sanwa.co.jp/product/syohin_img/C/CR-LAC2403W_MX.jpg"
     image_credit: "サンワサプライ 公式サイト"
-    price: "3万9,600円(掲載時点・メーカー標準価格)"
+    price: "39,600円(掲載時点・メーカー標準価格)"
     colors: [{name: ホワイト, hex: "#F4F4F2"}]
     note: "机に付けるクランプの奥行きが38mmと短く、机の後ろにパネルがあっても付けやすい2画面用です。アーム全体が白でそろいます。"
     jp: "2台用 ・ 17〜32インチ ・ 1台あたり1〜9kg ・ ネジ穴の間隔75mm・100mm ・ クランプ天板10〜50mm/グロメット天板10〜45mm ・ ガススプリング式"
@@ -29,7 +29,7 @@ products:
     short: "サンワ 100-LACD009W"
     image: "https://cdn.sanwadirect.jp/images/goods/100-LACD009W_MX.JPG"
     image_credit: "サンワダイレクト(サンワサプライ公式通販)"
-    price: "1万9,800円(掲載時点・サンワダイレクト販売価格、希望小売価格はオープン価格)"
+    price: "19,800円(掲載時点・サンワダイレクト販売価格、希望小売価格はオープン価格)"
     colors: [{name: ホワイト, hex: "#F4F4F2"}]
     note: "アームもクランプも白でそろった2画面用です。薄型のクランプで机の端に付けます。"
     jp: "2台用 ・ 35インチまで ・ 1台あたり1〜15kg ・ ネジ穴の間隔75mm・100mm ・ クランプ天板10〜50mm/グロメットは穴の直径10〜60mm ・ ガススプリング式"
@@ -47,7 +47,7 @@ products:
     short: "サンワ CR-LA1301WN2"
     image: "https://cdn.sanwa.co.jp/product/syohin_img/C/CR-LA1301WN2_MX.jpg"
     image_credit: "サンワサプライ 公式サイト"
-    price: "3万5,200円(掲載時点・メーカー標準価格)"
+    price: "35,200円(掲載時点・メーカー標準価格)"
     colors: [{name: ホワイト, hex: "#F4F4F2"}]
     note: "アームの長さが635mmあり、画面を上下左右に大きく動かせる1画面用です。白い机にそのままなじむ白一色です。"
     jp: "1台用 ・ 17〜34インチ ・ 2〜10kg ・ ネジ穴の間隔75mm・100mm ・ クランプ・グロメットとも天板10〜50mm ・ アームの長さ63.5cm ・ ガススプリング式"
@@ -74,7 +74,7 @@ products:
     short: "グリーンハウス GH-AMDP2H-WH"
     image: "https://image1.shopserve.jp/greenhouse-store.jp/pic-labo/llimg/gh-amdp2h-wh.jpg"
     image_credit: "グリーンハウスストア(グリーンハウス直営店)"
-    price: "1万1,998円(掲載時点・グリーンハウスストア・税込)"
+    price: "11,998円(掲載時点・グリーンハウスストア・税込)"
     colors: [{name: ホワイト, hex: "#F4F4F2"}]
     note: "1本の白いポールから2本のアームが伸びる2画面用です。2枚のモニターを白い支柱ひとつで支えるので、机の上がすっきりします。"
     jp: "2台用 ・ 各17〜32インチ ・ 各1〜9kg ・ ネジ穴の間隔75mm・100mm ・ クランプ天板10〜50mm/グロメット天板10〜45mm ・ ガススプリング式 ・ 3年保証"

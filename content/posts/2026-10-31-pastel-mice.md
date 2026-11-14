@@ -4,7 +4,7 @@ date: 2026-10-31
 category: mouse
 kind: buy
 card_items: [1, 3, 6, 7]   # 記事一覧のカードに並べる物の番号(4つ)
-summary: "ロジクールと Keychron の日本の公式ストアで売っている、オフホワイト・ローズ・ライラック・ホワイトのワイヤレスマウスを7つ集めました。2千円台のやわらかな白から、軽さを重視した1万円台まであります。"
+summary: "ロジクールと Keychron の日本の公式ストアで売っている、オフホワイト・ローズ・ライラック・ホワイトのワイヤレスマウスを7つ集めました。2千円台のやわらかな白から、軽さを重視した10,000円台まであります。"
 thumbnail: "https://resource.logitech.com/content/dam/logitech/en/products/mice/pebble-mouse-2-m350s/2026-refresh/gallery/pebble-mouse-2-m350s-tonal-rose-top-angle-gallery-1.png"
 thumbnail_alt: "ロジクール Pebble Mouse 2 M350s のローズ。丸みのある薄いマウス"
 thumbnail_credit: "ロジクール 公式サイト"

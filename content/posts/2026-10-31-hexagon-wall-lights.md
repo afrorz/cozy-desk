@@ -26,7 +26,7 @@ products:
     short: "Shapes 9枚"
     image: "https://cdn.shopify.com/s/files/1/0712/9114/2378/files/Shapes_Hex_9x_Warm.png?v=1786646431&width=800"
     image_credit: "Nanoleaf 公式ストア"
-    price: "2万8,800円(掲載時点・公式ストア)"
+    price: "28,800円(掲載時点・公式ストア)"
     colors:
       - {name: ピンク, hex: "#F3C9D2"}
       - {name: ラベンダー, hex: "#CBB9EA"}
@@ -38,7 +38,7 @@ products:
     short: "Shapes 5枚"
     image: "https://cdn.shopify.com/s/files/1/0712/9114/2378/files/pdp-image-shapes-hex-5pk-1.png?v=1786332461&width=800"
     image_credit: "Nanoleaf 公式ストア"
-    price: "2万800円(掲載時点・公式ストア。掲載時点で在庫なし)"
+    price: "20,800円(掲載時点・公式ストア。掲載時点で在庫なし)"
     colors:
       - {name: ピンク, hex: "#F3C9D2"}
       - {name: ラベンダー, hex: "#CBB9EA"}
@@ -50,7 +50,7 @@ products:
     short: "Lines 9本"
     image: "https://cdn.shopify.com/s/files/1/0712/9114/2378/files/nl-us-1-floating-nanoleaf-lines-light-smarter-starter-kit-9_1x_c4e94c0d-3c5b-474b-9464-8a7f466f6452.png?v=1786479842&width=800"
     image_credit: "Nanoleaf 公式ストア"
-    price: "2万8,800円(掲載時点・公式ストア)"
+    price: "28,800円(掲載時点・公式ストア)"
     colors:
       - {name: ピンク, hex: "#F3C9D2"}
       - {name: ラベンダー, hex: "#CBB9EA"}
@@ -62,7 +62,7 @@ products:
     short: "Elements 7枚"
     image: "https://cdn.shopify.com/s/files/1/0712/9114/2378/files/nl-us-4-floating-nanoleaf-wood-hexagons-light-panels-smarter-starter-kit-7-product_1x_30a5c8f0-bb7d-43f6-af9a-095d4593ffed.png?v=1786479836&width=800"
     image_credit: "Nanoleaf 公式ストア"
-    price: "3万2,000円(掲載時点・公式ストア)"
+    price: "32,000円(掲載時点・公式ストア)"
     colors:
       - {name: 電球色, hex: "#F6D9A8"}
     note: "白樺の木目の六角形パネルです。光は1500K〜4000K の電球色系だけで、にぎやかな色にはならず、消していても壁の飾りになります。"
@@ -170,10 +170,10 @@ sources:
 
 | ライト | 枚数 | 1枚の大きさ | 操作 | 電源1つの上限 | 値段(掲載時点) |
 |---|---|---|---|---|---|
-| {{cell:1}} | 9枚 | 幅23×高さ20cm | アプリ・ボタン・さわる | 21枚 | 2万8,800円 |
-| {{cell:2}} | 5枚 | 幅23×高さ20cm | アプリ・ボタン・さわる | 21枚 | 2万800円 |
-| {{cell:3}} | 9本 | 長さ27.9cm | アプリ・ボタン | 18本 | 2万8,800円 |
-| {{cell:4}} | 7枚 | 幅23×高さ20cm | アプリ・さわる | 22枚 | 3万2,000円 |
+| {{cell:1}} | 9枚 | 幅23×高さ20cm | アプリ・ボタン・さわる | 21枚 | 28,800円 |
+| {{cell:2}} | 5枚 | 幅23×高さ20cm | アプリ・ボタン・さわる | 21枚 | 20,800円 |
+| {{cell:3}} | 9本 | 長さ27.9cm | アプリ・ボタン | 18本 | 28,800円 |
+| {{cell:4}} | 7枚 | 幅23×高さ20cm | アプリ・さわる | 22枚 | 32,000円 |
 
 - 4つとも、付属の両面テープで貼ります。ネジで留めることもできますが、ネジは別に用意します
 - Elements の光の色は、仕様欄で「1500〜4000K(電球色系の白)」と書かれている一方、同じ欄に「1670万色: 1200K〜6500K」という記載もあります。製品の説明では電球色系の白い光の製品として紹介されています

@@ -4,7 +4,7 @@ date: 2026-11-06
 category: monitor
 kind: buy
 card_items: [1, 2, 3, 4]   # 記事一覧のカードに並べる物の番号(4つ)
-summary: "Pixio・アイ・オー・データ・BenQ・LG から、前だけでなく背中やスタンドまで白いモニターを6つ選びました。2万円台の24型から、27型の4K・有機ELまで。白い所・大きさ・スタンドでできること・つなぎ方の見る所と、自分の机の横幅に置いてみる図、6つの比べ表をつけました。"
+summary: "Pixio・アイ・オー・データ・BenQ・LG から、前だけでなく背中やスタンドまで白いモニターを6つ選びました。20,000円台の24型から、27型の4K・有機ELまで。白い所・大きさ・スタンドでできること・つなぎ方の見る所と、自分の机の横幅に置いてみる図、6つの比べ表をつけました。"
 thumbnail: "https://cdn.shopify.com/s/files/1/0535/0873/5151/files/PX248WAVE_wh_back_b7735963-bd46-4268-93fb-dea750129f1a.png?width=900"
 thumbnail_alt: "Pixio PX249 Wave のホワイトを後ろから見たところ。背中も脚も白い"
 thumbnail_credit: "Pixio 公式ストア"
@@ -21,7 +21,7 @@ products:
     image_front: "https://cdn.shopify.com/s/files/1/0535/0873/5151/files/px249wavew.png?width=900"
     image: "https://cdn.shopify.com/s/files/1/0535/0873/5151/files/PX248WAVE_wh_back_b7735963-bd46-4268-93fb-dea750129f1a.png?width=900"
     image_credit: "Pixio 公式ストア"
-    price: "2万9,980円(掲載時点・Pixio 公式ストア・税込)"
+    price: "29,980円(掲載時点・Pixio 公式ストア・税込)"
     colors: [{name: ホワイト, hex: "#F5F4F0"}, {name: パステルピンク, hex: "#F2D3D6", tone: ピンク}, {name: パステルパープル, hex: "#DCD3EE"}, {name: ミントグリーン, hex: "#D3EBDF"}]
     note: "前の枠・背中・スタンドの脚まで、ぜんぶ同じ白。色はホワイトのほかに、パステルピンク・パステルブルー・パステルパープル・ミントグリーン・ベージュ・イエローなどがあり、机の色に合わせて選べます。"
     jp: "日本の正規品 ・ 23.8型・フルHD・240Hz ・ 幅54.2×奥行18.0×高さ42.5cm・3.0kg ・ スタンドは角度だけ変えられる ・ モニターアームに付けられる(100×100の変換部品つき) ・ HDMI・DisplayPort ・ スピーカーつき"
@@ -32,7 +32,7 @@ products:
     image_front: "https://www.iodata.jp/product/lcd/wide/ex-c2sd-f/ex-c2sd-f_front_w_238_640.jpg"
     image: "https://www.iodata.jp/product/lcd/wide/ex-c2sd-f/ex-c2sd-f_back_w_238_640.jpg"
     image_credit: "アイ・オー・データ 公式サイト"
-    price: "2万6,800円(掲載時点・Amazon.co.jp・税込)"
+    price: "26,800円(掲載時点・Amazon.co.jp・税込)"
     colors: [{name: ホワイト, hex: "#F5F4F0"}]
     note: "前の枠・背中・支柱・台座まで真っ白な、日本のメーカーの1台です。高さを15cm変えられ、縦にも回せます。USB-C のケーブル1本で、ノートパソコンの画面を映しながら充電もできます。同じ形の27型(EX-C272SDW-F)もあります。"
     jp: "日本の正規品 ・ 23.8型・フルHD・100Hz ・ 幅約54.0×奥行22.7×高さ44.3〜53.8cm ・ 高さ・角度・左右の向き・縦回転を変えられる ・ モニターアームに付けられる(100×100) ・ HDMI・DisplayPort・USB-C(65W の給電) ・ スピーカーつき"
@@ -44,7 +44,7 @@ products:
     image_front: "https://image.benq.com/is/image/benqco/GW2786tc-right45?fmt=png-alpha"
     image: "https://image.benq.com/is/image/benqco/GW2786tc-back45?fmt=png-alpha"
     image_credit: "BenQ 公式サイト"
-    price: "3万5,100円(掲載時点・Amazon.co.jp・税込)"
+    price: "35,100円(掲載時点・Amazon.co.jp・税込)"
     colors: [{name: ホワイト, hex: "#F5F4F0"}]
     note: "前の枠・背中・スタンド・台座まで白い27型です。高さを変えられ、縦にも回せます。周りの音を抑えるマイクとスピーカーがついていて、オンライン会議もこの1台で済みます。同じ形の23.8型(GW2486TC)もあります。"
     jp: "日本の正規品 ・ 27型・フルHD・100Hz ・ 幅61.2×奥行23.5×高さ40.7〜53.5cm・7.9kg ・ 高さ・角度・左右の向き・縦回転を変えられる ・ モニターアームに付けられる(100×100) ・ HDMI・DisplayPort・USB-C(65W の給電) ・ スピーカーとマイクつき"
@@ -57,7 +57,7 @@ products:
     image_front: "https://cdn.shopify.com/s/files/1/0535/0873/5151/files/px278wavew.png?width=900"
     image: "https://cdn.shopify.com/s/files/1/0535/0873/5151/files/PX278WAVEW_15001500_back.gif"
     image_credit: "Pixio 公式ストア"
-    price: "3万9,980円(掲載時点・Pixio 公式ストア・税込)"
+    price: "39,980円(掲載時点・Pixio 公式ストア・税込)"
     colors: [{name: ホワイト, hex: "#F5F4F0"}]
     note: "PX249 Wave と同じく、前の枠・背中・脚まで白。画面を27型に広げ、文字が細かく映る WQHD にした1台です。同じ型にイエローやピンクゴールドもあります。"
     jp: "日本の正規品 ・ 27型・WQHD・180Hz ・ 幅61.5×高さ46.2cm・台座の奥行21.1cm・4.45kg ・ モニターアームに付けられる(100×100の変換部品つき) ・ HDMI 2つ・DisplayPort"
@@ -69,7 +69,7 @@ products:
     image_front: "https://www.lg.com/content/dam/channel/wcms/jp/images/monitor/27us550/gallery/basic/27us550-basic-large.jpg"
     image: "https://www.lg.com/content/dam/channel/wcms/jp/images/monitor/27us550/gallery/gallery/2010/2010-03.jpg"
     image_credit: "LG 公式サイト"
-    price: "3万9,800円(掲載時点・ビックカメラ楽天市場店・税込)"
+    price: "39,800円(掲載時点・ビックカメラ楽天市場店・税込)"
     colors: [{name: ホワイト, hex: "#F5F4F0"}]
     note: "背中・支柱・台座が白く、前の細い枠だけ黒い27型です。後ろから見ると真っ白なので、壁につけない机や、部屋の真ん中に置く机に向きます。写真や文字がくっきり見える4Kです。"
     jp: "日本の正規品 ・ 27型・4K・60Hz ・ 幅61.4×奥行25.3×高さ38.9〜53.9cm ・ 高さ・角度・左右の向き・縦回転を変えられる ・ モニターアームに付けられる(100×100) ・ HDMI 2つ・DisplayPort ・ スピーカーなし"
@@ -82,7 +82,7 @@ products:
     image_front: "https://cdn.shopify.com/s/files/1/0535/0873/5151/files/px277oled2w_item_01.png?width=900"
     image: "https://cdn.shopify.com/s/files/1/0535/0873/5151/files/px277oled2w_item_02.png?width=900"
     image_credit: "Pixio 公式ストア"
-    price: "8万5,000円(掲載時点・Pixio 公式ストア・税込)"
+    price: "85,000円(掲載時点・Pixio 公式ストア・税込)"
     colors: [{name: ホワイト, hex: "#F5F4F0"}]
     note: "背中・高さを変えられるスタンド・台座まで白い、有機ELの27型です。黒がしっかり沈む画面で、映画やゲームの夜の場面がきれいに見えます。USB-C のケーブル1本で、ノートパソコンを映しながら充電もできます。"
     jp: "日本の正規品 ・ 27型・WQHD・240Hz・有機EL ・ 幅60.4×奥行22.0×高さ52.6cm・6.96kg ・ 高さを変えられる ・ HDMI 2つ・DisplayPort・USB-C(65W の給電) ・ 前の枠の色は写真では暗く見える"
@@ -150,11 +150,11 @@ USB-C のケーブル1本で、画面を映しながらノートパソコンを�
 
 | モニター | 大きさ・細かさ | 値段(掲載時点) | 白い所 | スタンド | USB-C 給電 |
 |---|---|---|---|---|---|
-| {{cell:1}} | 23.8型・フルHD | 2万9,980円 | 全部 | 角度だけ | なし |
-| {{cell:2}} | 23.8型・フルHD | 2万6,800円 | 全部 | 高さ・回転まで | 65W |
-| {{cell:3}} | 27型・フルHD | 3万5,100円 | 全部 | 高さ・回転まで | 65W |
-| {{cell:4}} | 27型・WQHD | 3万9,980円 | 全部 | 確かめられず | なし |
-| {{cell:5}} | 27型・4K | 3万9,800円 | 背中・スタンド | 高さ・回転まで | なし |
-| {{cell:6}} | 27型・WQHD・有機EL | 8万5,000円 | 背中・スタンド | 高さ | 65W |
+| {{cell:1}} | 23.8型・フルHD | 29,980円 | 全部 | 角度だけ | なし |
+| {{cell:2}} | 23.8型・フルHD | 26,800円 | 全部 | 高さ・回転まで | 65W |
+| {{cell:3}} | 27型・フルHD | 35,100円 | 全部 | 高さ・回転まで | 65W |
+| {{cell:4}} | 27型・WQHD | 39,980円 | 全部 | 確かめられず | なし |
+| {{cell:5}} | 27型・4K | 39,800円 | 背中・スタンド | 高さ・回転まで | なし |
+| {{cell:6}} | 27型・WQHD・有機EL | 85,000円 | 背中・スタンド | 高さ | 65W |
 
 - フルHD・WQHD・4K は、画面の細かさです。同じ27型なら、4K がいちばん文字や写真がくっきり見えます
