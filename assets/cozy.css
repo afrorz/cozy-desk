@@ -253,7 +253,10 @@ footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wr
 .scene-copy .hint { margin: 0; font-family: var(--f-hand); font-weight: 600; font-size: clamp(12px, 1.1vw, 15px); color: var(--mute); }
 .scene-copy .hint::before { content: ""; display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: var(--oak-d); box-shadow: 0 0 0 4px rgba(255,255,255,.9); margin: 0 10px 1px 2px; vertical-align: middle; }
 @media (max-width: 720px) {
-  .scene-copy { position: static; transform: none; width: auto; padding: 22px 20px 6px; }
+  .scene-copy { position: static; transform: none; width: auto; padding: 18px 20px 14px; }
+  /* スマホは文の上下の余白を詰める(2026-11-14 本人「余白が無駄に多い」) */
+  .scene-copy .hero-logo { margin: 0 0 8px; }
+  .scene-copy h1 { margin: 0 0 8px; }
   .scene-copy h1 br { display: none; }
   /* 机まわり(絵の 36%〜88%)だけを見せる。右の窓と壁の余白は切る。点の位置は .stage の中の % なので崩れない */
   .scene.photo .stage { width: 190%; margin-left: -68%; }

@@ -575,7 +575,6 @@ def build_index(posts: list[dict]) -> str:
     <div class="wrap">
       <div class="scene photo">
         <div class="scene-copy">
-          <span class="eyebrow">٭ 白でそろえる机</span>
           <p class="hero-logo">cozy<i></i>desk</p>
           <h1>白と淡い色の、<br>デスク周りのガジェット</h1>
           <p class="hint">気になる物を、絵の中で押してみて。</p>
