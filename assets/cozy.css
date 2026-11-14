@@ -94,6 +94,7 @@ nav.cats a:hover, nav.cats a[aria-current="page"] { background: var(--milk); }
 /* 最新の2つだけ横2列(2026-11-14 本人) */
 .bento .post.top2 { grid-column: span 2; }
 .bento .post.top2 h3 { font-size: 18px; }
+.bento .post.top2 .img { aspect-ratio: 3 / 1; }  /* 写真の高さを抑える(2026-11-14 本人「縦幅縮めて」) */
 .bento .post .kind { display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
 .bento .post h3 { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 .post { position: relative; border-radius: var(--radius); overflow: hidden; text-decoration: none; background: var(--milk); display: flex; flex-direction: column; transition: transform .15s ease, box-shadow .15s ease; }
@@ -180,6 +181,8 @@ footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wr
   .bento .post.big h3, .bento .post.wide h3 { font-size: 16px; -webkit-line-clamp: 2; }
   .bento .post .dots { top: 8px; left: 8px; padding: 4px 6px; }
   .bento .post.top2:not(.big) { grid-column: auto; }
+  .bento .post.top2:not(.big) .img { aspect-ratio: 1; }
+  .bento .post.big.top2 .img { aspect-ratio: 4 / 3; }
   .bento .post.top2:not(.big) h3 { font-size: 13px; }
   .bento .post .sum { display: none; }
   .bento .post.big .sum, .bento .post.wide .sum { display: -webkit-box; -webkit-line-clamp: 2; }
