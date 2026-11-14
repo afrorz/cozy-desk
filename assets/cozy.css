@@ -91,6 +91,9 @@ nav.cats a:hover, nav.cats a[aria-current="page"] { background: var(--milk); }
 /* PC は GT のように同じ大きさの4列(2026-11-14 本人「モニターの画像がでかすぎる。横4列に」)。1枚目を大きくするのはスマホだけ */
 .bento .post.big, .bento .post.wide { grid-column: auto; grid-row: auto; }
 .bento .post.big h3 { font-size: 15px; }
+/* 最新の2つだけ横2列(2026-11-14 本人) */
+.bento .post.top2 { grid-column: span 2; }
+.bento .post.top2 h3 { font-size: 18px; }
 .bento .post .kind { display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
 .bento .post h3 { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 .post { position: relative; border-radius: var(--radius); overflow: hidden; text-decoration: none; background: var(--milk); display: flex; flex-direction: column; transition: transform .15s ease, box-shadow .15s ease; }
@@ -176,6 +179,8 @@ footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wr
   .bento .post h3 { font-size: 13px; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
   .bento .post.big h3, .bento .post.wide h3 { font-size: 16px; -webkit-line-clamp: 2; }
   .bento .post .dots { top: 8px; left: 8px; padding: 4px 6px; }
+  .bento .post.top2:not(.big) { grid-column: auto; }
+  .bento .post.top2:not(.big) h3 { font-size: 13px; }
   .bento .post .sum { display: none; }
   .bento .post.big .sum, .bento .post.wide .sum { display: -webkit-box; -webkit-line-clamp: 2; }
   .bento .post .img .collage { grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; }

@@ -636,8 +636,10 @@ def build_index(posts: list[dict]) -> str:
     cats = "\n".join(
         f'<a class="cat8" href="/c/{c["slug"]}/">{icon(c["slug"])}<span><b>{e(c["name"])}</b>'
         f'<small>{e(c["sub"])}</small></span></a>' for c in CATS)
-    sizes = ["big", "", "", "wide", "", ""]
-    latest = "\n".join(post_card(p, sizes[i] if i < len(sizes) else "") for i, p in enumerate(posts[:12]))  # 新着は12件(11/11 本人)。big＋wide＋10枚で4列×4段がちょうど埋まる
+    # 新着は14件。PC は最新の2つだけ横2列で大きく、残り12は4列×3段(2026-11-14 本人「新着の2つだけ横2列に」)。
+    # スマホは1つ目と4つ目を横いっぱい、ほかは2列
+    sizes = ["big top2", "top2", "", "wide", "", ""]
+    latest = "\n".join(post_card(p, sizes[i] if i < len(sizes) else "") for i, p in enumerate(posts[:14]))
     body = f"""<main>
   <section class="scene-sec">
     <div class="wrap">
