@@ -524,14 +524,15 @@ def prodcard(it: dict, facets: list[dict]) -> str:
 
 def roundup_card(p: dict) -> str:
     # まとめは、物の写真を机に置いたように少しずつ傾けて重ねる横長カード(2026-11-11 本人と見本を見て B2 に決定)。
-    # 角度は記事ごとに決まった乱数(開くたびに変わらない)。一覧では値段を出さない(本人「値段を見て諦める人が多そう」)
+    # 角度の大きさと位置のずれは記事ごとに決まった乱数(開くたびに変わらない)。一覧では値段を出さない(本人「値段を見て諦める人が多そう」)
     rnd = random.Random(p["slug"])
     items = [it for it in p.get("products") or [] if it.get("image")]
     n = len(p.get("products") or [])
     show = items[:4] if n > 5 else items[:5]
     tiles = ""
-    for it in show:
-        r, y, x = rnd.choice([-1, 1]) * rnd.uniform(2, 7), rnd.uniform(-8, 8), rnd.uniform(-6, 6)
+    for k, it in enumerate(show):
+        # 傾きは右肩上がり→右肩下がり→上がり→下がりと交互に(2026-11-14 本人。乱数だと全部同じ向きになることがあった)
+        r, y, x = (-1 if k % 2 == 0 else 1) * rnd.uniform(3, 7), rnd.uniform(-8, 8), rnd.uniform(-6, 6)
         tiles += (f'<li style="--r:{r:.1f}deg;--y:{y:.0f}px;--x:{x:.0f}px"><img src="{e(sized(it["image"], 300))}" alt="{e(it["name"])}" '
                   'loading="lazy" referrerpolicy="no-referrer"></li>')
     if n > len(show):
