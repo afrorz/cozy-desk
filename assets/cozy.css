@@ -233,13 +233,10 @@ footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wr
 .hs:hover .lab, .hs:focus-visible .lab { background: var(--cocoa); color: #fff; }
 .hs:hover .lab small, .hs:focus-visible .lab small { color: #E7D7C3; }
 .hs:focus-visible { outline: none; }
-.scene-cats { display: none; }
 @media (max-width: 720px) {
   .hs .lab { display: none; }
   .hs .pin { width: 18px; height: 18px; }
   .hs .pin::after { inset: 5px; }
-  .scene-cats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 12px; }
-  .scene-cats a { text-decoration: none; text-align: center; font-size: 12px; background: var(--milk); border-radius: 12px; padding: 8px 4px; }
 }
 @media (prefers-reduced-motion: reduce) { .hs .pin::before { animation: none; } }
 
@@ -268,7 +265,6 @@ footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wr
 .hs:hover .lab, .hs:focus-visible .lab { opacity: 1; transform: none; }
 /* 種類が9つになったので 3×3 に並べる */
 .cats8 { grid-template-columns: repeat(3, 1fr); }
-@media (max-width: 720px) { .scene-cats { grid-template-columns: repeat(3, 1fr); } }
 @media (max-width: 900px) { .cats8 { grid-template-columns: repeat(3, 1fr); } }
 
 /* ── 本番(2026-10-31〜) ── */

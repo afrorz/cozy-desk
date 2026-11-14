@@ -567,7 +567,6 @@ def build_index(posts: list[dict]) -> str:
     cats = "\n".join(
         f'<a class="cat8" href="/c/{c["slug"]}/">{icon(c["slug"])}<span><b>{e(c["name"])}</b>'
         f'<small>{e(c["sub"])}</small></span></a>' for c in CATS)
-    small_cats = "".join(f'<a href="/c/{c["slug"]}/">{e(c["name"])}</a>' for c in CATS)
     sizes = ["big", "", "", "wide", "", ""]
     latest = "\n".join(post_card(p, sizes[i] if i < len(sizes) else "") for i, p in enumerate(posts[:12]))  # 新着は12件(11/11 本人)。big＋wide＋10枚で4列×4段がちょうど埋まる
     body = f"""<main>
@@ -584,7 +583,6 @@ def build_index(posts: list[dict]) -> str:
 {pts}
         </div>
       </div>
-      <nav class="scene-cats" aria-label="種類で探す">{small_cats}</nav>
     </div>
   </section>
 
