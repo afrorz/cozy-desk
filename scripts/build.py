@@ -505,7 +505,8 @@ def post_card(p: dict, cls: str = "") -> str:
     if p.get("price"):
         meta += f' ・ {e(p["price"])}'
     return (f'<a class="post {cls}" href="{p["url"]}">{dots(p.get("colors"))}{thumb(p)}'
-            f'<div class="body"><span class="kind">{meta}</span><h3>{e(p["title"])}</h3></div></a>')
+            f'<div class="body"><span class="kind">{meta}</span><h3>{e(p["title"])}</h3>'
+            + (f'<p class="sum">{e(p["summary"])}</p>' if p.get("summary") else "") + '</div></a>')
 
 
 # 色の名前はメーカーごとにばらばらなので、hex から「色で選ぶ」の系統を決める。tone: を書けばそちらを使う
