@@ -81,7 +81,9 @@ nav.cats a:hover, nav.cats a[aria-current="page"] { background: var(--milk); }
 .bento { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: auto; gap: 16px; }
 /* 写真を大きく: 高さを決め打ちにせず、写真は 4:3 で取る。1枚目(big)と wide は空いた所いっぱいに写真を広げる(2026-11-14 本人) */
 .bento .post .img { flex: none; aspect-ratio: 4 / 3; }
-.bento .post.big .img, .bento .post.wide .img { flex: 1; aspect-ratio: auto; min-height: 180px; }
+/* PC は GT のように同じ大きさの4列(2026-11-14 本人「モニターの画像がでかすぎる。横4列に」)。1枚目を大きくするのはスマホだけ */
+.bento .post.big, .bento .post.wide { grid-column: auto; grid-row: auto; }
+.bento .post.big h3 { font-size: 15px; }
 .bento .post .kind { display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
 .bento .post h3 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .post { position: relative; border-radius: var(--radius); overflow: hidden; text-decoration: none; background: var(--milk); display: flex; flex-direction: column; transition: transform .15s ease, box-shadow .15s ease; }
@@ -157,7 +159,7 @@ footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wr
   .tag .note small { display: none; }
   /* スマホの新着は2列。写真を正方形で大きく、1枚目と wide は横いっぱい(2026-11-14 本人「ひたすら縦に並んでるだけでワクワクがない」) */
   .bento { grid-template-columns: 1fr 1fr; grid-auto-rows: auto; gap: 10px; }
-  .post.big, .post.wide { grid-column: span 2; grid-row: auto; }
+  .bento .post.big, .bento .post.wide { grid-column: span 2; grid-row: auto; }
   .bento .post .img { flex: none; aspect-ratio: 1; }
   .bento .post.big .img { aspect-ratio: 4 / 3; }
   .bento .post.wide .img { aspect-ratio: 16 / 9; }
