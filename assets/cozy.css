@@ -255,7 +255,7 @@ footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wr
 @media (max-width: 720px) {
   .scene-copy { position: static; transform: none; width: auto; padding: 18px 20px 14px; }
   /* スマホは文の上下の余白を詰める(2026-11-14 本人「余白が無駄に多い」) */
-  .scene-copy .hero-logo { margin: 0 0 8px; }
+  .scene-copy .hero-logo { display: none; }  /* すぐ上のヘッダーのロゴと同じなので、スマホでは出さない(2026-11-14 本人) */
   .scene-copy h1 { margin: 0 0 8px; }
   .scene-copy h1 br { display: none; }
   /* 机まわり(絵の 36%〜88%)だけを見せる。右の窓と壁の余白は切る。点の位置は .stage の中の % なので崩れない */
