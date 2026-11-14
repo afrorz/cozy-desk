@@ -316,7 +316,7 @@ footer a { color: inherit; }
 }
 .logo b { white-space: nowrap; }
 /* スマホはロゴの下にサブタイトル(検索向けの言葉。2026-11-14 本人) */
-@media (max-width: 540px) { .logo { flex-direction: column; align-items: flex-start; gap: 2px; } .logo span { font-size: 10.5px; letter-spacing: .08em; } }
+@media (max-width: 540px) { .logo { gap: 8px; } .logo span { font-size: 10.5px; letter-spacing: .04em; white-space: nowrap; } }
 
 /* 種類のページ: 色で選ぶ・記事 */
 .cat-sec { margin-top: 34px; }
@@ -693,7 +693,8 @@ footer .wrap { position: relative; }
 .top .wrap { position: relative; }
 .chara-head { position: absolute; right: 2%; top: -6px; width: auto; height: 52px;
   filter: drop-shadow(2px 3px 2px rgba(74, 64, 57, .25)); }
-@media (max-width: 560px) { .chara-head { height: 42px; top: -4px; right: 3%; } }
+/* スマホはヘッダーを低く: シロネは上半身だけのぞく姿にして、ロゴの行の右に置く(2026-11-14 本人) */
+@media (max-width: 560px) { .top { padding: 14px 0 6px; } .chara-head { height: 30px; top: -2px; right: 16px; } }
 
 /* メーカー公式動画の3秒の切り出し(2026-11-04)。写真と同じ角丸の枠で、動く写真に見せる */
 .clip { margin: 22px 0; }
