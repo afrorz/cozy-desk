@@ -357,9 +357,9 @@ def menu_list() -> str:
     """スマホのメニュー: 1行に1つ、アイコン・名前・説明(2026-11-14 本人「横1列にして、アイコンと説明文を」)"""
     row = lambda href, ic, name, sub: (f'<a href="{href}">{icon(ic)}<span><b>{e(name)}</b><small>{e(sub)}</small></span></a>')
     cats = "".join(row(f'/c/{c["slug"]}/', c["slug"], c["name"], c["sub"]) for c in CATS)
-    tools = (row("/tools/desk-size/", "ruler", "机の横幅を図で確かめる", "置きたい物が収まるか、cmで見る")
-             + row("/tools/my-desk/", "build", "デスクを組んでみる", "物を選んで、合計金額まで")
-             + row("/about/", "about", "このサイトについて", "載せ方と、確かめていること"))
+    tools = (row("/tools/desk-size/", "ruler", "机の横幅を図で確かめる", "収まるかをcmで")
+             + row("/tools/my-desk/", "build", "デスクを組んでみる", "選んで合計金額まで")
+             + row("/about/", "about", "このサイトについて", "載せ方と確かめ方"))
     return f'<nav class="menu-list" aria-label="メニュー">{cats}<hr>{tools}</nav>'
 
 
