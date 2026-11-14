@@ -43,6 +43,9 @@ ICON = {
     "keyboard": '<path d="M5 15h38v20H5zM11 21h2M17 21h2M23 21h2M29 21h2M35 21h2M11 27h2M35 27h2M17 29h14"/>',
     "speaker": '<path d="M14 6h20v36H14z"/><circle cx="24" cy="29" r="6"/><circle cx="24" cy="14" r="1.5"/>',
     "gear": '<path d="M10 28a14 14 0 0 1 28 0M8 28h6v10H8zM34 28h6v10h-6z"/>',
+    "ruler": '<path d="M5 30L30 5l13 13-25 25zM12 23l4 4M17 18l3 3M22 13l4 4M27 8l3 3"/>',
+    "build": '<path d="M7 7h15v15H7zM26 7h15v15H26zM7 26h15v15H7z"/><path d="M33.5 27v13M27 33.5h13"/>',
+    "about": '<circle cx="24" cy="24" r="17"/><path d="M24 22v11M24 15v.5"/>',
     "interior": '<path d="M16 30h16l-2 12H18zM24 30V18M24 20c-6-2-9-7-8-12 5 1 8 5 8 12zM24 22c5-3 10-3 12 1-4 3-8 3-12-1z"/>',
 }
 
@@ -350,6 +353,16 @@ def nav(current: str = "") -> str:
     return f'<nav class="cats" aria-label="種類で探す">{links}</nav>'
 
 
+def menu_list() -> str:
+    """スマホのメニュー: 1行に1つ、アイコン・名前・説明(2026-11-14 本人「横1列にして、アイコンと説明文を」)"""
+    row = lambda href, ic, name, sub: (f'<a href="{href}">{icon(ic)}<span><b>{e(name)}</b><small>{e(sub)}</small></span></a>')
+    cats = "".join(row(f'/c/{c["slug"]}/', c["slug"], c["name"], c["sub"]) for c in CATS)
+    tools = (row("/tools/desk-size/", "ruler", "机の横幅を図で確かめる", "置きたい物が収まるか、cmで見る")
+             + row("/tools/my-desk/", "build", "デスクを組んでみる", "物を選んで、合計金額まで")
+             + row("/about/", "about", "このサイトについて", "載せ方と、確かめていること"))
+    return f'<nav class="menu-list" aria-label="メニュー">{cats}<hr>{tools}</nav>'
+
+
 def page(*, title: str, desc: str, path: str, body: str, current: str = "", image: str = "", pr: bool = False, ld: list | None = None) -> str:
     full = f"{title}｜{SITE['title']}" if title else f"{SITE['title']}｜{SITE.get('header_sub') or SITE['tagline']}"
     url = SITE["base_url"].rstrip("/") + path
@@ -401,7 +414,7 @@ def page(*, title: str, desc: str, path: str, body: str, current: str = "", imag
     <button class="menu-btn" type="button" aria-controls="site-menu" aria-expanded="false" aria-label="メニューを開く"><i></i><i></i><i></i></button>
     <div class="menu" id="site-menu">
       {nav(current)}
-      <p class="menu-sub"><a href="/tools/desk-size/">机の横幅を図で確かめる</a><a href="/tools/my-desk/">デスクを組んでみる</a><a href="/about/">このサイトについて</a></p>
+      {menu_list()}
     </div>
   </div>
 </header>
