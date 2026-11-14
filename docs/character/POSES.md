@@ -4,6 +4,16 @@
 サイト・X の返信・まとめ記事・お知らせなどで、場面に合う姿を選んで使うための素材。
 (X の新作画像には入れない。11/14 に本人が「シロネはいらない、ロゴにする」と決めた)
 
+## できているもの(2026-11-14、17種)
+
+`assets/shirone/poses/<名前>.png`(背景を抜いた素材、長い辺 900px)。
+元の Gemini の絵は `images/shirone/`(git に入れていない)。抜き直すときは `scripts/shirone_poses.py`。
+
+wave・point-right・point-left・measure・peek・sit・sit-edge(白い台つき)・wow・think・sleepy・look-back・hop・sign(白い無地の札つき)・lie・bow・headphones、
+それと stand(少しほほえんで片手をポケットに入れた立ち姿。最初の試しの1枚)。
+
+- measure はファスナーにもメジャーが残っていて、手のメジャーと2つある(小さいので目立たない)
+
 ## 作り方
 
 1. Gemini に **設定画 `shirone-sheet.jpg` と斜めの姿 `shirone/diag.png` を添付**し、下の「共通の文」＋「ポーズの文」を1つずつ渡す(1枚に1ポーズ。何ポーズも1枚に入れると顔や服がずれやすい)
