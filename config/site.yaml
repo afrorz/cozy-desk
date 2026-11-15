@@ -35,7 +35,7 @@ affiliate:
     edifier: "https://px.a8.net/svt/ejp?a8mat=4BGGBE+6G73H6+5BV8+BW8O2&a8ejpredirect={url}"     # 10%・www.edifier.jp
     pixio: "https://px.a8.net/svt/ejp?a8mat=4BGGBE+6HDYOQ+XTI+1BM8YQ&a8ejpredirect={url}"      # 5%・pixiogaming.jp(Hamee)
     flexispot: "https://px.a8.net/svt/ejp?a8mat=4BGGBE+6M5FIY+3TA8+BW8O2&a8ejpredirect={url}"  # 2.5%・flexispot.jp
-    # 審査中: Wpc.(s00000026600001)。Razer は GT から申請中
+    # Wpc. は 11/9 に不承認。Razer は GT から申請中
 
 # 種類。並び順がそのままメニューの順になる
 categories:
@@ -55,7 +55,7 @@ categories:
   - {slug: keyboard, name: キーボード, sub: 白・ピンク・テンキー,      eyebrow: 机でいちばん目に入る所に, lead: 白・ピンク・ベージュのキーボードとテンキー。}
   - {slug: speaker,  name: スピーカー, sub: 白い PC スピーカー,        eyebrow: 出しっぱなしでも絵になる, lead: 机の上に置いても浮かない、白い本体の PC スピーカー。}
   - {slug: gear,     name: 周辺機器,   sub: ヘッドホン・マイク・カメラ, eyebrow: 白デスクに置きたい周辺機器, lead: 机の上に出しておきたくなる、白と淡い色のヘッドホン・マイク・Web カメラ・充電器など。}
-  - {slug: interior, name: インテリア, sub: 照明・棚・配線かくし,      eyebrow: 白デスクの空気をつくる, lead: 間接照明・デスクライト・棚・配線かくし・植物。}
+  - {slug: interior, name: インテリア, sub: 照明・植物・配線かくし,     eyebrow: 白デスクの空気をつくる, lead: 間接照明・デスクライト・棚・配線かくし・植物。}
 
 # トップの絵の押せる点。x, y は絵の左上からの %。left: true は名前を左に出す
 scene:
