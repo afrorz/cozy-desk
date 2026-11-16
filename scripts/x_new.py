@@ -106,21 +106,21 @@ def logo(im: Image.Image, size: int = 40, pill: bool = False) -> None:
             x += d.textlength(c, font=f) + sp
 
 
-def tag(im: Image.Image, name: str) -> None:
-    """1枚目の左上: 「新作」の札と物の名前"""
+def tag(im: Image.Image, name: str, badge: str = "新作") -> None:
+    """左上: 「新作」(まとめなら「特集」)の札と物の名前"""
     d = ImageDraw.Draw(im)
     f1 = F(30, "Black")
-    tw = d.textlength("新作", font=f1)
+    tw = d.textlength(badge, font=f1)
     room = im.width - 40 - (40 + tw + 54) - 30
     size = 30
     while size > 18 and d.textlength(name, font=F(size)) > room:
         size -= 2
     d.rounded_rectangle([40, 40, 40 + tw + 36, 92], 26, fill=ACC)
-    d.text((58, 66), "新作", font=f1, fill="white", anchor="lm")
+    d.text((58, 66), badge, font=f1, fill="white", anchor="lm")
     d.text((40 + tw + 54, 66), name, font=F(size), fill=INK, anchor="lm")
 
 
-def card(src: str, first: bool, name: str, credit: str, fill: float) -> Image.Image:
+def card(src: str, first: bool, name: str, credit: str, fill: float, badge: str = "新作") -> Image.Image:
     raw = src.startswith("raw:")
     ph = load(src[4:] if raw else src)
     if raw:  # 背景ごと見せる写真: そのまま枠いっぱいに(4:3〜2:3 に収める)
@@ -146,7 +146,7 @@ def card(src: str, first: bool, name: str, credit: str, fill: float) -> Image.Im
         im.alpha_composite(sh.filter(ImageFilter.GaussianBlur(16)))
         im.alpha_composite(obj, (x, y))
     if first:
-        tag(im, name)
+        tag(im, name, badge)
     logo(im, pill=raw)
     d = ImageDraw.Draw(im)
     fc = F(20, "Medium")
@@ -160,16 +160,20 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--image", action="append", required=True, help="公式写真の URL かファイル。1〜4回。背景ごと見せるなら raw: を前に")
     ap.add_argument("--out", required=True, help="assets/x/<id>.jpg → <id>-1.jpg, -2.jpg ... ができる")
-    ap.add_argument("--name", required=True, help="1枚目の札の横に出す物の名前(メーカー名から)")
-    ap.add_argument("--credit", required=True, help="左下の出典。例: 画像: ASUS 公式サイト")
+    ap.add_argument("--name", action="append", required=True, help="札の横に出す物の名前(メーカー名から)。まとめで物が1枚ずつ違うときは、写真と同じ数だけ並べると全部の画像に札が付く")
+    ap.add_argument("--credit", action="append", required=True, help="左下の出典。例: 画像: ASUS 公式サイト。写真と同じ数だけ並べると1枚ずつ変えられる")
+    ap.add_argument("--badge", default="新作", help="札の文字。まとめの物を並べるときは「特集」(11/16〜)")
     ap.add_argument("--fill", type=float, default=0.86)
     a = ap.parse_args()
     if len(a.image) > 4:
         sys.exit("X に載せられる画像は4枚まで")
     out = Path(a.out)
     out.parent.mkdir(parents=True, exist_ok=True)
+    each = len(a.name) == len(a.image) > 1  # まとめ: 物ごとに名前の札
     for i, src in enumerate(a.image, 1):
-        im = card(src, i == 1, a.name.replace("|", " "), a.credit, a.fill)
+        name = a.name[i - 1] if each else a.name[0]
+        credit = a.credit[i - 1] if len(a.credit) == len(a.image) else a.credit[0]
+        im = card(src, i == 1 or each, name.replace("|", " "), credit, a.fill, a.badge)
         p = out.with_name(f"{out.stem}-{i}.jpg")
         im.convert("RGB").save(p, quality=90)
         print(p, im.size)
