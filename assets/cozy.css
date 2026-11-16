@@ -721,9 +721,14 @@ a.mx-row:hover { background: #fff; }
 
 /* サイトの管理人シロネ(docs/CHARACTER.md。11/3 こつぶから替えた)が、ページの一番下の線の上に後ろ姿で立っている。説明は書かない(2026-11-03 本人) */
 footer .wrap { position: relative; }
-.chara-foot { position: absolute; right: 7%; bottom: calc(100% + 26px); width: auto; height: 66px;
-  filter: drop-shadow(2px 3px 2px rgba(74, 64, 57, .28)); }
-@media (max-width: 560px) { .chara-foot { height: 54px; right: 8%; } }
+/* 11/16 本人: 上のシロネと同じ横の位置に立たせ、押すといちばん上へ戻る。上は幅27px・右2%、下は幅35px なので4px ずらして真ん中をそろえる */
+.chara-foot { position: absolute; right: calc(2% - 4px); bottom: calc(100% + 26px); display: block; line-height: 0; cursor: pointer;
+  border-radius: 8px; transition: transform .2s; }
+.chara-foot img { width: auto; height: 66px; filter: drop-shadow(2px 3px 2px rgba(74, 64, 57, .28)); }
+.chara-foot:hover { transform: translateY(-4px); }
+.chara-foot:focus-visible { outline: 2px solid var(--oak); outline-offset: 4px; }
+@media (prefers-reduced-motion: reduce) { .chara-foot { transition: none; } .chara-foot:hover { transform: none; } }
+@media (max-width: 560px) { .chara-foot { right: 8%; } .chara-foot img { height: 54px; } }
 /* シロネがヘッダーの右の空いた所に、ちょこんと立っている(2026-11-03 本人) */
 .top .wrap { position: relative; }
 .chara-head { position: absolute; right: 2%; top: -6px; width: auto; height: 52px;

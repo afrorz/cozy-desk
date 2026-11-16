@@ -470,11 +470,17 @@ def page(*, title: str, desc: str, path: str, body: str, current: str = "", imag
 {body}
 <footer>
   <div class="wrap">
-    <img class="chara-foot" src="/assets/shirone/back.png" alt="" title="シロネ" width="35" height="66" loading="lazy">
+    <a class="chara-foot" href="#" title="いちばん上へ" aria-label="ページのいちばん上へ戻る"><img src="/assets/shirone/back.png" alt="" width="35" height="66" loading="lazy"></a>
     <span>© {years} {e(SITE['title'])} ・ <a href="/tools/desk-size/">机の横幅を図で確かめる</a> ・ <a href="/tools/my-desk/">デスクを組んでみる</a> ・ <a href="/about/">このサイトについて</a> ・ <a href="/media/">メーカー・広報の方へ</a> ・ <a href="https://x.com/{e(SITE['x_account'])}">X @{e(SITE['x_account'])}</a></span>
     <span>{ad_note}</span>
   </div>
 </footer>
+<script>
+document.querySelector('.chara-foot').addEventListener('click', (ev) => {{  // 下のシロネを押すと、いちばん上へ(2026-11-16 本人)
+  ev.preventDefault();
+  window.scrollTo({{top: 0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'}});
+}});
+</script>
 </body>
 </html>
 """
