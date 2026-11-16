@@ -897,6 +897,9 @@ footer .wrap { position: relative; }
 @media (max-width: 540px) { .cat-hero { padding: 14px 16px; gap: 12px; } .cat-hero svg { width: 44px; height: 44px; } }
 /* PC では種類のボタンが右端のシロネの下にもぐらないよう、右をあける(2026-11-14 本人「シロネに文字が被ってる」) */
 @media (min-width: 561px) { .top nav.cats { margin-right: 52px; } }
+/* 11/16 本人「タイトルと白デスク＆白ガジェットの縦位置を右のメニューとそろえたい」。ロゴの丸文字は字の下に余白が多く、
+   本人の画面で測ると、ロゴの o・z・e の真ん中が5.5px、サブが8px、メニューの字より低かった。字の真ん中(ロゴは o・z・e の高さ、サブは字の高さ)をメニューの字の真ん中にそろえる(PC だけ) */
+@media (min-width: 561px) { .logo b { position: relative; top: -5.5px; } .logo span { position: relative; top: -8px; } }
 
 /* 一覧の写真を並べる枠(まとめの4つ・色違い)は、角丸を外側の角だけにする(2026-11-14 本人「角丸、左右の端っこだけに」) */
 .post .img .collage { --cr: calc(var(--radius) - 5px); }
