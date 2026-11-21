@@ -49,9 +49,11 @@ sources:
 - 玉は外して掃除できます
 - 色は White・Transparent・Black の3つ
 
-![Transparent の T1 HE。すりガラスのような白い本体に、中の部品の線がうっすら透ける](https://cdn.shopify.com/s/files/1/0059/0630/1017/files/T1-HE-Transparent-02.jpg?v=1794567814)
-
-![Black の T1 HE。黒い本体に、灰色のボタンと黒い玉](https://cdn.shopify.com/s/files/1/0059/0630/1017/files/T1-HE-Black.jpg?v=1794541151)
+<div class="colors3">
+<figure><img src="https://cdn.shopify.com/s/files/1/0059/0630/1017/files/T1-HE-White-02.jpg?v=1794567819&width=500" alt="White の T1 HE。白い本体に水色のボタンと銀色の玉" loading="lazy" referrerpolicy="no-referrer"><figcaption>White</figcaption></figure>
+<figure><img src="https://cdn.shopify.com/s/files/1/0059/0630/1017/files/T1-HE-Transparent-02.jpg?v=1794567814&width=500" alt="Transparent の T1 HE。すりガラスのような白い本体に、中の部品の線がうっすら透ける" loading="lazy" referrerpolicy="no-referrer"><figcaption>Transparent</figcaption></figure>
+<figure><img src="https://cdn.shopify.com/s/files/1/0059/0630/1017/files/T1-HE-Black.jpg?v=1794541151&width=500" alt="Black の T1 HE。黒い本体に、灰色のボタンと黒い玉" loading="lazy" referrerpolicy="no-referrer"><figcaption>Black</figcaption></figure>
+</div>
 
 ## 大きさと使い方
 
