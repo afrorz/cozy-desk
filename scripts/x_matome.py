@@ -73,7 +73,15 @@ def main() -> None:
         im.alpha_composite(sh.filter(ImageFilter.GaussianBlur(10)))
         d = ImageDraw.Draw(im)
         d.rounded_rectangle([x, y, x + cw, y + ch], 26, fill=(255, 255, 255))
-        obj = main_part(cutout(load(src)))
+        if src.startswith("white:"):
+            # 白い背景の写真で、物の中にも白い所がある(モニターの白い画面など)とき。
+            # 背景を抜くと物の白まで消えるので、まわりの白い余白を切るだけにして白いカードに置く(2026-11-21)
+            from PIL import ImageChops
+            obj = load(src[6:]).convert("RGB")
+            diff = ImageChops.difference(obj, Image.new("RGB", obj.size, (255, 255, 255))).convert("L").point(lambda v: 255 if v > 12 else 0)
+            obj = obj.crop(diff.getbbox() or (0, 0, *obj.size)).convert("RGBA")
+        else:
+            obj = main_part(cutout(load(src)))
         bw, bh = cw - 36, ch - text_h - 30
         s = min(bw / obj.width, bh / obj.height)
         obj = obj.resize((max(1, round(obj.width * s)), max(1, round(obj.height * s))), Image.LANCZOS)
