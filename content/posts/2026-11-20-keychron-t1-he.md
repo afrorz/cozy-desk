@@ -1,5 +1,5 @@
 ---
-title: "白デスクにころんと。Keychron の玉の位置が動くトラックボール"
+title: "玉の位置を手に合わせて動かせる、Keychron の白いトラックボール"
 date: 2026-11-20
 category: mouse
 kind: new
