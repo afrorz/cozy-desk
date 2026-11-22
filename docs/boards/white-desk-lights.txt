@@ -1,0 +1,33 @@
+One single continuous room scene, seen in one shot. Not a split image, not a diptych, not two panels — the wall, the light and the floor continue smoothly across the whole picture.
+
+Style: a soft, minimal 3D illustration of a cozy, all-white home office, like a pastel interior render. Warm off-white walls, soft diffused late-morning daylight from a large window on the right, gentle leaf shadows on the wall.
+
+Floor: very pale whitewashed oak flooring, almost white with a faint warm cream tint. Never brown or medium wood.
+
+Furniture: one simple straight rectangular white desk (not L-shaped, not a corner desk), with its back edge pushed flush against the wall (no gap between the desk and the wall). No chair in the picture.
+
+Camera (most important): at SEATED eye level — as if you are sitting at the desk, a little back from it, looking straight at the back wall. The camera height is just a little above the desk top, so the desk top is seen as a thin, shallow surface and the lamp stands tall against the wall, like a sculpture. NOT a view from high above. NOT a wide room view. The front edge of the desk runs almost horizontally across the lower part of the picture (the desk corner never points at the camera).
+
+Layout and sizes: the desk fills the right 60% of the picture and runs off the right and bottom edges of the frame. The hero desk lamp stands on the LEFT end of the desk, and it is LARGE — from its base to the top of its arm it reaches about two thirds of the image height, and its arm and head span about one third of the image width. On the left, about 40% of the picture is calm empty space — only the same wall continuing and a little pale floor in soft light, nothing placed there (a title card and product photos will be added later).
+
+Hero product: exactly ONE white LED desk lamp, switched OFF (it is daytime, the lamp is not glowing at all). Its shape: a flat round white base, one slim white pole rising from the base and curving forward at the top in one smooth continuous line, and a long, very thin, flat white rectangular lamp head held horizontally above the desk, reaching over the keyboard. Matte white, no visible screws, no cables visible, no logo. The sunlight from the window casts a soft, elegant shadow of the lamp's curved silhouette on the white wall behind it — the shadow is a beautiful part of the picture.
+
+Around the lamp, the desk is a cute, well-loved gadget desk setup — full of personality but tidy and soft in color:
+- one slim white monitor on a white monitor arm to the right of the lamp; the screen shows a soft pink-to-lavender gradient wallpaper (blank, no icons, no text)
+- a large pastel desk mat in pale blush pink covering the front of the desk
+- a white mechanical keyboard with cream and pale lavender keycaps (all keys blank, no letters) under the lamp head
+- a small white mouse
+- an open notebook with a pastel pen, and a cream mug next to it
+- a pair of small round white desktop speakers
+- small cute details: a small green plant in a white pot, a tiny cute figurine, a small fluffy plush toy, a pastel photo card in a clear acrylic stand
+Everything is white, cream or pastel. Cables are neat or hidden.
+
+Color palette: off-white, cream, light beige, soft blush pink, pale lavender, pale grey. No black or dark objects.
+
+No brand logos, no text, no letters, no numbers, no watermarks.
+
+Composition: wide 16:9, high resolution (at least 2000 pixels wide), clean, airy, calm and premium mood.
+
+# --- 11/22 実際に使った文(上の文だと床置きのライト・斜めの机になったので、新しい会話でこちらに作り直した) ---
+# Create an image. Wide 16:9, high resolution. ... CAMERA: straight-on front view of the back wall, at seated eye level, close to the desk. A long straight rectangular white desk stands flush against the wall; its front edge is a perfectly horizontal line near the bottom of the image, parallel to the image edge ... HERO: one single white LED DESK lamp standing ON the desk top at the left end of the desk (not on the floor) ... The lamp is LARGE in the picture: about one third of the image width ...
+# 届いた絵(2752x1536)は横1800に縮め、左の壁を150px 広げて机を右へ寄せた(assets/boards/desk-lights.jpg)

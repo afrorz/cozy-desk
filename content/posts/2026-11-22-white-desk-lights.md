@@ -4,6 +4,9 @@ date: 2026-11-22
 category: interior
 kind: buy
 card_items: [2, 3, 4, 6]   # 記事一覧のカードに並べる物の番号(4つ)
+board_style: scene         # 看板を、Gemini で作った部屋の絵＋題＋物の写真にする(11/22 本人「看板画像をつくろう」。絵は Claude が Chrome の Gemini で作成)
+board_image: "/assets/boards/desk-lights.jpg"
+board: {lead: "消えている昼間も絵になる", title: "白いデスクライト6選"}
 summary: "白い机に置いたままでも絵になる、白と銀のデスクライトを6つ集めました。机のふちにはさむ物、台に置く物、モニターの上に掛ける物があり、値段は7,180円から72,600円までです。"
 thumbnail: "https://www.yamada-shomei.co.jp/cms/wp-content/uploads/2025/05/Z9W.png"
 thumbnail_alt: "1本の線のような形の、白い山田照明 Z-9"
