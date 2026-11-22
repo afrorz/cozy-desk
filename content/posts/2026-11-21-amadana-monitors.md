@@ -15,6 +15,7 @@ products:
   - name: "amadana DS10(23.8型)"
     short: "DS10(23.8型)"
     image: "https://cdn.shopify.com/s/files/1/0719/6658/9067/files/189482259_o1.webp?v=1794969715"
+    image_back: "https://cdn.shopify.com/s/files/1/0719/6658/9067/files/189482259_o3.webp?v=1794969722"
     image_credit: "amadana 公式ストア"
     price: "22,000円(掲載時点・amadana 公式ストアの価格・税込)"
     colors: [{name: ホワイト, hex: "#F4F4F2"}]
@@ -25,6 +26,7 @@ products:
   - name: "amadana DS20(27型)"
     short: "DS20(27型)"
     image: "https://cdn.shopify.com/s/files/1/0719/6658/9067/files/189482301_o2.webp?v=1766243874"
+    image_back: "https://cdn.shopify.com/s/files/1/0719/6658/9067/files/189482301_o3.webp?v=1766243874"
     image_credit: "amadana 公式ストア"
     price: "26,400円(掲載時点・amadana 公式ストアの価格・税込)"
     colors: [{name: ホワイト, hex: "#F4F4F2"}]
@@ -35,6 +37,7 @@ products:
   - name: "amadana DP10(15.6型・持ち運べる)"
     short: "DP10(15.6型)"
     image: "https://cdn.shopify.com/s/files/1/0719/6658/9067/files/189456158_o1.webp?v=1766934480"
+    image_back: "https://cdn.shopify.com/s/files/1/0719/6658/9067/files/189456158_o4.webp?v=1766934480"
     image_credit: "amadana 公式ストア"
     price: "19,800円(掲載時点・amadana 公式ストアの価格・税込)"
     colors: [{name: ホワイト, hex: "#EDEDEB"}]
@@ -45,6 +48,7 @@ products:
   - name: "amadana DP20(15.6型・タッチ対応)"
     short: "DP20(タッチ)"
     image: "https://cdn.shopify.com/s/files/1/0719/6658/9067/files/189456158_o2.webp?v=1766934480"
+    image_back: "https://cdn.shopify.com/s/files/1/0719/6658/9067/files/189456158_o4.webp?v=1766934480"
     image_credit: "amadana 公式ストア"
     price: "25,300円(掲載時点・amadana 公式ストアの価格・税込)"
     colors: [{name: ホワイト, hex: "#EDEDEB"}]

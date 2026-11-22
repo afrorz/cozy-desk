@@ -1140,11 +1140,14 @@ def build_post(p: dict, posts: list[dict]) -> str:
                    + "".join(f'<div><i style="background:{e(x["hex"])}"></i>{e(x["name"])}</div>' for x in p["colors"]) + "</div>")
     items = ""
     for i, it in enumerate(p.get("products") or [], 1):
-        if it.get("image_front") and it.get("image"):
-            # 正面と背面を上下に並べる(2026-11-07 本人: モニターは正面と背面の両方を載せる。image は背面、image_front が正面)
+        # 正面と背面を上下に並べる(2026-11-07 本人: モニターは正面と背面の両方を載せる。image は背面、image_front が正面)。
+        # 一覧の写真を正面のままにしたい記事は、image を正面にして image_back に背面を書く(11/22 amadana)
+        front, back = ((it.get("image_front"), it.get("image")) if it.get("image_front")
+                       else (it.get("image"), it.get("image_back")))
+        if front and back:
             img = ('<div class="it-img duo">'
-                   f'<figure><img src="{e(sized(it["image_front"], 600))}" alt="{e(it["name"])}の正面" loading="lazy" referrerpolicy="no-referrer"><figcaption>正面</figcaption></figure>'
-                   f'<figure><img src="{e(sized(it["image"], 600))}" alt="{e(it["name"])}の背面" loading="lazy" referrerpolicy="no-referrer"><figcaption>背面</figcaption></figure></div>')
+                   f'<figure><img src="{e(sized(front, 600))}" alt="{e(it["name"])}の正面" loading="lazy" referrerpolicy="no-referrer"><figcaption>正面</figcaption></figure>'
+                   f'<figure><img src="{e(sized(back, 600))}" alt="{e(it["name"])}の背面" loading="lazy" referrerpolicy="no-referrer"><figcaption>背面</figcaption></figure></div>')
         elif it.get("image"):
             img = f'<div class="it-img"><img src="{e(sized(it["image"], 600))}" alt="{e(it["name"])}" loading="lazy" referrerpolicy="no-referrer"></div>'
         else:
