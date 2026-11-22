@@ -733,6 +733,74 @@ def build_features(posts: list[dict]) -> str:
                 path="/features/", body=body)
 
 
+# ── 新着のページ送り(GT と同じ作り。2026-11-22 本人「ページネーションつくって。GTと同じでいいよ」) ──
+FIRST_PAGE = 13  # TOP: 横2列の2本＋残り11本＋「次のページへ」= 4列でも2列でも最後の行が埋まる
+PER_PAGE = 15    # 2ページ目から: 15本＋「次のページへ」= 4列×4段・2列×8段
+
+
+def page_url(n: int) -> str:
+    return "/" if n <= 1 else f"/page/{n}/"
+
+
+def split_pages(posts: list[dict]) -> list[list[dict]]:
+    pages = [posts[:FIRST_PAGE]] + [posts[i:i + PER_PAGE] for i in range(FIRST_PAGE, len(posts), PER_PAGE)]
+    return [pg for pg in pages if pg] or [[]]
+
+
+def pager(current: int, total: int) -> str:
+    """前へ／次へ と番号。番号は最初・最後・今の近くだけ出し、あいだは「…」。スマホは前後1つずつの版に切り替える"""
+    if total <= 1:
+        return ""
+    lab_prev = '← <span class="pager-pc">新しい記事</span><span class="pager-sp">前へ</span>'
+    lab_next = '<span class="pager-pc">古い記事</span><span class="pager-sp">次へ</span> →'
+    prev = (f'<a class="pager-link" href="{page_url(current - 1)}" rel="prev">{lab_prev}</a>'
+            if current > 1 else f'<span class="pager-link is-off">{lab_prev}</span>')
+    nxt = (f'<a class="pager-link" href="{page_url(current + 1)}" rel="next">{lab_next}</a>'
+           if current < total else f'<span class="pager-link is-off">{lab_next}</span>')
+
+    def nums_html(width: int) -> str:
+        start = max(1, min(current - (width - 1) // 2, total - width + 1))
+        shown = sorted({1, total, *range(start, min(total, start + width - 1) + 1)})
+        parts, prev_n = [], 0
+        for n in shown:
+            if n - prev_n == 2:  # 1つだけ飛ぶなら「…」より番号のほうが短い
+                parts.append(f'<a class="pager-num" href="{page_url(n - 1)}">{n - 1}</a>')
+            elif n - prev_n > 2:
+                parts.append('<span class="pager-gap" aria-hidden="true">…</span>')
+            parts.append(f'<span class="pager-num is-here" aria-current="page">{n}</span>' if n == current
+                         else f'<a class="pager-num" href="{page_url(n)}">{n}</a>')
+            prev_n = n
+        return "".join(parts)
+    nums = (f'<span class="pager-nums-wide">{nums_html(6)}</span>'
+            f'<span class="pager-nums-narrow">{nums_html(3)}</span>')
+    return f'<nav class="pager" aria-label="ページ送り">{prev}<span class="pager-nums">{nums}</span>{nxt}</nav>'
+
+
+def next_page_tile(current: int, total: int) -> str:
+    """一覧の最後のマスに置く「次のページへ」。最後のページでは出さない"""
+    if current >= total:
+        return ""
+    n = current + 1
+    return (f'<a class="post card-next" href="{page_url(n)}"><span class="cn-num">{n}<i>/{total}</i></span>'
+            f'<span class="cn-label">次のページへ</span><span class="cn-arrow" aria-hidden="true">→</span></a>')
+
+
+def build_archive(chunk: list[dict], n: int, total: int) -> str:
+    """新着の2ページ目から /page/N/"""
+    cards = "\n".join(post_card(p) for p in chunk) + next_page_tile(n, total)
+    body = f"""<main class="sec">
+  <div class="wrap">
+    <div class="crumb"><a href="/">トップ</a> / 新着 {n}ページ目</div>
+    <div class="sec-h"><h1 class="h-arch">新着</h1><small>{n} / {total}ページ ・ 海外の新作と、選んで集めたもの</small></div>
+    <div class="bento">
+{cards}
+    </div>
+    {pager(n, total)}
+  </div>
+</main>"""
+    return page(title=f"新着 {n}ページ目", desc=SITE["description"], path=page_url(n), body=body)
+
+
 # ── ページ ──────────────────────────────────────────────────
 
 def build_index(posts: list[dict]) -> str:
@@ -746,10 +814,12 @@ def build_index(posts: list[dict]) -> str:
     cats = "\n".join(
         f'<a class="cat8" href="/c/{c["slug"]}/">{icon(c["slug"])}<span><b>{e(c["name"])}</b>'
         f'<small>{e(c["sub"])}</small></span></a>' for c in CATS)
-    # 新着は14件。PC は最新の2つだけ横2列で大きく、残り12は4列×3段(2026-11-14 本人「新着の2つだけ横2列に」)。
-    # スマホは1つ目と4つ目を横いっぱい、ほかは2列
+    # 新着は13件＋「次のページへ」の1マス。PC は最新の2つだけ横2列で大きく、残りは4列×3段(2026-11-14 本人「新着の2つだけ横2列に」)。
+    # スマホは1つ目と4つ目を横いっぱい、ほかは2列。古い記事はページ送りで /page/2/ から(11/22 本人「GTと同じでいいよ」)
+    pages = split_pages(posts)
+    total = len(pages)
     sizes = ["big top2", "top2", "", "wide", "", ""]
-    latest = "\n".join(post_card(p, sizes[i] if i < len(sizes) else "") for i, p in enumerate(posts[:14]))
+    latest = "\n".join(post_card(p, sizes[i] if i < len(sizes) else "") for i, p in enumerate(pages[0])) + next_page_tile(1, total)
     body = f"""<main>
   <section class="scene-sec">
     <div class="wrap">
@@ -782,6 +852,7 @@ def build_index(posts: list[dict]) -> str:
       <div class="bento">
 {latest}
       </div>
+      {pager(1, total)}
     </div>
   </section>
 
@@ -1613,6 +1684,9 @@ def main() -> None:
         shutil.rmtree(OUT)
     shutil.copytree(ROOT / "assets", OUT / "assets")
     write("index.html", build_index(posts))
+    pages = split_pages(posts)
+    for n, chunk in enumerate(pages[1:], start=2):
+        write(f"page/{n}/index.html", build_archive(chunk, n, len(pages)))
     for c in CATS:
         write(f"c/{c['slug']}/index.html", build_category(c, posts))
     for p in posts:
@@ -1634,7 +1708,7 @@ def main() -> None:
                            body='<main class="article"><div class="wrap"><h1>ページが見つかりません</h1>'
                                 '<p><a href="/">トップへ戻る</a></p></div></main>'))
     base = SITE["base_url"].rstrip("/")
-    urls = ["/", "/features/", "/about/", "/media/", "/tools/desk-size/", "/tools/my-desk/"] + [f"/c/{c['slug']}/" for c in CATS] + [p["url"] for p in posts]
+    urls = ["/", "/features/", "/about/", "/media/", "/tools/desk-size/", "/tools/my-desk/"] + [f"/c/{c['slug']}/" for c in CATS] + [p["url"] for p in posts] + [page_url(n) for n in range(2, len(split_pages(posts)) + 1)]
     write("sitemap.xml", '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
           + "".join(f"<url><loc>{base}{u}</loc></url>\n" for u in urls) + "</urlset>\n")
     write("robots.txt", f"User-agent: *\nAllow: /\nSitemap: {base}/sitemap.xml\n")

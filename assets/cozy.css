@@ -976,3 +976,40 @@ footer .wrap { position: relative; }
   .ft-go { display: none; }
 }
 @media (prefers-reduced-motion: reduce) { .ft-card, .ft-pic.room img { transition: none; } }
+
+/* ── 新着のページ送り(GT と同じ作り。2026-11-22) ── */
+.card-next { justify-content: center; align-items: center; gap: 6px; min-height: 180px; padding: 20px;
+  background: transparent; border: 1.5px dashed var(--oak); color: var(--cocoa); text-align: center; }
+.card-next:hover { background: var(--milk); }
+.cn-num { font: 500 30px/1 var(--f-num); color: var(--oak-d); }
+.cn-num i { font-style: normal; font-size: 14px; color: var(--mute); margin-left: 2px; }
+.cn-label { font: 700 15px var(--f-disp); }
+.cn-arrow { font-size: 18px; color: var(--oak-d); transition: transform .15s ease; }
+.card-next:hover .cn-arrow { transform: translateX(4px); }
+.h-arch { font-family: var(--f-disp); font-weight: 700; font-size: 22px; margin: 0; }
+.pager { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin: 28px 0 0;
+  font: 500 13px var(--f-body); }
+.pager-link { color: var(--cocoa); text-decoration: none; padding: 8px 16px; background: var(--milk);
+  border: 1px solid var(--line); border-radius: 999px; white-space: nowrap; }
+.pager-link:hover { background: #fff; border-color: var(--oak); }
+.pager-link.is-off { opacity: .4; background: transparent; border-style: dashed; }
+.pager-nums { display: flex; gap: 4px; flex-wrap: wrap; justify-content: center; }
+.pager-num { color: var(--mute); text-decoration: none; min-width: 34px; height: 34px; display: inline-flex;
+  align-items: center; justify-content: center; border-radius: 999px; font-family: var(--f-num); }
+.pager-num:hover { color: var(--cocoa); background: var(--milk); }
+.pager-num.is-here { color: #fff; background: var(--buy); font-weight: 600; }
+.pager-gap { color: var(--mute); min-width: 18px; text-align: center; }
+.pager-nums-wide, .pager-nums-narrow { display: contents; }
+.pager-sp, .pager-nums-narrow { display: none; }
+@media (max-width: 540px) {
+  .card-next { min-height: 0; aspect-ratio: auto; }
+  .pager { gap: 6px; }
+  .pager-link { padding: 7px 12px; flex: none; }
+  .pager-pc { display: none; } .pager-sp { display: inline; }
+  .pager-nums { flex-wrap: nowrap; gap: 2px; }
+  .pager-nums-wide { display: none; }
+  .pager-nums-narrow { display: contents; }
+  .pager-num { min-width: 30px; height: 30px; }
+  .pager-gap { min-width: 12px; }
+}
+@media (prefers-reduced-motion: reduce) { .cn-arrow { transition: none; } }
