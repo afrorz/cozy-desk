@@ -94,10 +94,10 @@ amadana は、ミニマルなデザイン家電で知られる日本のブラン
 
 {{matrix
 HDMI|USB-C|タッチ|モニターアーム
-1:○|なし|なし|○
-2:○|なし|なし|○
-3:mini HDMI|○|なし|なし
-4:mini HDMI|○|○|なし
+1:○|||○
+2:○|||○
+3:mini HDMI|○||
+4:mini HDMI|○|○|
 }}
 
 - DS10・DS20 は HDMI か VGA でつなぎます。USB-C ではつなげません {{items:1,2}}
