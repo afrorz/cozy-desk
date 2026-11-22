@@ -45,6 +45,7 @@ ICON = {
     "gear": '<path d="M10 28a14 14 0 0 1 28 0M8 28h6v10H8zM34 28h6v10h-6z"/>',
     "ruler": '<path d="M5 30L30 5l13 13-25 25zM12 23l4 4M17 18l3 3M22 13l4 4M27 8l3 3"/>',
     "build": '<path d="M7 7h15v15H7zM26 7h15v15H26zM7 26h15v15H7z"/><path d="M33.5 27v13M27 33.5h13"/>',
+    "feature": '<path d="M24 6l5 11 12 1.5-9 8.5 2.5 12L24 33l-10.5 6 2.5-12-9-8.5L19 17z"/>',
     "about": '<circle cx="24" cy="24" r="17"/><path d="M24 22v11M24 15v.5"/>',
     "interior": '<path d="M16 30h16l-2 12H18zM24 30V18M24 20c-6-2-9-7-8-12 5 1 8 5 8 12zM24 22c5-3 10-3 12 1-4 3-8 3-12-1z"/>',
 }
@@ -396,7 +397,8 @@ def menu_list() -> str:
     """スマホのメニュー: 1行に1つ、アイコン・名前・説明(2026-11-14 本人「横1列にして、アイコンと説明文を」)"""
     row = lambda href, ic, name, sub: (f'<a href="{href}">{icon(ic)}<span><b>{e(name)}</b><small>{e(sub)}</small></span></a>')
     cats = "".join(row(f'/c/{c["slug"]}/', c["slug"], c["name"], c["sub"]) for c in CATS)
-    tools = (row("/tools/desk-size/", "ruler", "机の横幅を図で確かめる", "収まるかをcmで")
+    tools = (row("/features/", "feature", "特集", "選んで比べたまとめ")
+             + row("/tools/desk-size/", "ruler", "机の横幅を図で確かめる", "収まるかをcmで")
              + row("/tools/my-desk/", "build", "デスクを組んでみる", "選んで合計金額まで")
              + row("/about/", "about", "このサイトについて", "載せ方と確かめ方"))
     return f'<nav class="menu-list" aria-label="メニュー">{cats}<hr>{tools}</nav>'
@@ -471,7 +473,7 @@ def page(*, title: str, desc: str, path: str, body: str, current: str = "", imag
 <footer>
   <div class="wrap">
     <a class="chara-foot" href="#" title="いちばん上へ" aria-label="ページのいちばん上へ戻る"><img src="/assets/shirone/back.png" alt="" width="35" height="66" loading="lazy"></a>
-    <span>© {years} {e(SITE['title'])} ・ <a href="/tools/desk-size/">机の横幅を図で確かめる</a> ・ <a href="/tools/my-desk/">デスクを組んでみる</a> ・ <a href="/about/">このサイトについて</a> ・ <a href="/media/">メーカー・広報の方へ</a> ・ <a href="https://x.com/{e(SITE['x_account'])}">X @{e(SITE['x_account'])}</a></span>
+    <span>© {years} {e(SITE['title'])} ・ <a href="/features/">特集</a> ・ <a href="/tools/desk-size/">机の横幅を図で確かめる</a> ・ <a href="/tools/my-desk/">デスクを組んでみる</a> ・ <a href="/about/">このサイトについて</a> ・ <a href="/media/">メーカー・広報の方へ</a> ・ <a href="https://x.com/{e(SITE['x_account'])}">X @{e(SITE['x_account'])}</a></span>
     <span>{ad_note}</span>
   </div>
 </footer>
@@ -671,6 +673,73 @@ def pcard(p: dict) -> str:
             f'<span class="jpnote">{e(p["summary"])}</span></div></a>')
 
 
+def roundups(posts: list[dict]) -> list[dict]:
+    """特集(まとめ記事)を新しい順に。物が並んでいる kind: buy だけ"""
+    return [p for p in posts if p["kind"] == "buy" and p.get("products")]
+
+
+def feature_pics(p: dict, k: int = 4) -> str:
+    """特集の小さな絵。看板の絵があればそれ、なければ物の写真を2×2で"""
+    if p.get("board_image"):
+        return f'<span class="ft-pic board"><img src="{e(p["board_image"])}" alt="" loading="lazy"></span>'
+    items = p.get("products") or []
+    nums = p.get("card_items") or list(range(1, len(items) + 1))
+    picks = [items[n - 1] for n in nums if 0 < n <= len(items) and items[n - 1].get("image")][:k]
+    return ('<span class="ft-pic grid">' + "".join(
+        f'<img src="{e(trimmed(it["image"], 300))}" alt="" loading="lazy" referrerpolicy="no-referrer">' for it in picks) + "</span>")
+
+
+def feature_section(posts: list[dict]) -> str:
+    """TOP の「特集」。まとめ記事へ送る(2026-11-22 本人「TOPページに特集記事へ誘導するパーツをつくって」)。
+    大きい1本 = 看板の絵があるいちばん新しい特集(なければいちばん新しい特集)。横に次の4本。下に特集の一覧へのリンク"""
+    rs = roundups(posts)
+    if not rs:
+        return ""
+    hero = next((p for p in rs if p.get("board_image")), rs[0])
+    rest = [p for p in rs if p is not hero][:4]
+    n = len(hero["products"])
+    big = (f'<a class="ft-hero" href="{hero["url"]}">{feature_pics(hero)}'
+           f'<span class="ft-cap"><span class="ft-tag">特集 ・ {e(CAT[hero["category"]]["name"])}</span>'
+           f'<b>{e(hero["title"])}</b><span class="ft-go">{n}点を見る</span></span></a>')
+    rows = "".join(
+        f'<li><a class="ft-row" href="{p["url"]}">{feature_pics(p)}<span class="ft-txt">'
+        f'<small>{e(CAT[p["category"]]["name"])} ・ {len(p["products"])}点</small><b>{e(p["title"])}</b></span></a></li>'
+        for p in rest)
+    return f"""  <section class="sec feat-sec" aria-labelledby="h-feat">
+    <div class="wrap">
+      <div class="sec-h"><h2 id="h-feat">特集</h2><small>種類ごとに、白と淡い色の物を選んで比べています</small></div>
+      <div class="feat">
+        {big}
+        <ul class="ft-list">{rows}</ul>
+      </div>
+      <a class="ft-all" href="/features/">特集をすべて見る<span>{len(rs)}本</span></a>
+    </div>
+  </section>
+"""
+
+
+def build_features(posts: list[dict]) -> str:
+    """特集(まとめ記事)の一覧ページ /features/。新しい順に、記事ページと同じ横長のまとめカードで並べる"""
+    rs = roundups(posts)
+    body = f"""<main class="sec">
+  <div class="wrap">
+    <div class="crumb"><a href="/">トップ</a> / 特集</div>
+    <div class="cat-hero">
+      <div>
+        <span class="eyebrow">٭ 選んで、比べて、集めました</span>
+        <h1>特集</h1>
+        <p>種類ごとに、白と淡い色の物を集めて比べた記事です。値段と色の名前、日本で買えるお店を確かめて載せています。いまは{len(rs)}本あります。</p>
+      </div>
+    </div>
+    <div class="grid3">
+{chr(10).join(pcard(p) for p in rs)}
+    </div>
+  </div>
+</main>"""
+    return page(title="特集", desc="白デスク・淡色デスクに合う、白と淡い色のガジェットを種類ごとに集めて比べた特集の一覧。",
+                path="/features/", body=body)
+
+
 # ── ページ ──────────────────────────────────────────────────
 
 def build_index(posts: list[dict]) -> str:
@@ -705,6 +774,7 @@ def build_index(posts: list[dict]) -> str:
     </div>
   </section>
 
+{feature_section(posts)}
   <section class="sec" aria-labelledby="h-cats">
     <div class="wrap">
       <div class="sec-h"><h2 id="h-cats">種類で探す</h2><small>白・淡い色のものだけを集めています</small></div>
@@ -1565,12 +1635,13 @@ def main() -> None:
     write("tools/desk-size/index.html", build_desk_size(posts))
     write("tools/my-desk/index.html", build_my_desk(posts))
     write("about/index.html", build_about())
+    write("features/index.html", build_features(posts))
     write("media/index.html", build_media(posts))
     write("404.html", page(title="ページが見つかりません", desc="", path="/404.html",
                            body='<main class="article"><div class="wrap"><h1>ページが見つかりません</h1>'
                                 '<p><a href="/">トップへ戻る</a></p></div></main>'))
     base = SITE["base_url"].rstrip("/")
-    urls = ["/", "/about/", "/media/", "/tools/desk-size/", "/tools/my-desk/"] + [f"/c/{c['slug']}/" for c in CATS] + [p["url"] for p in posts]
+    urls = ["/", "/features/", "/about/", "/media/", "/tools/desk-size/", "/tools/my-desk/"] + [f"/c/{c['slug']}/" for c in CATS] + [p["url"] for p in posts]
     write("sitemap.xml", '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
           + "".join(f"<url><loc>{base}{u}</loc></url>\n" for u in urls) + "</urlset>\n")
     write("robots.txt", f"User-agent: *\nAllow: /\nSitemap: {base}/sitemap.xml\n")
