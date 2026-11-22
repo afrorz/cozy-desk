@@ -1403,7 +1403,7 @@ def tool_cards() -> str:
     return """<div class="tools2">
   <a class="tool-card" href="/tools/desk-size/"><span class="eyebrow">٭ 図で確かめる</span><b>机の横幅、何cmにする？</b>
     <small>モニターの大きさと台数、スピーカー、PC を選ぶと、机の上を縮尺どおりの図で見られます。</small></a>
-  <a class="tool-card blush" href="/tools/my-desk/"><span class="eyebrow">٭ 組んでみる</span><b>白いデスクを、組んでみる</b>
+  <a class="tool-card blush" href="/tools/my-desk/"><span class="eyebrow">٭ 組んでみる</span><b>白デスク環境を組んでみる</b>
     <small>載っている物から選ぶと、1枚に並んで合計の値段が出ます。組んだデスクは X に貼れます。</small></a>
 </div>"""
 
@@ -1597,7 +1597,7 @@ function render() {
   document.getElementById('buylist').innerHTML = sel.map(x => `
     <div class="brow"><span class="brow-img">${pic(x, '')}</span>
       <div><b>${esc(x.name)}</b><span class="brow-meta"><span class="price">${esc(x.price)}</span> ・ <a href="${esc(x.url)}">記事で詳しく見る</a></span>${x.btns}</div></div>`).join('');
-  const text = sel.length ? `白でそろえた私のデスク、${sel.length}点で合計${yen(sum)}` : '白いデスクを組んでみる';
+  const text = sel.length ? `白でそろえた私のデスク、${sel.length}点で合計${yen(sum)}` : '白デスク環境を組んでみる';
   document.getElementById('share').href = 'https://x.com/intent/post?text=' + encodeURIComponent(text + ' #CozyDesk') + '&url=' + encodeURIComponent(url());
   document.getElementById('bar').hidden = !sel.length;
   document.getElementById('bar-t').textContent = `${sel.length}点 ・ 合計${yen(sum)}`;
@@ -1632,10 +1632,10 @@ render();
 """.replace("__ITEMS__", jdump(rows)).replace("__CATS__", jdump(cats))
     body = f"""<main class="sec tool">
   <div class="wrap">
-    <div class="crumb"><a href="/">トップ</a> / 白いデスクを組んでみる</div>
+    <div class="crumb"><a href="/">トップ</a> / 白デスク環境を組んでみる</div>
     <div class="tool-hero">
       <span class="eyebrow">٭ 組んでみる</span>
-      <h1>白いデスクを、組んでみる</h1>
+      <h1>白デスク環境を組んでみる</h1>
       <p>このサイトに載っている物から、気になる物を選んでください。選んだ物が1枚に並び、合計の値段と、買えるお店が出ます。組んだデスクは、アドレスをそのまま X に貼れます。</p>
     </div>
     <div class="mydesk">
@@ -1664,7 +1664,7 @@ render();
 </main>
 <a class="tray-bar" id="bar" href="#tray" hidden><span id="bar-t"></span><b>見る</b></a>
 <script>{js}</script>"""
-    return page(title="白いデスクを、組んでみる",
+    return page(title="白デスク環境を組んでみる",
                 desc="Cozy Desk に載っている白と淡い色のガジェットから選んで、自分のデスクを組めます。選んだ物が1枚に並び、合計の値段と買えるお店が出ます。",
                 path="/tools/my-desk/", body=body)
 

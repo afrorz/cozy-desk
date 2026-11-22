@@ -416,6 +416,13 @@ footer a { color: inherit; }
 /* 白いデスクを組んでみる */
 .mydesk { display: grid; grid-template-columns: 1fr 360px; gap: 22px; align-items: start; }
 .picker #tabs { margin-bottom: 14px; }
+/* 種類のボタンは1行に(2026-11-22 本人「インテリアが2行目になってる。1行に収めたい」)。
+   PC は余白を詰めて収め、狭い画面では横にすべらせる */
+.mydesk > .picker { min-width: 0; }  /* ボタン列が枠を押し広げないように */
+.picker #tabs { flex-wrap: nowrap; gap: 6px; overflow-x: auto; scrollbar-width: none; }
+.picker #tabs::-webkit-scrollbar { display: none; }
+.picker #tabs button { flex: none; padding: 6px 11px; white-space: nowrap; }
+.picker #tabs .cnt { margin-left: -1px; }
 .cnt { font-family: var(--f-num); font-size: 11px; }
 .pick-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
 .pk { position: relative; display: grid; gap: 4px; align-content: start; text-align: left; font: inherit; color: var(--cocoa); background: var(--milk); border: 2px solid transparent; border-radius: 18px; padding: 8px 8px 12px; cursor: pointer; transition: border-color .15s, transform .15s; }
