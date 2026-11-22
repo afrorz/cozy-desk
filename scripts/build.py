@@ -681,7 +681,7 @@ def roundups(posts: list[dict]) -> list[dict]:
 def feature_pics(p: dict, k: int = 4) -> str:
     """特集の小さな絵。看板の絵があればそれ、なければ物の写真を2×2で"""
     if p.get("board_image"):
-        return f'<span class="ft-pic board"><img src="{e(p["board_image"])}" alt="" loading="lazy"></span>'
+        return f'<span class="ft-pic room"><img src="{e(p["board_image"])}" alt="" loading="lazy"></span>'
     items = p.get("products") or []
     nums = p.get("card_items") or list(range(1, len(items) + 1))
     picks = [items[n - 1] for n in nums if 0 < n <= len(items) and items[n - 1].get("image")][:k]
@@ -691,27 +691,20 @@ def feature_pics(p: dict, k: int = 4) -> str:
 
 def feature_section(posts: list[dict]) -> str:
     """TOP の「特集」。まとめ記事へ送る(2026-11-22 本人「TOPページに特集記事へ誘導するパーツをつくって」)。
-    大きい1本 = 看板の絵があるいちばん新しい特集(なければいちばん新しい特集)。横に次の4本。下に特集の一覧へのリンク"""
+    置き場所は新着の下、形は横2列の横長カード(11/22 本人「特集は新着の下で。レイアウトは横2列の横長で」)。
+    新しい順に6本(2列×3段)。下に特集の一覧へのリンク"""
     rs = roundups(posts)
     if not rs:
         return ""
-    hero = next((p for p in rs if p.get("board_image")), rs[0])
-    rest = [p for p in rs if p is not hero][:4]
-    n = len(hero["products"])
-    big = (f'<a class="ft-hero" href="{hero["url"]}">{feature_pics(hero)}'
-           f'<span class="ft-cap"><span class="ft-tag">特集 ・ {e(CAT[hero["category"]]["name"])}</span>'
-           f'<b>{e(hero["title"])}</b><span class="ft-go">{n}点を見る</span></span></a>')
-    rows = "".join(
-        f'<li><a class="ft-row" href="{p["url"]}">{feature_pics(p)}<span class="ft-txt">'
-        f'<small>{e(CAT[p["category"]]["name"])} ・ {len(p["products"])}点</small><b>{e(p["title"])}</b></span></a></li>'
-        for p in rest)
+    cards = "".join(
+        f'<a class="ft-card" href="{p["url"]}">{feature_pics(p)}<span class="ft-txt">'
+        f'<small>{e(CAT[p["category"]]["name"])} ・ {len(p["products"])}点</small><b>{e(p["title"])}</b>'
+        f'<span class="ft-go">見る</span></span></a>'
+        for p in rs[:6])
     return f"""  <section class="sec feat-sec" aria-labelledby="h-feat">
     <div class="wrap">
       <div class="sec-h"><h2 id="h-feat">特集</h2><small>種類ごとに、白と淡い色の物を選んで比べています</small></div>
-      <div class="feat">
-        {big}
-        <ul class="ft-list">{rows}</ul>
-      </div>
+      <div class="feat">{cards}</div>
       <a class="ft-all" href="/features/">特集をすべて見る<span>{len(rs)}本</span></a>
     </div>
   </section>
@@ -774,7 +767,6 @@ def build_index(posts: list[dict]) -> str:
     </div>
   </section>
 
-{feature_section(posts)}
   <section class="sec" aria-labelledby="h-cats">
     <div class="wrap">
       <div class="sec-h"><h2 id="h-cats">種類で探す</h2><small>白・淡い色のものだけを集めています</small></div>
@@ -793,6 +785,7 @@ def build_index(posts: list[dict]) -> str:
     </div>
   </section>
 
+{feature_section(posts)}
   <section class="sec" aria-labelledby="h-tools">
     <div class="wrap">
       <div class="sec-h"><h2 id="h-tools">迷ったら</h2><small>机の大きさを図で確かめる・自分のデスクを組んでみる</small></div>
