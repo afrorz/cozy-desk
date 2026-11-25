@@ -172,13 +172,13 @@ def sized(url: str, w: int) -> str:
 THUMBS = ROOT / "assets" / "thumbs"
 
 
-def trimmed(url: str, w: int = 600) -> str:
+def trimmed(url: str, w: int = 600, size: int = 900) -> str:
     """一覧のカード用に、公式写真のまわりの白い余白を切って物に寄せた写真(2026-11-14 本人「ガジェットを大きく見せたい。
     GT みたいに画像に寄った大きめの画像に」)。assets/thumbs/ に1回だけ作って git に入れる(公開の時は作り直さない)。
     背景のある写真(部屋に置いた写真など)は切る所がないので、そのまま。取れなければ元の URL を返す"""
     if not url or url.startswith("/"):  # 手元に置いた写真(assets/thumbs など)はそのまま
         return url
-    out = THUMBS / (hashlib.sha1(url.encode()).hexdigest()[:14] + ".jpg")
+    out = THUMBS / (hashlib.sha1(url.encode()).hexdigest()[:14] + ("" if size == 900 else f"-{size}") + ".jpg")
     if not out.exists():
         try:
             import io
@@ -199,7 +199,7 @@ def trimmed(url: str, w: int = 600) -> str:
                 pad = int(max(box[2] - box[0], box[3] - box[1]) * 0.04)
                 box = (max(0, box[0] - pad), max(0, box[1] - pad), min(W, box[2] + pad), min(H, box[3] + pad))
                 im = im.crop(box)
-            im.thumbnail((900, 900))
+            im.thumbnail((size, size))
             THUMBS.mkdir(parents=True, exist_ok=True)
             im.save(out, quality=86, optimize=True)
         except Exception as ex:  # 取れない写真は、元の写真をそのまま出す
@@ -1131,7 +1131,13 @@ def build_post(p: dict, posts: list[dict]) -> str:
     elif p.get("board_style") == "scene" and p.get("board_image") and shots:
         fig = scene_board(p, shots)
     elif p.get("thumbnail"):
-        fig = (f'<figure class="board{" fit" if p.get("thumb_fit") else ""}"><img src="{e(sized(p["thumbnail"], 1000))}" '
+        # 縮める指定のきかない置き場所の白背景の写真は、余白を切って縮めた写真を出す(2026-11-25 本人「最初の画像が表示されるのが遅い」。
+        # Ocypus の 0.9MB の PNG)。カード用の写真と同じ例外の扱いで、物そのものには手を加えない。
+        # 余白を切ると物が大きく写り見た目が変わるので、front matter に hero_light: true を書いた記事だけ(今は Ocypus C50)
+        hero = sized(p["thumbnail"], 1000)
+        if p.get("hero_light") and p.get("thumb_fit") and hero == p["thumbnail"]:
+            hero = trimmed(p["thumbnail"], 1000, size=1400)
+        fig = (f'<figure class="board{" fit" if p.get("thumb_fit") else ""}"><img src="{e(hero)}" fetchpriority="high" '
                f'alt="{e(p.get("thumbnail_alt") or p["title"])}" referrerpolicy="no-referrer"></figure>'
                f'<p class="credit">画像: {e(p.get("thumbnail_credit"))}</p>')
     palette = ""
@@ -1172,6 +1178,8 @@ def build_post(p: dict, posts: list[dict]) -> str:
     # 本文に <!-- after-items --> があれば、そこから後ろ(選び方・比べ表など)を商品の下に出す。
     # 長い説明で商品が下に押しやられないように(2026-11-01 PCケースの記事で選び方を厚くしたとき)
     html_ = mini_thumbs(p["html"], p)
+    # 本文の写真は画面に近づいてから読む(2026-11-25 本人「最初の画像が表示されるのが遅い」。本文の重い写真が最初の写真と取り合っていた)
+    html_ = re.sub(r"<img (?![^>]*\bloading=)", '<img loading="lazy" decoding="async" ', html_)
     # 最初の見出し「シロネの推しポイント」に、管理人シロネの顔をつける(2026-11-06 本人「こんな毎日に」は押し付けがましい)
     html_ = html_.replace("<h2>シロネの推しポイント</h2>",
         '<h2 class="oshi"><img src="/assets/shirone/face.png" alt="" width="48" height="49">シロネの推しポイント</h2>')
