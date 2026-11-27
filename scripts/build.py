@@ -161,7 +161,8 @@ def sized(url: str, w: int) -> str:
         return url
     if "resource.logitech.com/content/" in url:
         return url.replace("resource.logitech.com/content/", f"resource.logitech.com/w_{w},c_limit,q_auto,f_auto/content/", 1)
-    key = ("width" if ("cdn.shopify.com" in url or "/cdn/shop/" in url or "img.creative.com" in url)
+    key = ("width" if ("cdn.shopify.com" in url or "/cdn/shop/" in url or "img.creative.com" in url
+                       or "prcdn.freetls.fastly.net" in url)  # PR TIMES の写真(11/27 足した。元は 3900px)
            else "w" if ("imgix.net" in url or "assets.fractal-design.com" in url) else "")
     if not key:
         return url
