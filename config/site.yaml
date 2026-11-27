@@ -21,7 +21,7 @@ site:
 # (GT 用の a_id をこのサイトに貼らない。もしもの規約でサイトごとの登録が要る)。
 # 空のあいだは、ふつうの検索ページへのリンクを出し、「広告を含みます」の表示も出さない。
 affiliate:
-  rakuten: ""
+  rakuten: "https://af.moshimo.com/af/c/click?a_id=5888490&p_id=54&pc_id=54&pl_id=616&url={url}"  # 2026-11-27 もしもで Cozy Desk 用に発行(どこでもリンク)
   amazon: ""
   yahoo: ""
   # A8.net のメーカー日本公式ストア(2026-11-08〜)。A8 で Cozy Desk をサイトとして登録し、そのサイトで提携した店だけ入れる
