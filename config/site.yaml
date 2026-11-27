@@ -23,6 +23,7 @@ site:
 affiliate:
   rakuten: "https://af.moshimo.com/af/c/click?a_id=5888490&p_id=54&pc_id=54&pl_id=616&url={url}"  # 2026-11-27 もしもで Cozy Desk 用に発行(どこでもリンク)
   amazon: ""
+  amazon_applicant: true  # 2026-11-27 もしも経由で Amazon に申請。承認されたら amazon にリンクを入れ、この行を消す
   yahoo: ""
   # A8.net のメーカー日本公式ストア(2026-11-08〜)。A8 で Cozy Desk をサイトとして登録し、そのサイトで提携した店だけ入れる
   # (GT の a8mat をこのサイトに貼らない。サイトごとに別)。書き方は GT と同じ:

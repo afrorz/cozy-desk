@@ -1349,11 +1349,22 @@ with color names, official dimensions and where to buy in Japan, and round up it
 
 
 def build_about() -> str:
-    via = "・".join((["もしもアフィリエイト経由の Amazon・楽天市場・Yahoo!ショッピング"] if HAS_MOSHIMO else [])
+    # 実際に提携している店だけを書く(2026-11-27 楽天だけ提携した時点で「Amazon・楽天・Yahoo」と書いていたのを直した)
+    moshimo = "・".join(n for k, n in (("amazon", "Amazon"), ("rakuten", "楽天市場"), ("yahoo", "Yahoo!ショッピング")) if AFF.get(k))
+    via = "・".join(([f"もしもアフィリエイト経由の{moshimo}"] if HAS_MOSHIMO else [])
                     + (["A8.net 経由のメーカー公式ストア"] if HAS_A8 else []))
     aff = (f"紹介しているストアへのリンクの一部はアフィリエイトリンク({via})です。"
            "リンクから買い物をされると、運営者に紹介料が入ることがあります。紹介料の有無で、載せる物や書く内容は変えません。"
            if HAS_AFF else "いまはストアへのリンクに紹介料はついていません。")
+    # Amazon アソシエイトの開示(GT と同じ。2026-11-27 もしも経由で申請)。承認後は運営規約の文言そのもの、
+    # 審査中は「申請しています」と書く(開示の無いまま審査に出すと否認されうる。まだ得ていないのに「得ています」とは書かない)
+    t = html.escape(SITE["title"])
+    if AFF.get("amazon"):
+        aff += f"Amazonのアソシエイトとして、{t} は適格販売により収入を得ています。"
+    elif AFF.get("amazon_applicant"):
+        aff += (f"{t} は、Amazon.co.jp を宣伝しリンクすることによってサイトが紹介料を獲得できる手段を提供することを目的に設定された"
+                "Amazonアソシエイト・プログラムへの参加を申請しています。承認された場合は、Amazonアソシエイト・プログラム運営規約に基づき、"
+                f"本ページに「Amazonのアソシエイトとして、{t} は適格販売により収入を得ています。」と明記します。")
     analytics = ("<h2>アクセス解析について</h2><p>サイトの利用状況を知るため、Google社のアクセス解析(Google アナリティクス)を使っています。"
                  "Google アナリティクスは Cookie を使ってアクセス状況を集計します。氏名やメールアドレスなど個人を特定する情報は含まれません。"
                  "ブラウザの設定で Cookie を無効にすると、収集を拒否できます。"
